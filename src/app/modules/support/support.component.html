@@ -1,0 +1,31 @@
+<div class="container-fluid app-container">
+  <div class="container">
+    <div class="row no-gutters justify-content-center py-5">
+      <div class="card col-12 col-lg-8 col-xl-6">
+        <div class="card-body p-4">
+          <h4 class="text-default mb-4 text-center font-heavy">Contact Us</h4>
+          <form [formGroup]="supportForm" class="row">
+            <div class="form-group col-12">
+              <input type="text" class="form-control br-10" placeholder="Full Name" formControlName="fullName">
+            </div>
+            <div class="form-group col-12">
+              <input type="email" class="form-control br-10" placeholder="Email" formControlName="email">
+            </div>
+            <div class="form-group col-12">
+              <input type="text" class="form-control br-10" placeholder="What's the issue?" formControlName="issue">
+            </div>
+            <div class="form-group col-12">
+              <textarea class="form-control br-10" rows="5" placeholder="Tell us a little more about the issue"
+                formControlName="description"></textarea>
+            </div>
+            <div class="col-12 text-center mt-3">
+              <button type="button" class="btn btn-primary blue-button br-10 col-12" (click)="submitForm()">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

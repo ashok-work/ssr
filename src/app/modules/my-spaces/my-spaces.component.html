@@ -1,0 +1,54 @@
+<div class="container-fluid app-container">
+  <h3 class="pt-3 font-heavy">My Listings</h3>
+  <div class="row">
+    <h6 *ngIf="spaces.length <= 0" align="start" class="m-2 col-12">You haven't created any spaces yet</h6>
+    <section *ngFor="let item of spaces | paginate: { itemsPerPage: 10, currentPage: page + 1, totalItems: totalSpaces}"
+      class="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
+      <mat-card class="pt-0">
+        <!-- <img routerLink="/add-space" (click)="showDetailsPage(item.space_id)" mat-card-image src="assets/images/space.jpg"
+          alt="{{item['name']}}"> -->
+        <mat-chip-list class="status">
+          <mat-chip class="bg-blue-imp"><span class="text-white font-roman">{{ item['status'] | titlecase }}</span>
+          </mat-chip>
+        </mat-chip-list>
+        <div mat-card-image>
+          <app-space-images-carousel [images]="item.images"></app-space-images-carousel>
+        </div>
+        <mat-card-content>
+          <h6 class="text-truncate font-heavy" matTooltip="{{item['name']}}">{{item['name']}}</h6>
+          <p class="text-truncate">{{item['description']}}</p>
+          <p>Created On {{item['created_at'] | date}}</p>
+        </mat-card-content>
+        <mat-card-actions class="text-center">
+          <button color="warn" mat-button (click)="editSpace(item['space_id'])">Edit</button>
+          <button *ngIf="item.catering_available" color="warn" mat-button (click)="navigateToMenu(item)">
+            Add Menu
+          </button>
+          <button mat-button color="primary" (click)="previewSpace(item['space_id'])">Preview</button>
+          <span class="orange-text font-roman cursor-pointer" [matMenuTriggerFor]="appMenu"><i
+              class="fas fa-ellipsis-h"></i></span>
+          <mat-menu #appMenu="matMenu" class="custom-menu">
+            <!-- <button mat-menu-item (click)="updateOperatingHours(item)">
+              <span class="text-default font-roman">Update Operating hours</span>
+            </button> -->
+            <button mat-menu-item (click)="updateSpaceInfo(item)">
+              <span class="text-default font-roman">Update Space Info</span>
+            </button>
+          </mat-menu>
+        </mat-card-actions>
+      </mat-card>
+    </section>
+    <div class="col-12 spaces-pagination">
+      <!-- <pagination [boundaryLinks]="true" [totalItems]="totalSpaces" previousText="<i class='fas fa-angle-left'></i>"
+        nextText="<i class='fas fa-angle-right'></i>" firstText="<i class='fas fa-angle-double-left'></i>"
+        lastText="<i class='fas fa-angle-double-right'></i>" pageBtnClass="custom-page-item" [maxSize]="5"
+        (pageChanged)="getMySpaces($event.page-1)">
+      </pagination> -->
+      <pagination-controls (pageChange)="getMySpaces($event-1)" autoHide="true" [responsive]="true">
+      </pagination-controls>
+    </div>
+  </div>
+  <button routerLink="/add-space" mat-fab color="primary" class="add-space-btn">
+    <mat-icon matTooltip="Add Space" aria-label="Add Space">add</mat-icon>
+  </button>
+</div>

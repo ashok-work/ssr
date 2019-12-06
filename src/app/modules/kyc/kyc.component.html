@@ -1,0 +1,93 @@
+<div class="container-fluid">
+  <div class="container">
+    <h4 class="text-default heading font-heavy mt-5 mt-lg-0">
+      Document Verification
+      <button mat-stroked-button class="ml-sm-4" *ngIf="aadhar || residency" (click)="aadhar=false; residency=false;">
+        <span><i class="fas fa-chevron-left"></i></span> Back
+      </button>
+    </h4>
+    <p *ngIf="!aadhar && !residency" class="heading">
+      <span class="h6">Status: </span>
+      <span *ngIf="status == 1">Please upload all the required documents to start verification process</span>
+      <span *ngIf="status == 2">Verified <span class="id-icon"><i class="fas fa-check-circle"></i></span></span>
+      <span *ngIf="status == 3 && statusArray.length > 0">The following documents aren't uploaded yet -
+        {{statusArray.join(', ')}}
+      </span>
+      <span *ngIf="status == 3 && statusArray.length <= 0">
+        Verification Pending <span class="id-icon"><i class="fas fa-clock"></i></span>
+      </span>
+    </p>
+    <ng-container *ngIf="!aadhar && !residency">
+      <h5 class="text-center mt-2 mt-lg-5 font-heavy">Select ID Type</h5>
+      <div class="content d-flex justify-content-center align-items-center">
+        <div class="id-card d-flex justify-content-center align-items-center" (click)="aadhar=true; residency=false;">
+          <div class="text-center">
+            <span class="id-icon"><i class="far fa-address-card fa-3x"></i></span>
+            <p class="label m-0 mt-1">Aadhar</p>
+          </div>
+        </div>
+        <div class="mr-4"></div>
+        <div class="id-card d-flex justify-content-center align-items-center" (click)="aadhar=false; residency=true;">
+          <div class="text-center">
+            <span class="id-icon"><i class="far fa-address-card fa-3x"></i></span>
+            <p class="label m-0 mt-1">Residency Proof</p>
+          </div>
+        </div>
+      </div>
+      <p class="action-label text-center" (click)="router.navigate(['faqs'])">I don't have one of these IDs</p>
+    </ng-container>
+    <ng-container *ngIf="aadhar">
+      <h5 class="text-center mt-2 mt-lg-5 font-heavy">Upload Images</h5>
+      <p class="text-center">Upload pictures of your aadhar (JPEG or PNG).</p>
+      <div class="content d-flex justify-content-center align-items-center">
+        <div class="text-center">
+          <div (click)="fileInput1.click()" (drop)="getImages($event, 1)" (dragover)="handleDrag($event)"
+            (dragenter)="handleDrag($event)" (dragleave)="handleDrag($event)"
+            class="id-card photos-input d-flex justify-content-center align-items-center">
+            <input #fileInput1 id="fileInput1" type="file" accept="image/*"
+              (change)="updateKycDetails($event.target.files, 1)" class="d-none">
+            <div class="text-center">
+              <span class="id-icon"><i class="fas fa-cloud-upload-alt fa-2x"></i></span>
+              <p class="hint label text-center m-0 mt-1 px-sm-3">Drag & drop or click to upload</p>
+            </div>
+          </div>
+          <span class="label">Front</span>
+        </div>
+        <div class="mr-4"></div>
+        <div class="text-center">
+          <div (click)="fileInput2.click()" (drop)="getImages($event, 2)" (dragover)="handleDrag($event)"
+            (dragenter)="handleDrag($event)" (dragleave)="handleDrag($event)"
+            class="id-card photos-input d-flex justify-content-center align-items-center">
+            <input #fileInput2 id="fileInput2" type="file" accept="image/*"
+              (change)="updateKycDetails($event.target.files, 2)" class="d-none">
+            <div class="text-center">
+              <span class="id-icon"><i class="fas fa-cloud-upload-alt fa-2x"></i></span>
+              <p class="hint label text-center m-0 mt-1 px-sm-3">Drag & drop or click to upload</p>
+            </div>
+          </div>
+          <span class="label">Back</span>
+        </div>
+      </div>
+      <p class="label text-center">Please do not redact, watermark or otherwise obscure any part of your ID. This will
+        help ensure we can verify your identity document as quickly and accurately as possible</p>
+    </ng-container>
+    <ng-container *ngIf="residency">
+      <h5 class="text-center mt-2 mt-lg-5 font-heavy">Upload Image</h5>
+      <p class="text-center">Upload picture of your Residency Proof (JPEG or PNG).</p>
+      <div class="content d-flex justify-content-center align-items-center">
+        <div (click)="fileInput.click()" (drop)="getImages($event, 3)" (dragover)="handleDrag($event)"
+          (dragenter)="handleDrag($event)" (dragleave)="handleDrag($event)"
+          class="id-card photos-input d-flex justify-content-center align-items-center">
+          <input #fileInput id="fileInput" type="file" accept="image/*"
+            (change)="updateKycDetails($event.target.files, 3)" class="d-none">
+          <div class="text-center">
+            <span class="id-icon"><i class="fas fa-cloud-upload-alt fa-2x"></i></span>
+            <p class="hint label text-center m-0 mt-1 px-sm-3">Drag & drop or click to upload</p>
+          </div>
+        </div>
+      </div>
+      <p class="label text-center">Please do not redact, watermark or otherwise obscure any part of your ID. This will
+        help ensure we can verify your identity document as quickly and accurately as possible</p>
+    </ng-container>
+  </div>
+</div>

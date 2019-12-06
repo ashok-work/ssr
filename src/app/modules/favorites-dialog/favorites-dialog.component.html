@@ -1,0 +1,45 @@
+<div class="px-5 py-2" *ngIf="!utils.user">
+  <div class="mb-3">
+    <mat-icon (click)="close()" class="mat-elevation-z2 rounded-circle grey-text cursor-pointer">clear</mat-icon>
+  </div>
+  <h4 class="font-heavy text-default">Save to list</h4>
+  <div class="text-center mt-4">
+    <button mat-flat-button color="primary" class="bg-blue-imp br-10 mr-3 w-100 fs-16 py-1"
+      (click)="close(); router.navigate(['/welcome'])">
+      Sign up with Email / Mobile
+    </button>
+    <p class="text-default font-roman mt-3">
+      Already have an EventoLoop account?
+      <span class="blue-text cursor-pointer" (click)="close(); router.navigate(['/login'])">Log in</span>
+    </p>
+  </div>
+</div>
+<ng-container *ngIf="utils.user">
+  <div class="px-4 py-2">
+    <div class="mb-3 px-4">
+      <mat-icon (click)="close()" class="mat-elevation-z2 rounded-circle grey-text cursor-pointer">clear</mat-icon>
+    </div>
+    <h4 class="font-heavy text-default px-4">Save to list</h4>
+    <mat-dialog-content>
+      <app-favorites [space_id]="space_data.space_id"></app-favorites>
+    </mat-dialog-content>
+  </div>
+  <mat-dialog-actions>
+    <div class="row no-gutters align-items-center pt-4 pb-2 w-100 space-info px-4">
+      <div class="col-4 pr-2">
+        <div class="embed-responsive embed-responsive-15by10">
+          <img class="embed-responsive-item" [src]="space_data.images | imagesPipe" alt="Photo of a Shiba Inu">
+        </div>
+      </div>
+      <div class="col-8 pl-2">
+        <h5 class="font-heavy text-default text-truncate">{{ space_data.name }}</h5>
+        <p class="font-roman text-default" *ngIf="space_data.address.city">{{space_data.address.city}} <span
+            *ngIf="space_data.address.country">{{ ", " + space_data.address.country }}</span></p>
+        <p class="d-flex font-roman mb-1 text-default" *ngIf="space_data.rating > 0">
+          <app-start-rating [rating]="space_data.rating"></app-start-rating>
+          &nbsp;&nbsp;{{ space_data.reviews }} reviews
+        </p>
+      </div>
+    </div>
+  </mat-dialog-actions>
+</ng-container>

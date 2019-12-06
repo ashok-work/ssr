@@ -1,0 +1,30 @@
+<div class="bg-white">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="card border-0">
+      <div class="card-body">
+        <h2 class="font-weight-normal">2-Step Verification - SMS</h2>
+        <h6 class="font-weight-normal my-4">Enter the 4-digit code sent to you</h6>
+
+        <div>
+          <div class="d-flex justify-content-start align-items-center">
+            <p class="mb-1"><strong>Verification code:</strong></p>
+          </div>
+
+          <div class="form-group">
+            <input [(ngModel)]="otpValue" placeholder="OTP" type="text" class="form-control-sm">
+          </div>
+
+          <button id="verify" (click)="submitOtpForm()" type="button" class="btn btn-block btn-primary my-4">
+            <div class="clearfix">
+              <div class="float-left">VERIFY</div>
+              <div class="float-right"><i class="fas fa-long-arrow-alt-right"></i></div>
+            </div>
+          </button>
+
+          <button type="button" (click)="resendOtp()" class="btn btn-link p-0">Resend OTP</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

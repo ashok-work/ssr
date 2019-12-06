@@ -1,0 +1,157 @@
+<div class="container-fluid app-container host-landing">
+  <div class="above-the-fold row no-gutters align-items-center mx-5 pt-4">
+    <div class="col-custom-left col-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+      <div class="address-box br-6 border grey-border-imp">
+        <h1 class="text-default font-heavy">Become a host.</h1>
+        <p class="my-3 font-roman text-default">Rent your space for meetings, parties, fundraisers, and other
+          special occasions.</p>
+        <form class="row smaller-gutters mt-4" [formGroup]="addressForm">
+          <div class="form-group col-12 col-sm-8">
+            <input type="text" class="form-control br-10" placeholder="Address*" formControlName="address">
+          </div>
+          <div class="form-group col-12 col-sm-4">
+            <input type="text" class="form-control br-10" placeholder="Unit" formControlName="unit">
+          </div>
+          <div class="form-group col-12 col-sm-8">
+            <input type="text" class="form-control br-10" placeholder="City*" formControlName="city">
+          </div>
+          <div class="form-group col-12 col-sm-4">
+            <input type="text" class="form-control br-10" placeholder="Zip/Postal*" formControlName="zip">
+          </div>
+          <div class="form-group col-12">
+            <!-- <input type="text" class="form-control br-10" placeholder="Country*" formControlName="country"> -->
+            <select formControlName="country" class="form-control br-10">
+              <option [value]="null" hidden selected>Country*</option>
+              <option value="usa">USA</option>
+              <option value="india">India</option>
+            </select>
+          </div>
+          <div class="col-12 text-center mt-3">
+            <button type="button" class="btn btn-primary bg-blue-imp br-10 font-heavy"
+              (click)="router.navigate(['/create-space-step1'])">
+              Get Started
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-custom-right d-none d-lg-block col-lg-6 col-xl-8">
+      <img class="br-6" defaultImage="assets/images/default_space.jpg" lazyLoad="https://spaces-in-prod.s3.ap-south-1.amazonaws.com/photos-by-lanty-O38Id_cyV4M-unsplash.jpg">
+    </div>
+  </div>
+  <div class="row no-gutters justify-content-center mx-5 pt-4 mt-5 how-it-works">
+    <h1 class="col-12 text-default text-center font-heavy mb-4">How It Works</h1>
+    <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
+      <div class="row my-3">
+        <div class="col-12 col-sm-2 d-flex point-number">
+          <h3><span class="white-text font-heavy bg-orange px-2 br-6">1</span></h3>
+        </div>
+        <div class="col-12 col-sm-10">
+          <h4 class="text-default font-heavy">List your space for free</h4>
+          <p class="font-roman big-p text-default">Set your price, add photos and details, then your listing is ready to
+            be seen by millions of people searching for space.</p>
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-12 col-sm-2 d-flex point-number">
+          <h3><span class="white-text font-heavy bg-orange px-2 br-6">2</span></h3>
+        </div>
+        <div class="col-12 col-sm-10">
+          <h4 class="text-default font-heavy">Welcome guests to your space</h4>
+          <p class="font-roman big-p text-default">Accept bookings through the EventoLoop platform. Once you confirm,
+            your guests will receive information on how to get there and details like your wifi code.</p>
+        </div>
+      </div>
+      <div class="row my-3">
+        <div class="col-12 col-sm-2 d-flex point-number">
+          <h3><span class="white-text font-heavy bg-orange px-2 br-6">3</span></h3>
+        </div>
+        <div class="col-12 col-sm-10">
+          <h4 class="text-default font-heavy">Get paid every time</h4>
+          <p class="font-roman big-p text-default">Guests are charged upfront through our secure payment system. Your
+            payout is directly deposited after each booking, minus our service fee.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="above-the-fold row no-gutters align-items-center mx-5 pt-4 mt-5">
+    <div class="col-8 d-none d-lg-block col-lg-6 col-xl-8">
+      <img class="br-6" defaultImage="assets/images/default_space.jpg" lazyLoad="https://spaces-in-prod.s3.ap-south-1.amazonaws.com/nastuh-abootalebi-eHD8Y1Znfpk-unsplash.jpg">
+    </div>
+    <div class="z-1000 col-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+      <div class="address-box br-6 border grey-border-imp">
+        <h1 class="text-default lh-15 font-heavy">Fill your space’s downtime.</h1>
+        <p class="my-3 font-roman lh-15 big-p text-default">Open your doors to thousands of organizers looking for
+          creative venues. Everyone from professional photographers and yoga teachers, to Fortune 500 companies need
+          places to meet, create, and celebrate. Get your space in front of the most people searching for spaces like
+          yours.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-4 mt-5">
+    <h1 class="col-12 text-default text-center font-heavy mb-4">Our Promise to You</h1>
+    <div class="col d-none d-xl-block"></div>
+    <div class="col-12 col-xl-3 text-center py-4 px-5">
+      <div class="row d-flex justify-content-center">
+        <p class="bigger-h1 col-12"><i class="fas fa-rupee-sign"></i></p>
+        <h4 class="text-default font-heavy col-12">Make Money</h4>
+        <p class="text-justify font-roman big-p text-default col-12 col-sm-10 col-md-8 col-lg-6 col-xl-12">Create
+          additional
+          income by booking your
+          residential or
+          commercial space.
+        </p>
+      </div>
+    </div>
+    <div class="col-12 col-xl-3 text-center py-4 px-5 d-flex justify-content-center">
+      <div class="row d-flex justify-content-center">
+        <p class="bigger-h1 col-12"><i class="fas fa-headset"></i></p>
+        <h4 class="text-default font-heavy col-12">Customer Support</h4>
+        <p class="text-justify font-roman big-p text-default col-12 col-sm-10 col-md-8 col-lg-6 col-xl-12">As a valued
+          partner
+          you will be assigned
+          an
+          Account Manager
+          to assist you with any questions you may have. In the rare case something goes wrong, our support team is here
+          to help. We’re open every day of the year.</p>
+      </div>
+    </div>
+    <div class="col-12 col-xl-3 text-center py-4 px-5 d-flex justify-content-center">
+      <div class="row d-flex justify-content-center">
+        <p class="bigger-h1 col-12"><i class="far fa-smile"></i></p>
+        <h4 class="text-default font-heavy col-12">Built on Trust</h4>
+        <p class="text-justify font-roman big-p text-default col-12 col-sm-10 col-md-8 col-lg-6 col-xl-12">Guests on
+          EventoLoop
+          add their picture, so
+          you know who
+          you’re talking to. Hosts and guests review each other after every booking, so people are held accountable.</p>
+      </div>
+    </div>
+    <div class="col d-none d-xl-block"></div>
+  </div>
+  <div class="card actions-card br-6 mb-3 grey-border-imp m-5">
+    <div class="card-body row">
+      <div class="col-12 d-md-none text-center grey-border">
+        <h4 class="text-default font-heavy mb-4">Do you have more questions?</h4>
+        <button type="button" class="btn btn-primary bg-blue-imp br-10 font-heavy px-5">
+          Contact Us
+        </button>
+      </div>
+      <div class="col-6 d-none d-md-block text-center border-right grey-border">
+        <h4 class="text-default font-heavy mb-4">Do you have more questions?</h4>
+        <button type="button" class="btn btn-primary bg-blue-imp br-10 font-heavy px-5"
+          (click)="router.navigate(['/support'])">
+          Contact Us
+        </button>
+      </div>
+      <mat-divider class="col-12 my-3 d-md-none"></mat-divider>
+      <div class="col-12 col-md-6 text-center">
+        <h4 class="text-default font-heavy mb-4">Are you ready to list your space?</h4>
+        <button type="button" class="btn btn-primary bg-blue-imp br-10 font-heavy px-5"
+          (click)="router.navigate(['/create-space-step1'])">
+          Get Started
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<div id="all" class="container-fluid">
+  <div class="container d-block">
+    <div class="py-4">
+      <h3 class="text-default">All Occasions</h3>
+      <h6 class="text-default">Find creative spaces for your next event</h6>
+    </div>
+
+    <ng-container *ngFor="let group of eventGroups">
+      <h5 class="mt-4">{{ group['category'] }}</h5>
+      <mat-divider class="my-2"></mat-divider>
+      <div class="row no-gutters">
+        <div class="col-4" *ngFor="let i of (((group['total_count']/5.0) | ceil) | arrayBuilder);">
+          <p class="blue-text cursor-pointer w-500" (click)="submitSearch(event)"
+            *ngFor="let event of group['activities'].slice(5*i, 5*i+5)">
+            {{ event.occasion_name }}</p>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- <h5 class="mt-4">Corporate Events</h5>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="row no-gutters">
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(0, 5)">
+          {{ event.occasion_name }}</p>
+      </div>
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(5, 7)">
+          {{ event.occasion_name }}</p>
+      </div>
+    </div>
+    <h5 class="mt-4">Meetings</h5>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="row no-gutters">
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(7, 12)">
+          {{ event.occasion_name }}</p>
+      </div>
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(12, 14)">
+          {{ event.occasion_name }}</p>
+      </div>
+    </div>
+    <h5 class="mt-4">Party</h5>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="row no-gutters">
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(14, 19)">
+          {{ event.occasion_name }}</p>
+      </div>
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(19, 21)">
+          {{ event.occasion_name }}</p>
+      </div>
+    </div>
+    <h5 class="mt-4">Networking</h5>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="row no-gutters">
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(21, 26)">
+          {{ event.occasion_name }}</p>
+      </div>
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(26, 28)">
+          {{ event.occasion_name }}</p>
+      </div>
+    </div>
+    <h5 class="mt-4">Social/Family Gathering</h5>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="row no-gutters">
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(28, 33)">
+          {{ event.occasion_name }}</p>
+      </div>
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(33, 35)">
+          {{ event.occasion_name }}</p>
+      </div>
+    </div>
+    <h5 class="mt-4">Wedding</h5>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="row no-gutters">
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(35, 40)">
+          {{ event.occasion_name }}</p>
+      </div>
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(40, 42)">
+          {{ event.occasion_name }}</p>
+      </div>
+    </div>
+    <h5 class="mt-4">Other</h5>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="row no-gutters">
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(42, 47)">
+          {{ event.occasion_name }}</p>
+      </div>
+      <div class="col-4">
+        <p class="blue-text cursor-pointer" (click)="submitSearch(event)" *ngFor="let event of events.slice(47, 49)">
+          {{ event.occasion_name }}</p>
+      </div>
+    </div> -->
+    <!-- <div class="d-flex flex-wrap justify-content-between">
+      <mat-card *ngFor="let event of events" (click)="submitSearch(event)">
+        <div mat-card-image class="embed-responsive embed-responsive-16by9">
+          <img class="centered-image" [src]="event.image" [alt]="event.occasion_name">
+        </div>
+        <mat-card-content>
+          <h5 class="text-center"> {{ event.occasion_name }} </h5>
+        </mat-card-content>
+      </mat-card>
+    </div> -->
+  </div>
+</div>

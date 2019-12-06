@@ -1,0 +1,276 @@
+<div class="card br-6 mb-3 grey-border-imp">
+  <div class="card-body">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <!-- <div class="grid-container">
+      <p><strong>&nbsp;</strong></p>
+      <h5 class="font-weight-normal text-left mt-2 mb-3 ml-2">Edit Profile</h5>
+    </div> -->
+        <div class="my-3">
+          <app-profile-avatar></app-profile-avatar>
+        </div>
+        <h4 class="font-heavy mt-2 mb-3 text-default">Personal Information</h4>
+        <form [formGroup]="profileForm">
+          <div class="row no-gutters">
+            <div class="form-group col-md-6 pr-md-2">
+              <label class="mb-1 font-roman">First Name</label>
+              <input formControlName="first_name" type="text" class="form-control">
+            </div>
+            <div class="form-group col-md-6 pl-md-2">
+              <label class="mb-1 font-roman">Last Name</label>
+              <input formControlName="last_name" type="text" class="form-control">
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="form-group col-md-6 pr-md-2">
+              <label class="mb-1 font-roman">Email</label>
+              <input formControlName="email" type="text" class="form-control">
+            </div>
+            <div class="col-md-6 pl-md-2">
+              <div class="row no-gutters justify-content-between">
+                <span class="mb-1 font-roman">Phone Number</span>
+                <span *ngIf="!editPhone" class="small-text grey-text font-italic">Your number has been verified</span>
+                <span *ngIf="editPhone" class="small-text grey-text font-italic">Your number must be verified
+                  <span class="red-text">*</span>
+                </span>
+              </div>
+              <form [formGroup]="mobileForm" class="mobile-form">
+                <div class="row no-gutters">
+                  <div class="col d-flex pr-3">
+                    <app-carrier-code [carrier_code]="mobileForm.value.carrier_code"
+                      (onSelection)="onCountryCodeSelect($event)"></app-carrier-code>
+                    <input formControlName="mobile" type="text" class="form-control btl-0 bbl-0">
+                  </div>
+                  <button mat-flat-button color="primary" class="bg-blue-imp br-10 px-25" [disabled]="!editPhone"
+                    (click)="openOtpModal()">
+                    Verify
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row no-gutters">
+            <div class="form-group col-md-6 pr-md-2">
+              <label class="mb-1 font-roman">Date of Birth</label>
+              <div formGroupName="dob" class="row no-gutters">
+                <div class="form-group col-4 select-container">
+                  <select formControlName="month" class="form-control btr-0 bbr-0 cursor-pointer"
+                    (change)="getDaysInMonth($event.target.value, undefined)">
+                    <option value="null" hidden selected>Month</option>
+                    <option *ngFor="let monthName of monthShortNames" [value]="monthName">{{monthName}}</option>
+                  </select>
+                </div>
+
+
+                <div class="form-group col-4 select-container">
+                  <select formControlName="day" class="form-control rounded-0 cursor-pointer">
+                    <option value="null" hidden selected>Day</option>
+                    <option *ngFor="let day of listOfDays" [value]="day">{{day}}</option>
+                  </select>
+                </div>
+
+
+                <div class="form-group col-4 select-container">
+                  <select formControlName="year" class="form-control btl-0 bbl-0 cursor-pointer"
+                    (change)="getDaysInMonth(undefined, $event.target.value)">
+                    <option value="null" hidden selected>Year</option>
+                    <option *ngFor="let year of yearsList" [value]="year">{{year}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-6 pl-md-2">
+              <label class="mb-1 font-roman">Gender</label>
+              <div class="select-container">
+                <select formControlName="gender" class="form-control cursor-pointer">
+                  <option [value]="null" hidden selected>Select Your Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="grid-container">
+            <p><strong>First Name:</strong></p>
+            <div class="form-group">
+              <input formControlName="first_name" type="text" class="form-control">
+            </div>
+          </div> -->
+
+          <!-- <div class="grid-container">
+            <p><strong>Last Name:</strong></p>
+            <div class="form-group">
+              <input formControlName="last_name" type="text" class="form-control">
+            </div>
+          </div> -->
+
+          <!-- <div class="grid-container">
+            <p><strong>Email:</strong></p>
+            <div class="form-group">
+              <input formControlName="email" type="text" class="form-control">
+            </div>
+          </div> -->
+
+          <!-- <div class="grid-container">
+            <p><strong>Gender:</strong></p>
+            <div class="form-group">
+              <select formControlName="gender" class="form-control">
+                <option [value]="null" hidden selected>Select Your Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div> -->
+
+          <!-- <div class="grid-container"> -->
+          <!-- <p><strong>Date Of Birth:</strong></p>
+            <div formGroupName="dob" class="row d-flex justify-content-between">
+              <div class="form-group col-4">
+                <select formControlName="month" class="form-control">
+                  <option [value]="null" hidden selected>Month</option>
+                  <option *ngFor="let monthName of monthShortNames" [value]="monthName">{{monthName}}</option>
+                </select>
+              </div>
+
+
+              <div class="form-group col-4">
+                <select formControlName="day" class="form-control">
+                  <option [value]="null" hidden selected>Day</option>
+                  <option *ngFor="let day of listOfDays" [value]="day">{{day}}</option>
+                </select>
+              </div>
+
+
+              <div class="form-group col-4">
+                <select formControlName="year" class="form-control">
+                  <option [value]="null" hidden selected>Year</option>
+                  <option *ngFor="let year of yearsList" [value]="year">{{year}}</option>
+                </select>
+              </div>
+            </div> -->
+          <!-- <div class="form-group">
+              <input formControlName="dob" placeholder="mm/dd/yyyy" [maxDate]="minDateLimit" type="text"
+                class="form-control" bsDatepicker>
+            </div> -->
+          <!-- </div> -->
+        </form>
+
+        <!-- <form [formGroup]="mobileForm">
+          <div *ngIf="!editPhone" class="grid-container">
+            <p><strong>Phone Number:</strong></p>
+            <div class="sm-container">
+              <div class="clear-box d-flex justify-content-between align-items-center">
+                <p class="mb-0">
+                  {{mobileForm.value.mobile | phoneFormat: utilsService.user?.carrier_code }}</p>
+                <div class="d-flex">
+                  <button type="button" id="v-divider" class="btn btn-sm btn-white"> <i class="fas fa-check"></i>
+                    Verified</button>
+                  <button type="button" (click)="editPhone = !editPhone" class="btn btn-sm btn-white">Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="editPhone" class="grid-container">
+            <p class="mb-1"><strong>Phone Number:</strong></p>
+            <div class="form-group mb-0">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="group-inner option-group">
+                  <country-code-dropdown [isbglight]="false" width='350px' (onSelection)="onCountryCodeSelect($event)">
+                  </country-code-dropdown>
+                </div>
+
+                <div class="group-inner w-100 mx-0">
+                  <input formControlName="mobile" type="text" class="form-control border-left-0">
+                </div>
+              </div>
+              <span class="d-block" *ngIf="this.mobileForm.controls.mobile.invalid && this.mobileForm.dirty"
+                class="text-danger">Invalid
+                Mobile
+                Number</span>
+            </div>
+
+          </div>
+          <div *ngIf="editPhone" class="grid-container">
+            <p><strong>&nbsp;</strong></p>
+            <p class="text-info mb-0 mt-1 err-txt">
+              <strong>Phone Number must be verified</strong>
+            </p>
+          </div>
+
+
+          <div class="grid-container">
+            <p>&nbsp;</p>
+            <div class="d-flex justify-content-end align-items-center my-2">
+              <button (click)="openOtpModal()" [disabled]="mobileForm.invalid || mobileForm.pristine" type="button"
+                class="btn btn-primary ">Verify via
+                SMS</button>
+            </div>
+          </div>
+        </form> -->
+
+        <h4 class="font-heavy mt-2 mb-3 text-default">Change Password</h4>
+        <form [formGroup]="passwordForm">
+          <div class="row no-gutters">
+            <div class="form-group col-md-6 pr-md-2 mb-0">
+              <label class="mb-1 font-roman">Current Password</label>
+              <input formControlName="old_password" placeholder="Enter current password" class="form-control">
+            </div>
+            <div class="form-group col-md-6 pl-md-2 mb-0">
+              <label class="mb-1 font-roman">New Password</label>
+              <input formControlName="cpassword" placeholder="Enter new Password" class="form-control">
+            </div>
+            <div class="col-12 mt-1">
+              <p class="blue-text cursor-pointer font-roman" (click)="router.navigate(['/forgot-password'])">Forgot
+                Password?</p>
+            </div>
+          </div>
+          <!-- <div class="grid-container">
+            <p><strong>Change password:</strong></p>
+            <div class="form-group">
+              <input formControlName="old_password" placeholder="Old Password" class="form-control">
+            </div>
+          </div>
+
+          <div class="grid-container">
+            <p><strong></strong></p>
+            <div class="form-group">
+              <input formControlName="cpassword" placeholder="New Password" class="form-control">
+            </div>
+          </div> -->
+        </form>
+
+
+        <div class="row justify-content-center mt-3">
+          <button mat-flat-button color="primary" class="bg-blue-imp br-10 px-5" (click)="submitForm()">
+            <span class="px-2 font-heavy">Save</span>
+          </button>
+          <!-- <button type="button"
+              [disabled]="(this.profileForm.pristine || this.profileForm.invalid) && (this.passwordForm.invalid)"
+              (click)="submitForm()" class="btn btn-primary my-2 flat-button">Save</button> -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- otp modal -->
+  <div class="modal fade otpModal" bsModal #otpModal="bs-modal" [config]="{ backdrop: 'static' }" tabindex="-1"
+    role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header modal-header-primary">
+          <button type="button" class="close" data-dismiss="modal" (click)="closeOtpModal()">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <verify-otp-page></verify-otp-page>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

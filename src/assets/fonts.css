@@ -1,0 +1,28 @@
+/* latin */
+@font-face {
+    font-family: 'MarkOT';
+    font-style: italic;
+    font-weight: 400;
+    src: url('fonts/MarkOT.ttf');
+}
+/* latin */
+@font-face {
+    font-family: 'MarkOT';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/MarkOT.ttf');
+}
+/* latin */
+@font-face {
+    font-family: 'MarkOT';
+    font-style: normal;
+    font-weight: 500;
+    src: url('fonts/MarkOT-Medium.ttf');
+}
+/* latin-ext */
+@font-face {
+    font-family: 'MarkOT';
+    font-style: normal;
+    font-weight: 600;
+    src: url('fonts/MarkOT-Bold.ttf');
+}

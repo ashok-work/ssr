@@ -1,0 +1,251 @@
+<div class="container-fluid app-container">
+  <div class="container py-4">
+    <div class="card grey-border-imp br-6 py-4 px-2 px-sm-5">
+      <h3 class="text-default font-heavy mb-3">Big plans? We'd love to help</h3>
+      <p class="text-default font-roman mb-1">We specialize in large corporate gatherings and have helped put
+        together business meetings and dinners, holiday parties, and more.</p>
+      <p class="text-default font-roman">Tell us more about what you have in mind, and we'll get back to you in 1
+        business day.</p>
+
+      <form [formGroup]="eventPlanningForm" class="row no-gutters justify-content-center">
+        <div class="col-12 col-sm-9 col-md-9 col-lg-8 col-xl-6">
+          <div class="form-group pt-4">
+            <h5 class="text-default font-heavy mb-3">
+              1. Are you planning a business or personal event?
+            </h5>
+            <select formControlName="event_type" class="form-control cursor-pointer">
+              <option [value]="null" hidden selected>Select your event type</option>
+              <option value="business">Business Event</option>
+              <option value="personal">Personal Event</option>
+            </select>
+          </div>
+          <mat-divider class="my-4"></mat-divider>
+          <div class="form-group pt-4">
+            <h5 class="text-default font-heavy mb-3">
+              2. What's your budget?
+              <span class="grey-text small-text font-roman">({{ '10000' | currencyFilter }} minimum)</span>
+            </h5>
+            <p class="grey-text font-roman">Please include an estimated budget for space rental, catering, furniture,
+              AV, and any other services you’d like our team to arrange.</p>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-white grey-border-imp br-10 btr-0 bbr-0"><i
+                    class="fas fa-rupee-sign"></i></span>
+              </div>
+              <input type="number" min="10000" class="form-control grey-border-imp br-10 btl-0 bbl-0"
+                formControlName="budget">
+            </div>
+          </div>
+          <mat-divider class="my-4"></mat-divider>
+          <div class="form-group pt-4">
+            <h5 class="text-default font-heavy mb-3">
+              3. How many people will attend?
+            </h5>
+            <input type="number" class="form-control grey-border-imp br-10" formControlName="guest_count">
+          </div>
+          <mat-divider class="my-4"></mat-divider>
+          <div class="form-group pt-4">
+            <h5 class="text-default font-heavy mb-3">
+              4. Where will it be?
+            </h5>
+            <div class="row small-gutters">
+              <div class="col-6">
+                <p class="label grey-text font-roman mb-1">City</p>
+                <input type="text" class="form-control grey-border-imp br-10" formControlName="city">
+              </div>
+              <div class="col-6">
+                <p class="label grey-text font-roman mb-1">State</p>
+                <input type="text" class="form-control grey-border-imp br-10" formControlName="state">
+              </div>
+              <div class="col-12 mt-4">
+                <p class="label grey-text font-roman mb-1">Neighborhood <span class="small-text">(Optional)</span></p>
+                <input type="text" class="form-control grey-border-imp br-10" formControlName="neighborhood">
+              </div>
+            </div>
+          </div>
+          <mat-divider class="my-4"></mat-divider>
+          <div class="form-group pt-4">
+            <h5 class="text-default font-heavy mb-3">
+              5. When is it happening?
+            </h5>
+            <div class="form-group col-12">
+              <ng-container *ngIf="!multiDay">
+                <div class="row justify-content-between mt-1 no-gutters">
+                  <!-- <span class="col-12 col-sm-4 fs-16 text-default px-1 font-heavy" triggers="" #pop1="bs-tooltip"
+                    tooltip="WARNING! That was an invalid date. We changed it back for you 😁">
+                    Date
+                  </span>
+                  <button type="button" id="tooltipBtn1" class="d-none" (click)="pop1.toggle()"></button> -->
+                  <span class="col-12 col-sm-4 fs-16 text-default px-1 font-heavy">Date</span>
+                  <span class="col-4 fs-16 text-default px-1 font-heavy d-none d-sm-inline">Start</span>
+                  <span class="col-4 fs-16 text-default px-1 font-heavy d-none d-sm-inline">End</span>
+                  <div class="col-12 col-sm-4">
+                    <div class="inner-addon-group-right d-flex align-items-center">
+                      <span (click)="picker.open()" id="toggle-icon1" class="inner-addon grey-text"><i
+                          class="far fa-calendar"></i></span>
+                      <input type="text"
+                        class="form-control br-10 bbr-0 btr-0 br-xs-10-right font-roman grey-border-imp"
+                        placeholder="MM/DD/YYYY" [value]="startDate" [matDatepicker]="picker"
+                        (dateChange)="startDateSelected($event.target.value)" [min]="minDate" [max]="maxDate">
+                    </div>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </div>
+                  <span class="col-6 fs-16 text-default px-1 font-heavy d-sm-none">Start</span>
+                  <span class="col-6 fs-16 text-default px-1 font-heavy d-sm-none">End</span>
+                  <div class="col-6 col-sm-4 select-container">
+                    <select class="form-control rounded-0 br-xs-10-left grey-border-imp cursor-pointer"
+                      (change)="startTimeSelected($event)" required>
+                      <option [value]="null" hidden selected>Start Time</option>
+                      <option *ngFor="let time of startTimeArray" [selected]="compareTimes(time, startTime)"
+                        [value]="json.stringify(time)">
+                        <span>{{ time.text }}</span>
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-6 col-sm-4 select-container">
+                    <select class="form-control grey-border-imp br-10 btl-0 bbl-0 cursor-pointer"
+                      (change)="endTimeSelected($event)" required>
+                      <option [value]="null" hidden selected>End Time</option>
+                      <option *ngFor="let time of endTimeArray" [selected]="compareTimes(time, endTime1)"
+                        [value]="json.stringify(time)">
+                        <span>{{ time.text }}</span>
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="multiDay">
+                <div class="row justify-content-between mt-1 no-gutters">
+                  <!-- <span class="col-12 fs-16 text-default px-1 font-heavy" triggers="" #pop1="bs-tooltip"
+                    tooltip="WARNING! That was an invalid date. We changed it back for you 😁">
+                    Start
+                  </span>
+                  <button type="button" id="tooltipBtn1" class="d-none" (click)="pop1.toggle()"></button> -->
+                  <span class="col-12 fs-16 text-default px-1 font-heavy">Start</span>
+                  <div class="col-6">
+                    <div class="inner-addon-group-right d-flex align-items-center">
+                      <span (click)="picker.open()" id="toggle-icon1" class="inner-addon grey-text"><i
+                          class="far fa-calendar"></i></span>
+                      <input type="text" class="form-control br-10 bbr-0 btr-0 font-roman grey-border-imp"
+                        placeholder="MM/DD/YYYY" [value]="startDate" [matDatepicker]="picker"
+                        (dateChange)="startDateSelected($event.target.value)" [min]="minDate" [max]="maxDate">
+                    </div>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </div>
+                  <div class="col-6 select-container">
+                    <select class="form-control grey-border-imp btl-0 bbl-0 cursor-pointer"
+                      (change)="startTimeSelected($event)" required>
+                      <option [value]="null" hidden selected>Start Time</option>
+                      <option *ngFor="let time of startTimeArray" [selected]="compareTimes(time, startTime)"
+                        [value]="json.stringify(time)">
+                        <span>{{ time.text }}</span>
+                      </option>
+                    </select>
+                  </div>
+                  <!-- <span class="col-12 fs-16 text-default px-1 font-heavy" triggers="" #pop2="bs-tooltip"
+                    tooltip="WARNING! That was an invalid date. We changed it back for you 😁">
+                    End
+                  </span>
+                  <button type="button" id="tooltipBtn2" class="d-none" (click)="pop2.toggle()"></button> -->
+                  <span class="col-12 fs-16 text-default px-1 font-heavy">End</span>
+                  <div class="col-6">
+                    <div class="inner-addon-group-right d-flex align-items-center">
+                      <span (click)="picker2.open()" id="toggle-icon2" class="inner-addon grey-text"><i
+                          class="far fa-calendar"></i></span>
+                      <input type="text" class="form-control br-10 bbr-0 btr-0 font-roman grey-border-imp"
+                        placeholder="MM/DD/YYYY" [value]="endDate" [matDatepicker]="picker2"
+                        (dateChange)="endDateSelected($event.target.value)" [min]="minDate" [max]="maxDate">
+                    </div>
+                    <mat-datepicker #picker2 [startAt]="startDate"></mat-datepicker>
+                  </div>
+                  <div class="col-6 select-container">
+                    <select class="form-control grey-border-imp btl-0 bbl-0 cursor-pointer"
+                      (change)="endTimeSelected($event)" required>
+                      <option [value]="null" hidden selected>End Time</option>
+                      <option *ngFor="let time of endTimeArray2" [selected]="compareTimes(time, endTime2)"
+                        [value]="json.stringify(time)">
+                        <span>{{ time.text }}</span>
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="d-flex justify-content-end pt-1">
+                <span *ngIf="!multiDay" (click)="multiDay=true;" class="blue-text cursor-pointer">Multi day</span>
+                <span *ngIf="multiDay" (click)="multiDay=false;" class="blue-text cursor-pointer">
+                  Single day
+                </span>
+              </div>
+            </div>
+          </div>
+          <mat-divider class="my-4"></mat-divider>
+          <div class="form-group pt-4">
+            <h5 class="text-default font-heavy mb-3">
+              6. Which services can we help you book?
+              <span class="grey-text small-text font-roman">(Optional)</span>
+            </h5>
+            <div class="row">
+              <div class="col-md-6" *ngFor="let service of business_services">
+                <mat-checkbox class="my-2 small-ripple" disableRipple="true" color="warn"
+                  (change)="handleService($event, service)">
+                  <span class="text-default font-roman">{{ service }}</span>
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+          <mat-divider class="my-4"></mat-divider>
+          <div class="form-group pt-4">
+            <h5 class="text-default font-heavy mb-3">
+              7. Tell us more about what you are planning.
+            </h5>
+            <ul>
+              <li><span class="mb-0 grey-text">The type of event you're having</span></li>
+              <li><span class="mb-0 grey-text">Your agenda and flow of events</span></li>
+              <li><span class="mb-0 grey-text">What you need the venue to have (location, amenities, etc.)</span></li>
+            </ul>
+            <textarea class="form-control grey-border-imp br-10" rows="5" formControlName="description"></textarea>
+          </div>
+          <mat-divider class="my-4"></mat-divider>
+          <div class="form-group pt-4">
+            <h5 class="text-default font-heavy mb-3">
+              8. Tell us about yourself.
+            </h5>
+            <div class="row small-gutters">
+              <div class="col-6">
+                <p class="label grey-text font-roman mb-1">First Name</p>
+                <input type="text" class="form-control grey-border-imp br-10" formControlName="first_name">
+              </div>
+              <div class="col-6">
+                <p class="label grey-text font-roman mb-1">Last Name</p>
+                <input type="text" class="form-control grey-border-imp br-10" formControlName="last_name">
+              </div>
+              <div class="col-6 mt-4">
+                <p class="label grey-text font-roman mb-1">Email</p>
+                <input type="text" class="form-control grey-border-imp br-10" formControlName="email">
+              </div>
+              <div class="col-6 mt-4">
+                <p class="label grey-text font-roman mb-1">Phone <span class="small-text">(Optional)</span></p>
+                <input type="text" class="form-control grey-border-imp br-10" formControlName="phone">
+              </div>
+              <div class="col-6 mt-4">
+                <p class="label grey-text font-roman mb-1">Organization</p>
+                <input type="text" class="form-control grey-border-imp br-10" formControlName="organization">
+              </div>
+            </div>
+          </div>
+          <mat-divider class="my-4"></mat-divider>
+          <div class="form-group pt-4">
+            <h5 class="text-default font-heavy mb-3">
+              What's next
+            </h5>
+            <p class="text-default font-roman">A member from the Special Events Team will be in touch with you shortly
+              to present options and price ranges.</p>
+            <button type="button" class="btn btn-primary blue-button br-10 font-heavy" (click)="submitForm()">
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

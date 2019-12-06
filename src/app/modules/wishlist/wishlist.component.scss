@@ -1,0 +1,51 @@
+// .app-container {
+//     margin-top: 3rem;
+// }
+
+.mat-card {
+  cursor: pointer;
+  position: relative;
+
+  .mat-card-image {
+    margin-bottom: -16px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+.material-icons {
+  font-size: 24px;
+}
+
+/deep/ .wishlist-dialog .mat-dialog-container {
+  background: transparent;
+  box-shadow: none;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+.btn {
+  min-width: auto;
+}
+
+.list-name {
+  width: 150px;
+}
+
+.floating-title {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+
+.floating-actions {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}

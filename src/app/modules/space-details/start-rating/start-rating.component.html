@@ -1,0 +1,5 @@
+<ng-container *ngFor="let star of starTypes" class="p-2">
+  <span *ngIf="star == 'full'" class="orange-text"><i class="fas fa-star"></i></span>
+  <span *ngIf="star == 'bordered'" class="orange-text"><i class="far fa-star"></i></span>
+  <span *ngIf="star == 'half'" class="orange-text"><i class="fas fa-star-half-alt"></i></span>
+</ng-container>

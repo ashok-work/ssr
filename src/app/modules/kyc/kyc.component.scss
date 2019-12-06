@@ -1,0 +1,62 @@
+.content {
+  height: 40vh;
+  min-height: 200px;
+}
+
+.id-card {
+  border: 1px solid #bbb;
+  height: 150px;
+  width: 150px;
+  cursor: pointer;
+
+  &.photos-input {
+    border-style: dashed;
+    border-color: black;
+  }
+}
+
+.id-icon {
+  color: #0185DE;
+}
+
+.label {
+  font-size: 13px;
+}
+
+.action-label {
+  color: #0185DE;
+  cursor: pointer;
+}
+
+.photos {
+  border: 1px solid #555;
+}
+
+.photos-container {
+  position: relative;
+
+  .delete-icon {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    padding: 5px 10px;
+    background-color: white;
+    cursor: pointer;
+    border-left: 1px solid #555;
+    border-top: 1px solid #555;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .heading {
+    text-align: center
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .id-card {
+    height: 100px;
+    width: 100px;
+  }
+}

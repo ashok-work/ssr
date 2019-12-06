@@ -1,0 +1,7 @@
+<div class="select-container">
+  <select class="form-control cursor-pointer br-tr-br-0" (change)="onSelect($event)" [value]="carrier_code_value">
+    <option *ngFor="let country of commonServices.info['countries']" [value]="country?.country_code">
+      {{ country?.text }}
+    </option>
+  </select>
+</div>

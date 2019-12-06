@@ -1,0 +1,19 @@
+.selected {
+    border-left: 6px solid #0185DE;
+}
+
+.sticky-container {
+    top: 92px;
+}
+
+.mat-expansion-panel {
+    box-shadow: none !important;
+
+    .mat-expansion-panel-header {
+        font-size: 1rem;
+    }
+
+    /deep/ .mat-expansion-panel-content {
+        font-size: 1rem;
+    }
+}

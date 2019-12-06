@@ -1,0 +1,353 @@
+<div class="container-fluid app-container">
+  <div class="container">
+    <ng-container *ngIf="bookingData">
+      <div class="row small-gutters justify-content-center pb-4">
+        <div class="col-12 my-4">
+          <app-cover-photos [photos]="images" [space_data]="bookingData"></app-cover-photos>
+        </div>
+        <div *ngIf="!isBooking" class="col-12 col-md-8 col-lg-5 order-md-0 order-lg-1 pr-0">
+          <div *ngIf="utils.checkUserDetails(); else askLogin" class="sticky-container sticky-top">
+            <plan-event *ngIf="!loading" [tax]="bookingData.tax" [allowedEvents]="bookingData.occassion_types"
+              [capacity]="bookingData.capacity" [operatingHours]="bookingData.operating_hours" [isAuthor]="isAuthor"
+              [catering_mandatory]="bookingData.catering_mandatory">
+            </plan-event>
+            <!-- <app-contact-form *ngIf="!loading && bookingData.catering_mandatory" [space_id]="bookingData.space_id">
+            </app-contact-form> -->
+          </div>
+          <ng-template #askLogin>
+            <mat-card class="float-card my-4 z-1000">
+              <mat-card-header>
+                <mat-card-title>Sign In to book this space</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div class="py d-flex justify-content-center">
+                  <button routerLink="/login" type="button" class="btn btn-primary blue-button br-10 font-heavy">
+                    Login
+                  </button>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </ng-template>
+        </div>
+
+        <div *ngIf="isBooking" class="col-12 col-md-8 col-lg-5 order-md-0 order-lg-1">
+          <ng-container *ngIf="utils.checkUserDetails();">
+            <app-preview-card *ngIf="!loading" [isHost]="isHost"></app-preview-card>
+          </ng-container>
+        </div>
+
+        <div class="col-md-12 col-lg-7 order-md-1 order-lg-0">
+          <div class=" border grey-border-imp br-6 bg-white pt-4">
+            <div class="row m-0">
+              <div class="container-fluid col-md-8">
+                <h4 *ngIf="spaceDetails" class="text-default font-heavy"> {{bookingData.name}} </h4>
+                <p class="font-roman" *ngIf="bookingData.address && bookingData.address.city">
+                  <i class="orange-text big-p fas fa-map-marker-alt"></i>
+                  {{bookingData.address.city}}
+                  <span class="font-roman" *ngIf="bookingData.address.sublocality_level_1">
+                    {{ " | " + bookingData.address.sublocality_level_1 }}
+                  </span>
+                </p>
+                <!-- <div class="container-fluid">
+            <div class="d-flex">
+
+              <div class="d-flex flex-column align-items-center mr-4">
+                <mat-icon>
+                  local_bar
+                </mat-icon>
+                <p>EVENT</p>
+              </div>
+
+              <div class="d-flex flex-column align-items-center mx-4">
+                <mat-icon>
+                  local_bar
+                </mat-icon>
+                <p>EVENT</p>
+              </div>
+
+
+              <div class="d-flex flex-column align-items-center mx-4">
+                <mat-icon>
+                  local_bar
+                </mat-icon>
+                <p>EVENT</p>
+              </div>
+
+            </div>
+          </div> -->
+              </div>
+
+              <div class="col-md-4" align="center">
+                <ng-container *ngIf="!bookingData.host_image">
+                  <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" class="avatar mb-1">
+                </ng-container>
+                <ng-container *ngIf="bookingData.host_image">
+                  <img [src]="bookingData.host_image.Location" class="avatar mb-1">
+                </ng-container>
+                <p class="font-roman mb-0">{{ bookingData.host_name ? bookingData.host_name : 'John Doe' | titlecase}}
+                </p>
+                <button
+                  *ngIf="bookingData.user_id != utils.user?.user_id && bookingData.status == 'live' && !commonServices.info['production']"
+                  mat-flat-button color="primary" class="bg-blue-imp br-10" (click)="joinChat()">
+                  <span class="px-2 font-heavy">Message Host</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="container-fluid">
+              <div class="row align-items-center px-3">
+                <div class="d-flex align-items-center">
+                  <!-- <ng-container *ngIf="bookingData.overall_ratings==null">
+                    <app-start-rating rating=0></app-start-rating>
+                    <span class="font-roman">&nbsp;&nbsp;0 reviews</span>
+                  </ng-container> -->
+                  <ng-container *ngIf="bookingData.overall_ratings!=null">
+                    <app-start-rating [rating]="bookingData.overall_ratings.overall_rating"></app-start-rating>
+                    <span class="font-roman">&nbsp;&nbsp;{{ bookingData.overall_ratings.total_reviews }} reviews</span>
+                  </ng-container>
+                </div>
+                <span class="grey-text px-3" *ngIf="bookingData.overall_ratings!=null">&bull;</span>
+                <div class="d-flex align-items-center">
+                  <span class="orange-text">
+                    <i class="fas fa-user-friends"></i>
+                  </span>
+                  <span class="font-roman">&nbsp;&nbsp;{{ bookingData.capacity }}</span>
+                </div>
+                <div class="d-flex align-items-center" *ngIf="!bookingData.catering_mandatory">
+                  <span class="grey-text px-3" *ngIf="!bookingData.catering_mandatory">&bull;</span>
+                  <span class="orange-text">
+                    <i class="far fa-clock"></i>
+                  </span>
+                  <span
+                    class="font-roman">&nbsp;&nbsp;{{bookingData.min_hours ? bookingData.min_hours+' hrs min.' : '1 hr min.'}}</span>
+                </div>
+                <!-- <div class="col-lg-12 d-flex">
+                  <ng-container *ngIf="bookingData.overall_ratings==null">
+                    <app-start-rating rating=0></app-start-rating>
+                    <span class="pr-1"></span>
+                    0 reviews
+                  </ng-container>
+                  <ng-container *ngIf="bookingData.overall_ratings!=null">
+                    <app-start-rating [rating]="bookingData.overall_ratings.overall_rating"></app-start-rating>
+                    <span class="pr-1"></span>
+                    {{ bookingData.overall_ratings.total_reviews }} reviews
+                  </ng-container>
+                  <span class="px-3">&bull;</span>
+                  <mat-icon>person_outline</mat-icon><span class="pl-1">{{ bookingData.capacity }}</span>
+                  <span class="px-3">&bull;</span>
+                  <mat-icon>access_time</mat-icon><span
+                    class="pl-1">{{bookingData.min_hours ? bookingData.min_hours+' hrs min.' : '1 hr min.'}}</span>
+                </div> -->
+              </div>
+            </div>
+
+            <div *ngIf="description" class="container-fluid mt-4">
+              <!-- <h6 class="font-heavy">Description</h6> -->
+              <div *ngIf="bookingData.description.length < 300">
+                <p class="m-0 font-roman">{{bookingData.description | slice:0:300}}</p>
+              </div>
+              <ng-container *ngIf="bookingData.description.length > 300">
+                <div *ngIf="!showFullDesc">
+                  <p class="m-0 font-roman"> {{bookingData.description | slice:0:300}}... </p>
+                </div>
+                <div *ngIf="showFullDesc">
+                  <p class="m-0 font-roman">{{bookingData.description}}</p>
+                </div>
+                <button mat-button class="p-0" *ngIf="!showFullDesc" (click)="showFullDesc=true">Read more about the
+                  space</button>
+                <button mat-button class="p-0" *ngIf="showFullDesc" (click)="showFullDesc=false">Show Less</button>
+              </ng-container>
+              <mat-divider class="my-4 grey-border"></mat-divider>
+            </div>
+
+            <div *ngIf="bookingData.amenities?.length>0" class="container-fluid">
+              <h5 class="font-heavy">Amenities</h5>
+              <div class="two-grid">
+                <p class="m-0 font-roman" *ngFor="let amenity of bookingData.amenities; let i=index">
+                  <ng-container *ngIf="i<4">{{amenity}}</ng-container>
+                  <ng-container *ngIf="i>=4 && showAllAmenities">{{amenity}}</ng-container>
+                </p>
+              </div>
+              <ng-container *ngIf="bookingData.amenities.length>4">
+                <button mat-button class="p-0" *ngIf="!showAllAmenities" (click)="showAllAmenities=true">Show all
+                  amenities</button>
+                <button mat-button class="p-0" *ngIf="showAllAmenities" (click)="showAllAmenities=false">Show
+                  Less</button>
+              </ng-container>
+              <mat-divider class="my-4 grey-border"></mat-divider>
+            </div>
+
+            <div *ngIf="bookingData.accessibility?.length>0" class="container-fluid">
+              <h5 class="font-heavy">Accessibility</h5>
+              <div class="two-grid">
+                <p class="m-0 font-roman" *ngFor="let accessibility of bookingData.accessibility"> {{accessibility}}
+                </p>
+              </div>
+              <mat-divider class="my-4 grey-border"></mat-divider>
+            </div>
+
+            <div *ngIf="bookingData.catering_mandatory" class="container-fluid">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="text-default font-heavy mb-0">Catering</h5>
+                <span class="text-white font-heavy bg-orange px-3 py-1 br-10 fs-14">Mandatory</span>
+              </div>
+              <div>
+                <p class="text-default font-roman">Mandatory catering is provided by the host. You can choose the
+                  menu once you start booking.</p>
+                <p class="text-default font-roman">Min Purchase amount:
+                  <b>{{ bookingData.min_catering_amount | currencyFilter }}</b></p>
+              </div>
+              <mat-divider class="my-4 grey-border"></mat-divider>
+            </div>
+
+            <div *ngIf="!bookingData.is_allow_full_space_for_rent" class="container-fluid">
+              <h5 class="text-default font-heavy mb-3">This is a shared space</h5>
+              <div>
+                <p class="text-default font-roman">Other guests could be sharing the space with you at the same time.</p>
+              </div>
+              <mat-divider class="my-4 grey-border"></mat-divider>
+            </div>
+
+            <div class="container-fluid">
+              <h5 class="font-heavy">Location</h5>
+              <div class="map-box" id="map">
+
+              </div>
+              <mat-divider class="my-4 grey-border"></mat-divider>
+            </div>
+
+            <div *ngIf="bookingData.space_rules?.length>0" class="container-fluid">
+              <h5 class="font-heavy">Space Rules</h5>
+              <div class="two-grid">
+                <p class="m-0 font-roman" *ngFor="let rule of bookingData.space_rules; let i=index">
+                  <ng-container *ngIf="i<4">{{rule}}</ng-container>
+                  <ng-container *ngIf="i>=4 && showAllRules">{{rule}}</ng-container>
+                </p>
+              </div>
+              <ng-container *ngIf="bookingData.space_rules.length>4">
+                <button mat-button class="p-0" *ngIf="!showAllRules" (click)="showAllRules=true">Read all rules</button>
+                <button mat-button class="p-0" *ngIf="showAllRules" (click)="showAllRules=false">Show Less</button>
+              </ng-container>
+              <mat-divider class="my-4 grey-border"></mat-divider>
+            </div>
+
+            <div *ngIf="bookingData.restrictions" class="container-fluid">
+              <div>
+                <h5 class="font-heavy">Age Restrictions</h5>
+                <p class="m-0 font-roman"> {{ bookingData.restrictions }} </p>
+              </div>
+              <mat-divider class="my-4 grey-border"></mat-divider>
+            </div>
+
+            <div *ngIf="bookingData.operating_hours?.length > 0" class="container-fluid">
+              <div>
+                <h5 class="font-heavy">Operating hours</h5>
+                <ng-container *ngFor="let operating_hour of bookingData.operating_hours; let i=index">
+                  <ng-container *ngIf="!operating_hour['isOpen']">
+                    <div class="row align-items-center pb-2">
+                      <p class="col-4 m-0 font-roman">{{ days[i] }}</p>
+                      <p class="col-8 m-0 font-roman">Closed</p>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="operating_hour['isOpen']">
+                    <ng-container *ngIf="operating_hour['allDay']">
+                      <div class="row align-items-center pb-2">
+                        <p class="col-4 m-0 font-roman">{{ days[i] }}</p>
+                        <p class="col-8 m-0 font-roman">12:00 AM - 11:59 PM</p>
+                      </div>
+                    </ng-container>
+                    <ng-container
+                      *ngIf="!operating_hour['allDay'] && operating_hour['hours'].length && (operating_hour['hours'][0] | keyvalue)?.length && operating_hour['hours'][0]['start_time']!='' && operating_hour['hours'][0]['end_time']!=''">
+                      <div class="row align-items-center py-2">
+                        <p class="col-4 m-0 font-roman">{{ days[i] }}</p>
+                        <div class="col-8">
+                          <ng-container *ngFor="let hour of operating_hour['hours']">
+                            <p class="m-0 font-roman pb-1">{{ hour['start_time'].text }} - {{ hour['end_time'].text }}
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <ng-container
+                      *ngIf="!operating_hour['allDay'] && operating_hour['hours'].length && (operating_hour['hours'][0] | keyvalue)?.length && operating_hour['hours'][0]['start_time']=='' && operating_hour['hours'][0]['end_time']==''">
+                      <div class="row align-items-center pb-2">
+                        <p class="col-4 m-0 font-roman">{{ days[i] }}</p>
+                        <p class="col-8 m-0 font-roman">Closed</p>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <mat-divider class="my-4 grey-border"></mat-divider>
+            </div>
+
+            <!-- <div *ngIf="services" class="container-fluid">
+        <h6>Services</h6>
+        <div class="two-grid">
+          <p class="m-0" *ngFor="let service of bookingData.services"> {{service}} </p>
+        </div>
+        <mat-divider class="my-4"></mat-divider>
+      </div> -->
+
+            <div *ngIf="bookingData.cancellation_policy" class="container-fluid">
+              <h5 class="font-heavy">Cancellation Policy</h5>
+              <span class="font-roman">{{ bookingData.cancellation_policy.title }}</span>
+              <div *ngIf="!showFullPolicy">
+                <p class="m-0 font-roman"> {{bookingData.cancellation_policy['desc'] | slice:0:100}}... </p>
+              </div>
+              <div *ngIf="showFullPolicy">
+                <p class="m-0 font-roman">{{bookingData.cancellation_policy['desc']}}</p>
+              </div>
+              <button mat-button class="p-0" *ngIf="!showFullPolicy" (click)="showFullPolicy=true">Read more about the
+                policy</button>
+              <button mat-button class="p-0" *ngIf="showFullPolicy" (click)="showFullPolicy=false">Show Less</button>
+              <mat-divider class="my-4"></mat-divider>
+            </div>
+
+            <div class="container-fluid">
+              <div>
+                <h5 class="font-heavy">Reviews
+                  ({{bookingData.overall_ratings ? bookingData.overall_ratings.total_reviews : 0}})</h5>
+                <ng-container *ngIf="!loadingReviews">
+                  <div *ngFor="let review of reviews | paginate: { itemsPerPage: 10, currentPage: page + 1, totalItems:
+                bookingData.overall_ratings?.total_reviews}" class="my-3">
+                    <p class="mb-1 info-heading"><b>{{ review.heading }}</b></p>
+                    <app-start-rating [rating]="review.overall_rating"></app-start-rating>
+                    <p class="info">{{ review.description }}</p>
+                  </div>
+                  <ng-container *ngIf="reviews.length <= 0">
+                    <p class="m-0"> Be the first to review! </p>
+                  </ng-container>
+                  <!-- <div class="d-block w-100 my-4" align="center" *ngIf="showButton">
+              <button mat-button (click)="loadMore()">Load More</button>
+            </div> -->
+                </ng-container>
+                <div *ngIf="loadingReviews">
+                  <mat-spinner class="m-0"></mat-spinner>
+                </div>
+                <!-- <mat-paginator [length]="bookingData.overall_ratings.total_reviews"
+                        [pageSize]="12"
+                        [hidePageSize]="true"
+                        (page)="getReviews($event.pageIndex)">
+          </mat-paginator> -->
+                <!-- <pagination [boundaryLinks]="true" [totalItems]="bookingData.overall_ratings?.total_reviews"
+              previousText="<i class='fas fa-angle-left'></i>" nextText="<i class='fas fa-angle-right'></i>"
+              firstText="<i class='fas fa-angle-double-left'></i>" lastText="<i class='fas fa-angle-double-right'></i>"
+              pageBtnClass="custom-page-item" [maxSize]="5" (pageChanged)="getReviews($event.page-1)">
+            </pagination> -->
+                <pagination-controls (pageChange)="getReviews($event-1)" autoHide="true" [responsive]="true">
+                </pagination-controls>
+              </div>
+              <mat-divider class="my-4"></mat-divider>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="my-4" *ngIf="isAuthor && !isBooking">
+        <app-my-bookings [spaceId]="spaceId"></app-my-bookings>
+      </div> -->
+    </ng-container>
+  </div>
+</div>

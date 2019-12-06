@@ -1,0 +1,141 @@
+// .app-container {
+//   background-color: white;
+// }
+
+.avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+
+  /deep/ .mat-table {
+    overflow: auto;
+  }
+
+  .mobile-label {
+    display: none;
+  }
+}
+
+.mat-chip {
+  color: white;
+
+  &.green {
+    background-color: #28a745;
+  }
+
+  &.red {
+    background-color: #dc3545;
+  }
+
+  &.mat-standard-chip:hover::after {
+    opacity: 0;
+  }
+
+  &.mat-standard-chip:focus::after {
+    opacity: 0;
+  }
+}
+
+/deep/ .booking-requests-container .nav-tabs {
+  justify-content: space-between;
+  padding: 0 25%;
+
+  .nav-link {
+    border: none !important;
+    color: #495057 !important;
+
+    &.active {
+      border-bottom: 3px solid #0185DE !important;
+      color: #0185DE !important;
+    }
+  }
+}
+
+/deep/ pagination[pagebtnclass='spaces-pagination'] .pagination {
+  font-weight: bold;
+  margin-top: 2rem;
+  justify-content: center;
+
+  .page-item {
+    margin-right: 1%;
+
+    &.disabled .page-link {
+      color: #65C0FC !important
+    }
+
+    .page-link {
+      color: #0185DE !important;
+      border: none;
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      text-align: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .page-item.active .page-link {
+    color: white !important;
+    background-color: #0185DE;
+  }
+}
+
+@media(max-width: 999px) {
+  .example-container {
+    .mobile-label {
+      width: 160px;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    /deep/ .mat-header-row {
+      display: none;
+    }
+
+    /deep/ .mat-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 8px 24px;
+      height: auto;
+      border-bottom: 1px solid rgba(0, 0, 0, .12);
+
+      .mat-cell {
+        padding: 0 !important;
+        border-bottom: none !important;
+      }
+    }
+  }
+}
+
+@media(min-width: 1000px) {
+  .example-container {
+    .mat-cell {
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+    }
+
+    .mat-header-cell {
+      text-align: center;
+      font-size: 12px !important;
+    }
+  }
+}
+
+.selected {
+  border-left: 6px solid #0185DE;
+}
+
+.sticky-container {
+  top: 92px;
+}

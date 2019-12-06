@@ -1,0 +1,60 @@
+.container {
+  min-height: 95vh;
+  // should be 70vh if footer is there
+}
+
+
+.small-round {
+  border-radius: 5px !important;
+}
+
+.main--section {
+  // margin-top: 4rem;
+  background-color: rgb(233, 233, 238);
+}
+
+a {
+  text-decoration: none !important;
+
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+button.btn-primary {
+  border: none;
+  outline: none;
+  border-radius: 25px;
+}
+
+
+.btn-black {
+  color: black;
+  text-align: start;
+}
+
+.btn-white {
+  border: 1.5px solid #ef7225;
+  border-radius: 25px;
+
+  &:hover {
+    background: #ef7225 !important;
+    color: white !important;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .container--main {
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+}
+
+.carrier_code {
+  margin-right: -1px !important;
+}
+
+.custom-mat-icon {
+  font-size: 24px;
+}

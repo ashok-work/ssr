@@ -1,0 +1,34 @@
+.avatar {
+  -webkit-clip-path: circle(50% at 50% 50%);
+  clip-path: circle(50% at 50% 50%);
+  height: 100px;
+  width: 100px;
+  background-size: cover;
+}
+
+.box {
+  position: relative;
+
+  &:hover {
+    .edit {
+      opacity: 1;
+    }
+  }
+
+  .edit {
+    position: absolute;
+    right: -7px;
+    top: 59px;
+    background-color: orange;
+    padding: 3px 6px;
+    border-radius: 50px;
+    cursor: pointer;
+    opacity: 0.0;
+  }
+}
+
+
+input#photoFile {
+  visibility: hidden;
+  width: 0px;
+}

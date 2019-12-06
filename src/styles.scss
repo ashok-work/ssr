@@ -1,0 +1,415 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "assets/fonts.css";
+@import '~@ngx-share/button/themes/circles/circles-light-theme.css';
+@import '~ngx-bar-rating/themes/br-default-theme';
+@import "theme.variables.scss";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+$primary: #fe6e33;
+
+/*
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+.mat-button-wrapper,
+.mat-menu-item {
+  font-family: 'MarkOT', sans-serif !important;
+}
+*/
+
+html,
+body {
+  height: 100vh;
+
+}
+
+body {
+  margin: 0;
+}
+
+ion-toast {
+  position: fixed;
+}
+
+.mat-primary .mat-pseudo-checkbox-checked,
+.mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: rgb(254, 110, 51);
+}
+
+.text-primary,
+.text-default {
+  color: #282828 !important;
+}
+
+
+.step1--list * {
+
+  .mat-list-text {
+    color: #B6B6B4 !important;
+    font-weight: 500 !important;
+  }
+
+}
+
+//used for create space
+.mat-header-cell {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.mat-tab-header {
+  height: 0px;
+}
+
+.mat-tab-body-content {
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+}
+
+.addSpace--sideImage {
+  height: 95vh;
+  max-width: 48vw;
+  object-fit: cover;
+  align-self: flex-end;
+}
+
+.main-content-height {
+  height: 80vh !important;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    /* remove scrollbar space */
+    background: transparent;
+    /* optional: just make scrollbar invisible */
+  }
+
+  /* optional: show position indicator in red */
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+}
+
+//basic details component in create space
+mat-ink-bar {
+  background-color: transparent !important;
+  visibility: hidden;
+  display: none;
+}
+
+mat-ink-bar,
+.mat-tab-labels,
+mat-tab-header {
+  visibility: hidden;
+}
+
+.mat-primary .mat-pseudo-checkbox-indeterminate,
+.mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate,
+.mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-indeterminate {
+  background: rgb(254, 110, 51);
+}
+
+.material-icons {
+  font-size: 20px;
+}
+
+.nowrap {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.mat-toolbar-single-row {
+  height: 55px !important;
+}
+
+//color is light-grey.for light text xolor
+.lite-color {
+  color: rgb(99, 99, 99) !important;
+}
+
+.lighter-color {
+  color: rgb(145, 144, 144) !important;
+}
+
+.menu--200 {
+  width: 200px !important;
+
+  .mat-menu-panel {
+    width: 200px !important;
+  }
+}
+
+.mat-toolbar.mat-primary {
+  background: $primary !important;
+}
+
+.mat-pseudo-checkbox-checked::after {
+  top: 2.4px !important;
+  left: 1px !important;
+  width: 10px !important;
+  height: 5px !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 0px !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0px !important;
+}
+
+mat-spinner {
+  width: 64px !important;
+  height: 64px !important;
+
+  svg {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+.cdk-global-overlay-wrapper {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .mat-menu-panel {
+    max-width: 80vh !important;
+    width: 90vw;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .mat-menu-panel {
+    max-width: 80vh !important;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .mat-menu-panel {
+    max-width: 80vh !important;
+  }
+}
+
+
+.mat-chip.mat-standard-chip {
+  background-color: white;
+  border: .4px solid lightgray;
+}
+
+
+.bg-default {
+  background-color: rgb(254, 110, 51) !important;
+}
+
+.default-text {
+  color: rgb(254, 110, 51) !important;
+}
+
+.app-container {
+  // margin-top: 55px;
+  background-color: #F8F7FA;
+  min-height: 100%;
+}
+
+.stepBarClass {
+  width: 90%;
+  height: 10px;
+  background: lightgray;
+  border-radius: 5px;
+}
+
+.stepSliderClass {
+  width: 20px;
+  height: 20px;
+  background: lightgray;
+  border-radius: 50%;
+  border: 1px solid royalblue;
+  bottom: -50% !important;
+}
+
+.stephighlightClass {
+  background: royalblue;
+}
+
+.large-text {
+  font-size: large;
+}
+
+.larger-text {
+  font-size: larger;
+}
+
+.x-large-text {
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.xx-large-text {
+  font-size: xx-large;
+}
+
+.btn-primary {
+  background-color: #fe6e33 !important;
+}
+
+.btn {
+  border-radius: 50px;
+  border: none;
+  min-width: 150px;
+}
+
+
+a {
+  color: #fe6e33 !important;
+  font-weight: 500 !important;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+.sharp-corners {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.big-box {
+  height: calc(2.75rem + 2px) !important;
+}
+
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: #ced4da !important;
+}
+
+.custom-bg-warning {
+  background-color: #ffce4b !important;
+}
+
+.container--main {
+  padding-top: 3rem;
+}
+
+.h--95 {
+  min-height: 95vh;
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  &.darker-backdrop {
+    background: #000;
+    opacity: 0.97 !important;
+  }
+
+  &.custom-backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.cdk-overlay-container {
+  z-index: 2000;
+
+  .cover-photos-dialog {
+    .mat-dialog-container {
+      background: transparent;
+    }
+  }
+}
+
+
+.custom-dropdown {
+  .mat-menu-panel {
+    max-width: unset;
+    width: 300px !important;
+    min-width: unset;
+  }
+}

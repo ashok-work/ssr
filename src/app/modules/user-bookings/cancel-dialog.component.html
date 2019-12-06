@@ -1,0 +1,10 @@
+<h3 mat-dialog-title align="center">Are you sure?</h3>
+<mat-dialog-content align="center">
+  <h6>Refund Amount: {{ (this.refundAmount | currencyFilter) }}</h6>
+  <h6>Cancellation Policy: {{ policy.title }}</h6>
+  <p>{{ policy.desc }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button (click)="close()">No, go back</button>
+  <button mat-raised-button class="mr-1 bg-default text-white" (click)="save()">Yes, I'm sure</button>
+</mat-dialog-actions>

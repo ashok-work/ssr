@@ -1,0 +1,79 @@
+<div class="container-fluid app-container">
+  <div class="container pt-5">
+    <div class="row mb-4">
+      <div class="col d-flex align-items-center">
+        <h3 class="text-default font-heavy mb-0">Favorites</h3>
+      </div>
+      <div class="col d-flex justify-content-end">
+        <!-- <input type="text" class="form-control br-10 list-name" [(ngModel)]="listName" placeholder="Create new list"> -->
+        <button type="button" class="btn btn-primary blue-button br-10 font-heavy px-3" (click)="openAddDialog()">
+          + Create New List
+        </button>
+      </div>
+    </div>
+    <div class="row justify-content-center justify-content-md-start pb-4">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 col-10 my-3"
+        *ngFor="let wishlist of wishlists | paginate: { itemsPerPage: 10, currentPage: page + 1, totalItems: totalWishlists}; let i=index">
+        <mat-card class="list-card">
+          <!-- <mat-card-header (click)="openDialog(wishlist, i)">
+            <mat-card-title class="text-truncate font-heavy">{{wishlist.listing_name}}</mat-card-title>
+          </mat-card-header> -->
+          <img mat-card-image *ngIf="!wishlist.images || wishlist.images.length==0"
+            (click)="navigateToDetails(wishlist)" src="assets/images/default_space.jpg" alt="Photo of a Shiba Inu">
+          <div mat-card-image class="embed-responsive embed-responsive-15by10"
+            *ngIf="wishlist.images && wishlist.images.length>0" (click)="navigateToDetails(wishlist)">
+            <img class="centered-image" [src]="wishlist.images[0]['Location']" alt="Photo of a Shiba Inu">
+          </div>
+          <!-- <mat-card-content (click)="openDialog(wishlist, i)">
+            <p *ngIf="wishlist.spaces!=null && wishlist.spaces.length>0">{{wishlist.spaces.length}} SPACES</p>
+            <p *ngIf="wishlist.spaces==null || wishlist.spaces.length==0">NO SPACES ADDED</p>
+          </mat-card-content> -->
+          <div class="floating-title">
+            <h6 class="text-white text-truncate font-black mb-1 fs-18">{{wishlist.listing_name}}</h6>
+            <p class="text-white font-black mb-0" *ngIf="wishlist.spaces!=null && wishlist.spaces.length>1">
+              {{wishlist.spaces.length}} spaces</p>
+            <p class="text-white font-black mb-0" *ngIf="wishlist.spaces!=null && wishlist.spaces.length==1">
+              {{wishlist.spaces.length}} space</p>
+          </div>
+          <div class="floating-actions">
+            <span class="h5 d-block mb-2 text-white font-heavy" (click)="openEditDialog(wishlist, i)">
+              <i class="fas fa-pencil-alt"></i>
+            </span>
+            <span class="h5 d-block text-white font-heavy" (click)="openDeleteDialog(wishlist.listing_id, i)">
+              <i class="far fa-trash-alt"></i>
+            </span>
+          </div>
+          <!-- <mat-card-actions>
+            <div class="row no-gutters">
+              <div class="col-12 d-flex justify-content-center" *ngIf="editing[wishlist.listing_id]">
+                <input type="text" class="form-control br-10 list-name" [(ngModel)]="newName"
+                  placeholder="Rename this list">
+                <button type="button" class="btn btn-primary blue-button br-10 font-heavy px-3 ml-2"
+                  (click)="editList(wishlist.listing_id, i)">
+                  Save
+                </button>
+              </div>
+              <div class="col-2">
+                <button mat-icon-button (click)="editing[wishlist.listing_id]=!editing[wishlist.listing_id]">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+              <div class="col-2 offset-8 text-right">
+                <button mat-icon-button (click)="deleteList(wishlist.listing_id, i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-card-actions> -->
+        </mat-card>
+      </div>
+    </div>
+    <div class="pb-4" *ngIf="totalWishlists > 0">
+      <pagination-controls (pageChange)="getWishlists($event-1)" [autoHide]="false" [responsive]="true">
+      </pagination-controls>
+    </div>
+    <div class="pb-4" *ngIf="totalWishlists == 0">
+      You haven't created any lists yet. Create a new list to save your favorite spaces.
+    </div>
+  </div>
+</div>

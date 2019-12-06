@@ -1,0 +1,136 @@
+<div class="container-fluid" id="custom-container">
+  <div class="row mt-5">
+    <div class="col"></div>
+    <div class="col-12 col-sm-11 col-md-10">
+      <h4 class="text-default font-heavy">{{bookingService.spaceBookingDetails.name}}</h4>
+      <p class="text-default font-roman">{{bookingService.spaceBookingDetails.address.city}}</p>
+      <div>
+        <!-- <ng-container *ngIf="bookingService.spaceBookingDetails.overall_ratings==null">
+          <app-start-rating rating=0></app-start-rating>
+          <span class="font-roman text-default">&nbsp;&nbsp;0 reviews</span>
+        </ng-container> -->
+        <ng-container *ngIf="bookingService.spaceBookingDetails.overall_ratings!=null">
+          <app-start-rating [rating]="bookingService.spaceBookingDetails.overall_ratings.overall_rating">
+          </app-start-rating>
+          <span class="font-roman text-default">
+            &nbsp;&nbsp;{{ bookingService.spaceBookingDetails.overall_ratings.total_reviews }} reviews
+          </span>
+        </ng-container>
+      </div>
+
+      <div class="mt-5">
+        <h5 class="text-default font-heavy">Catering Menu</h5>
+        <mat-divider></mat-divider>
+        <div class="row">
+          <div class="col-12 col-lg-7 col-xl-8">
+            <div class="mt-4">
+              <h6 class="grey-text font-heavy mb-1">CATERING PACKAGES</h6>
+              <p class="grey-text small-text" *ngIf="!bookingService.spaceBookingDetails.allow_multiple_catering_packages">
+                *A maximum of 1 catering package can be selected per booking.
+              </p>
+              <div class="row">
+                <div class="col-6 mb-2" *ngFor="let package of catering_packages" (click)="openPackageDialog(package)">
+                  <div class="card menu-card br-6 p-3 grey-border-imp bw-2 cursor-pointer">
+                    <div class="d-flex justify-content-between">
+                      <h6 class="blue-text font-heavy text-truncate">
+                        {{package.category | titlecase}}
+                      </h6>
+                      <p class="orange-text font-heavy mb-0">{{package.price | currencyFilter}}</p>
+                    </div>
+                    <mat-divider class="grey-border mb-3 mt-1 w-100"></mat-divider>
+                    <p class="text-default font-roman mb-1">{{package.description}}</p>
+                    <p class="grey-text font-heavy mb-1" *ngIf="package.min_quantity">Min order:
+                      {{package.min_quantity}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngFor="let category of categories">
+              <h6 class="grey-text font-heavy mb-2 mt-4" *ngIf="category.items.length">{{category.category | uppercase}}
+              </h6>
+              <div class="row">
+                <div class="col-6 mb-2" *ngFor="let item of category.items" (click)="openItemDialog(item)">
+                  <div class="card menu-card br-6 p-3 grey-border-imp bw-2 cursor-pointer">
+                    <div class="d-flex justify-content-between">
+                      <h6 class="blue-text font-heavy text-truncate">
+                        {{item.name | titlecase}}
+                      </h6>
+                      <p class="orange-text font-heavy mb-0">{{item.price | currencyFilter}}</p>
+                    </div>
+                    <mat-divider class="grey-border mb-3 mt-1 w-100"></mat-divider>
+                    <p class="text-default font-roman mb-1">{{item.description}}</p>
+                    <p class="grey-text font-heavy mb-1" *ngIf="item.min_quantity">Min order: {{item.min_quantity}}</p>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="col-12 col-lg-5 col-xl-4">
+            <h6 class="grey-text font-heavy mt-4">CART</h6>
+            <div class="card p-3 grey-border-imp br-6 bw-2 cart">
+              <ng-container *ngIf="cart.length <= 0">
+                <img id="cart-image" class="mt-4" src="assets/images/cart.png">
+                <p class="grey-text font-roman mt-4 mb-2 text-center">Your cart is empty</p>
+                <p class="grey-text font-roman mb-0 text-center">Click a menu item to start your order</p>
+                <button type="button" [disabled]="bookingService.currentBookingInfo.catering_mandatory"
+                  class="btn btn-primary blue-button br-10 font-heavy mt-4" (click)="submit()">
+                  Checkout&nbsp;&nbsp;
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+              </ng-container>
+              <ng-container *ngIf="cart.length > 0">
+                <div *ngFor="let item of cart; let i=index;">
+                  <div class="d-flex justify-content-between">
+                    <span class="text-default font-roman" *ngIf="item.item.hasOwnProperty('name')">
+                      {{item.item.name | titlecase}}:
+                    </span>
+                    <span class="text-default font-roman" *ngIf="item.item.hasOwnProperty('category')">
+                      {{item.item.category | titlecase}}:
+                    </span>
+                    <span class="text-default font-roman">{{item.price | currencyFilter}}</span>
+                  </div>
+                  <div class="text-default font-roman">
+                    {{item.item.price | currencyFilter}} x {{item.quantity}}
+                  </div>
+                  <div class="orange-text font-roman small-text mb-3 cursor-pointer" (click)="removeFromCart(i)">
+                    Remove
+                  </div>
+                </div>
+                <mat-divider class="mt-2 mb-3"></mat-divider>
+                <div class="d-flex justify-content-between">
+                  <span class="text-default font-roman">Total:</span>
+                  <span class="text-default font-roman big-p">{{total_price | currencyFilter}}</span>
+                </div>
+                <div class="d-flex justify-content-between mt-2" *ngIf="this.discount > 0">
+                  <span class="text-default font-roman">Discount
+                    ({{this.bookingService.spaceBookingDetails?.discount}}%):</span>
+                  <span class="text-default font-roman big-p">-{{discount | currencyFilter}}</span>
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                  <span class="text-default font-roman">Grand Total:</span>
+                  <span class="text-default font-roman big-p">{{total_price_after_discount | currencyFilter}}</span>
+                </div>
+                <button type="button" class="btn btn-primary blue-button br-10 font-heavy mt-4" disabled *ngIf="bookingService.spaceBookingDetails.catering_mandatory && (total_price <
+                    bookingService.spaceBookingDetails.min_catering_amount)">
+                  Checkout&nbsp;&nbsp;
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+                <button type="button" *ngIf="!bookingService.spaceBookingDetails.catering_mandatory || (total_price >=
+                  bookingService.spaceBookingDetails.min_catering_amount)"
+                  class="btn btn-primary blue-button br-10 font-heavy mt-4" (click)="submit()">
+                  Checkout&nbsp;&nbsp;
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+                <span class="grey-text font-roman fs-14 text-center"
+                  *ngIf="total_price < bookingService.spaceBookingDetails.min_catering_amount">
+                  Minimum purchase: {{bookingService.spaceBookingDetails.min_catering_amount | currencyFilter}}
+                </span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

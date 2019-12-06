@@ -1,0 +1,17 @@
+<h3 mat-dialog-title>Price (per hour)</h3>
+<mat-dialog-content>
+    <ion-list class="col-lg-9">
+        <ion-item>
+            <ion-range dualKnobs="true" [min]="min" [max]="max" [(ngModel)]="priceRange" step="50" snaps="true" cdkFocusInitial>
+                <ion-label slot="start"> {{min}} </ion-label>
+                <ion-label slot="end">{{max}}</ion-label>
+            </ion-range>
+        </ion-item>
+    </ion-list>    
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="clearfix w-100">
+        <button mat-button (click)="clear()">Clear</button>
+        <button mat-raised-button class="mr-1 btn btn-warning cstm-btn sharp-corners float-right"(click)="save()">Apply</button>
+    </div>
+</mat-dialog-actions>

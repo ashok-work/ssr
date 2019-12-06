@@ -1,0 +1,12 @@
+<div class="toolbar" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+</div>
+<carousel>
+    <slide *ngFor="let photo of photos">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 embed-responsive embed-responsive-21by9">
+                <img class="embed-responsive-item" [src]="photo.Location" alt="Photo of a Shiba Inu">
+            </div>
+        </div>
+    </slide>
+</carousel>

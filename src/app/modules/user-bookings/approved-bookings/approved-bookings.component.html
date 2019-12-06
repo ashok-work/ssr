@@ -1,0 +1,112 @@
+<div class="card br-6 mb-3 grey-border-imp">
+  <div class="card-body d-none d-md-block">
+    <div *ngFor="let booking of bookings | paginate: { itemsPerPage: 10, currentPage: page + 1, totalItems: totalBookings};
+      let i=index">
+      <div class="row no-gutters">
+        <div class="col-12 d-flex justify-content-between">
+          <h5 class="blue-text font-heavy">{{ booking.name }}</h5>
+          <!-- <p class="blue-text font-roman cursor-pointer">Send a message</p> -->
+        </div>
+        <div class="col-12 mt-2 row no-gutters">
+          <div class="col">
+            <p class="fs-14 text-default font-heavy mb-1">Host</p>
+            <p class="font-heavy blue-text fs-14">{{ booking.host_name }}</p>
+          </div>
+          <div class="col">
+            <p class="fs-14 text-default font-heavy text-center mb-1">Start Date & Time</p>
+            <p class="text-center fs-14 text-default font-roman">{{ booking.event_start_date | date:'MMM d' }} at
+              {{ booking.event_start_date | date: 'h:mm a' }}</p>
+          </div>
+          <div class="col">
+            <p class="fs-14 text-default font-heavy text-center mb-1">End Date & Time</p>
+            <p class="text-center fs-14 text-default font-roman">{{ booking.event_end_date | date:'MMM d' }} at
+              {{ booking.event_end_date | date: 'h:mm a' }}</p>
+          </div>
+          <div class="col">
+            <p class="fs-14 text-default font-heavy text-center mb-1">Guest Count</p>
+            <p class="text-center fs-14 text-default font-roman">{{ booking.guests }}</p>
+          </div>
+          <div class="col">
+            <p class="fs-14 text-default font-heavy text-center mb-1">Rental Price</p>
+            <p class="text-center fs-14 text-default font-roman">{{ booking.total_amount | currencyFilter }}</p>
+          </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center mt-2">
+          <button mat-flat-button color="primary" class="bg-blue-imp br-10 mr-3 fs-16"
+            (click)="navigateToInvites('create-invitation')">Create Event</button>
+          <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 mr-3 fs-16"
+            (click)="showBookingDetails(booking.booking_id)">
+            View Transaction
+          </button>
+          <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 fs-16"
+            (click)="openCancelDialog(booking.booking_id, booking.cancellation_policy, i)">Cancel Request</button>
+        </div>
+      </div>
+      <mat-divider *ngIf="i<bookings.length-1" class="my-4 grey-border"></mat-divider>
+    </div>
+    <p *ngIf="bookings.length <= 0" class="text-center font-roman mb-0">
+      You have no approved requests
+    </p>
+  </div>
+  <div class="card-body d-md-none">
+    <mat-accordion>
+      <mat-expansion-panel
+        *ngFor="let booking of bookings | paginate: { itemsPerPage: 10, currentPage: page + 1, totalItems: totalBookings}; let i=index">
+        <mat-expansion-panel-header>
+          <div class="row no-gutters w-100">
+            <div class="col-12 col-sm-6 d-flex justify-content-start">
+              <p class="font-roman text-default text-truncate mb-0">{{ booking.name }}</p>
+            </div>
+            <div class="col-6 d-none d-sm-flex justify-content-end pr-3">
+              <p class="font-roman blue-text mb-0">{{ booking.total_amount | currencyFilter }}</p>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">Host: </span>
+            <span class="fs-16 font-roman">{{booking.host_name}}</span>
+          </div>
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">Start Date & Time: </span>
+            <span class="fs-16 font-roman">{{ booking.event_start_date | date:'MMM d' }} at
+              {{ booking.event_start_date | date: 'h:mm a' }}</span>
+          </div>
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">End Date & Time: </span>
+            <span class="fs-16 font-roman">{{ booking.event_end_date | date:'MMM d' }} at
+              {{ booking.event_end_date | date: 'h:mm a' }}</span>
+          </div>
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">Guest Count: </span>
+            <span class="fs-16 font-roman">{{booking.guests}}</span>
+          </div>
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">Rental Price: </span>
+            <span class="fs-16 font-roman">{{ booking.total_amount | currencyFilter }}</span>
+          </div>
+          <div class="col-12 text-center mt-2">
+            <button mat-flat-button color="primary" class="bg-blue-imp br-10 mr-sm-3 fs-16"
+              (click)="navigateToInvites('create-invitation')">Create Event</button>
+            <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 mr-sm-3 fs-16"
+              (click)="showBookingDetails(booking.booking_id)">
+              View Transaction
+            </button>
+            <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 fs-16"
+              (click)="openCancelDialog(booking.booking_id, booking.cancellation_policy, i)">Cancel Request</button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <p *ngIf="bookings.length <= 0" class="text-center font-roman mb-0">
+      You have no approved requests
+    </p>
+  </div>
+</div>
+<!-- <pagination [boundaryLinks]="true" *ngIf="totalBookings > 10" [totalItems]="totalBookings"
+  previousText="<i class='fas fa-angle-left'></i>" nextText="<i class='fas fa-angle-right'></i>"
+  firstText="<i class='fas fa-angle-double-left'></i>" lastText="<i class='fas fa-angle-double-right'></i>"
+  pageBtnClass="spaces-pagination" [maxSize]="5" (pageChanged)="getApprovedBookings($event.page-1)">
+</pagination> -->
+<pagination-controls (pageChange)="getApprovedBookings($event-1)" autoHide="true" [responsive]="true">
+</pagination-controls>

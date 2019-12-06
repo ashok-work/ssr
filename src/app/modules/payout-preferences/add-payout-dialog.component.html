@@ -1,0 +1,66 @@
+<h3 mat-dialog-title align="center" *ngIf="!updateFlag">
+  Add Payout
+  <span class="toolbar" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </span>
+</h3>
+<h3 mat-dialog-title align="center" *ngIf="updateFlag">
+  Update Payout
+  <span class="toolbar" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </span>
+</h3>
+<mat-dialog-content [formGroup]="payoutForm" class="payout-form">
+  <div class="input-field-section">
+    <div class="label p-0">Nickname</div>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="title" placeholder="Give a nickname for this payout method">
+    </mat-form-field>
+  </div>
+  <div class="input-field-section">
+    <div class="label p-0">Name of the Bank</div>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="bank_name">
+    </mat-form-field>
+  </div>
+  <div class="input-field-section">
+    <div class="label p-0">Account Name</div>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="account_name" placeholder="Full name of the account holder">
+    </mat-form-field>
+  </div>
+  <div class="input-field-section">
+    <div class="label p-0">Account Number</div>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="account_number">
+    </mat-form-field>
+  </div>
+  <div class="input-field-section">
+    <div class="label p-0">IFSC code</div>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="ifsc_code">
+    </mat-form-field>
+  </div>
+  <div class="input-field-section">
+    <div class="label p-0">PAN Number</div>
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="pan" placeholder="Your 10-digit PAN number">
+    </mat-form-field>
+  </div>
+  <div class="input-field-section">
+    <div class="label p-0">Account Type</div>
+    <mat-form-field appearance="outline">
+      <mat-select placeholder="Current or Savings" formControlName="account_type">
+        <mat-option value='Current'>Current</mat-option>
+        <mat-option value='Savings'>Savings</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <!-- <button mat-button (click)="close()">Close</button> -->
+  <button mat-raised-button color="primary" class="blue-button btn-extra-wide mb-2" *ngIf="!updateFlag"
+    (click)="save()">Save</button>
+  <button mat-raised-button color="primary" class="blue-button btn-extra-wide mb-2" *ngIf=" updateFlag"
+    (click)="update()">Update</button>
+</mat-dialog-actions>

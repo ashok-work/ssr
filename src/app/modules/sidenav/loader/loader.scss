@@ -1,0 +1,143 @@
+/*
+.loader {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  box-shadow: 4px 4px 10px 5px #ccc;
+  .loader-container {
+    position: absolute; 
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    background: rgba(255, 255, 255, 1);
+    width: 72px;
+    height: 72px;
+    border-radius: 2px;
+    box-shadow: 4px 4px 10px 5px rgba(0, 0, 0, 0.2);
+    ion-spinner {
+      top: 20px;
+      left: 20px;
+    }
+  }
+}
+*/
+/*
+.loading {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: visible;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+*/
+
+/* Transparent Overlay */
+/*
+.loading:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+*/
+
+/* :not(:required) hides these rules from IE9 and below */
+/*
+.loading:not(:required) {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+ion-spinner {
+  width: 42px;
+  height: 42px;
+  position: relative;
+  top: 4px;
+}
+
+.loading-container {
+    padding: 10px;
+    background: rgba(255, 255, 255, 1);
+    width: 72px;
+    height: 72px;
+    text-align: center;
+    border-radius: 2px;
+    box-shadow: 4px 4px 10px 5px rgba(0, 0, 0, 0.2);
+}
+*/
+
+$len: 300px;
+$time: 3000ms;
+
+.loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  svg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}
+
+#infinity-outline {
+  fill: transparent;
+  stroke-width: 4;
+  stroke: #f36f38;
+  stroke-dasharray: $len*0.01, $len;
+  stroke-dashoffset: 0;
+  animation: anim $time linear infinite;
+}
+
+#infinity-bg {
+  fill: transparent;
+  stroke-width: 4;
+  stroke: #424242;
+  opacity: 0.2;
+}
+
+@keyframes anim {
+  12.5% {
+    stroke-dasharray: $len*0.14, $len;
+    stroke-dashoffset: -$len*0.11;
+  }
+
+  43.75% {
+    stroke-dasharray: $len*0.35, $len;
+    stroke-dashoffset: -$len*0.35;
+  }
+
+  100% {
+    stroke-dasharray: $len*0.01, $len;
+    stroke-dashoffset: -$len*0.99;
+  }
+}

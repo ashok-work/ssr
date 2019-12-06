@@ -1,0 +1,20 @@
+<div class="mb-3">
+  <mat-icon (click)="close()" class="mat-elevation-z2 rounded-circle grey-text cursor-pointer">clear</mat-icon>
+</div>
+<h4 class="font-heavy text-default">{{item.name}}</h4>
+<p class="text-default font-roman mb-0">{{item.price | currencyFilter}} / person, min {{item.min_quantity}} people
+</p>
+<mat-dialog-content>
+  <p class="text-default font-roman mt-2">{{item.description}}</p>
+  <div class="my-3">
+    <p class="grey-text font-heavy mb-1">ENTER NO OF PEOPLE</p>
+    <input type="number" [min]="item.min_quantity" (focusout)="checkMinQuantity()" (keyup)="calculatePrice()"
+      class="form-control br-10" [(ngModel)]="quantity">
+    <span class="text-danger pt-1 mb-0" *ngIf="!total_price">The min quantity for this item is
+      {{item.min_quantity}}</span>
+  </div>
+</mat-dialog-content>
+<button *ngIf="total_price" type="button" class="btn btn-primary col-12 blue-button br-10 font-heavy w-100"
+  (click)="submit()">
+  Add to Cart ({{total_price | currencyFilter}})
+</button>

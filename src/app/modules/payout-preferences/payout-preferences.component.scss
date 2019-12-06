@@ -1,0 +1,23 @@
+.label {
+  font-size: 13px;
+}
+
+.action-label {
+  color: #0185DE;
+  cursor: pointer;
+}
+
+.blue-button {
+  color: #0185DE;
+
+  &.mat-primary {
+    color: white;
+    background-color: #0185DE;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .actions {
+    justify-content: start !important;
+  }
+}

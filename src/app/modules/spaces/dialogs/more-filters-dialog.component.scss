@@ -1,0 +1,12 @@
+.btn.cstm-btn {
+  border: 1.5px solid #ced4da;
+  width: auto;
+  font-weight: 500;
+  height: calc(2.75rem + 2px);
+  min-width: 120px;
+}
+
+/deep/ .small-ripple.mat-checkbox .mat-checkbox-ripple {
+  height: 20px;
+  width: 20px;
+}

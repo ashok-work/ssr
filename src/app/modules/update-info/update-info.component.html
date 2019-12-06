@@ -1,0 +1,279 @@
+<div class="container-fluid app-container">
+  <div class="container pt-5">
+    <div class="mb-4">
+      <h3 class="text-default font-heavy mb-0">Update Space Info</h3>
+    </div>
+    <div class="row no-gutters justify-content-center pb-4" *ngIf="renderUI">
+      <div class="col-12" [formGroup]="spaceForm">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h6 class="font-heavy text-default mb-0">Operating Hours</h6>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="d-flex justify-content-center">
+              <div class="input-field-section op-hours row no-gutters" *ngIf="this.operating_hours.length">
+                <ng-container *ngFor="let operating_hour of operating_hours; let i = index">
+                  <div class="col-12 py-3 dayOfWeek row no-gutters">
+                    <span class="col-6">{{ days[i] }}</span>
+                    <mat-slide-toggle color="warn" [checked]="operating_hour['isOpen']"
+                      (change)="toggleAvailability($event, i)" class="custom-toggle col">
+                      {{ operating_hour['isOpen'] ? 'Open' : 'Closed' }}
+                    </mat-slide-toggle>
+                  </div>
+                  <div class="col-12 mt-3 day-details row no-gutters" *ngIf="operating_hour['isOpen']">
+                    <mat-radio-group class="col-12 row no-gutters" (change)="toggleTimes($event, i)"
+                      aria-label="Select an option">
+                      <mat-radio-button class="col-6" [checked]="operating_hour['allDay']" color="warn" value="1">
+                        All day (24 hrs)
+                      </mat-radio-button>
+                      <mat-radio-button class="col-6" [checked]="!operating_hour['allDay']" color="warn" value="2">
+                        Set hours
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <div class="mb-4 mt-2 row no-gutters" *ngIf="!operating_hour['allDay']">
+                      <div class="col-12 row no-gutters" *ngFor="let hour of operating_hour['hours']; let j=index">
+                        <div class="col-12 row no-gutters">
+                          <div class="col-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-select [compareWith]="compareTimeObj" [(ngModel)]="hour['start_time']"
+                                placeholder="Start Time" [ngModelOptions]="{standalone: true}">
+                                <ng-container *ngFor="let timing of timings">
+                                  <mat-option *ngIf="timing.text != '11:59 PM'" [value]="timing">
+                                    {{timing.text}}
+                                  </mat-option>
+                                </ng-container>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-6">
+                            <mat-form-field appearance="outline" class="w-100">
+                              <mat-select [compareWith]="compareTimeObj" [(ngModel)]="hour['end_time']"
+                                placeholder="End Time" [ngModelOptions]="{standalone: true}">
+                                <mat-option *ngFor="let timing of timings" [value]="timing">
+                                  {{timing.text}}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-6 orange-text small-text cursor-pointer" (click)="addOperatingHours(i)">Add</div>
+                      <div class="col-6 text-right orange-text small-text cursor-pointer"
+                        (click)="removeOperatingHours(i)">
+                        Remove
+                      </div>
+                    </div>
+                  </div>
+                  <mat-divider class="col-12"></mat-divider>
+                </ng-container>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h6 class="font-heavy text-default mb-0">Set your price</h6>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="spaceForm.value.catering_available">
+              <div class="label p-0 font-roman mb-2">
+                Do you require a minimum purchase of food and/or drinks to book the space?
+              </div>
+              <mat-radio-group formControlName="catering_mandatory" color="warn" (change)="checkCatering($event)">
+                <mat-radio-button class="mr-3" [checked]="spaceForm.value.catering_mandatory" value="true">Yes
+                </mat-radio-button>
+                <mat-radio-button [checked]="!spaceForm.value.catering_mandatory" value="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div *ngIf="!spaceForm.value.catering_mandatory">
+              <div class="input-field-section mt-4">
+                <div class="label p-0 font-roman">Hourly Rate*</div>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                      {{ '' | currencyFilter }}
+                    </span>
+                  </div>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput type="number" [min]="0" formControlName="price"
+                      (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+                  </mat-form-field>
+                </div>
+                <div id="price" *ngIf="!spaceForm.value.price" class="red-text small-text d-none">
+                  <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter the price
+                </div>
+              </div>
+            </div>
+            <div *ngIf="spaceForm.value.catering_mandatory">
+              <div class="input-field-section mt-4">
+                <div class="label p-0 font-roman">Minimum amount to spend on food and/or drinks per booking*</div>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                      {{ '' | currencyFilter }}
+                    </span>
+                  </div>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput type="number" [min]="0" formControlName="min_catering_amount"
+                      (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+                  </mat-form-field>
+                </div>
+                <div id="amount" *ngIf="!spaceForm.value.min_catering_amount" class="red-text small-text d-none">
+                  <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter the amount
+                </div>
+              </div>
+            </div>
+            <div class="input-field-section mt-4" *ngIf="!spaceForm.value.catering_mandatory">
+              <div class="label p-0 font-roman">Min. Hours per booking</div>
+              <div class="input-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <input matInput type="number" [min]="0" formControlName="min_hours"
+                    (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+                </mat-form-field>
+                <div class="input-group-append">
+                  <span (click)="decrMinHours()" class="input-group-text bg-white sharp-corners big-box"
+                    id="basic-addon1">
+                    -
+                  </span>
+                </div>
+                <div class="input-group-append">
+                  <span (click)="incrMinHours()" class="input-group-text bg-white sharp-corners big-box"
+                    id="basic-addon1">
+                    +
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="input-field-section mt-4" *ngIf="spaceForm.value.catering_mandatory">
+              <div class="label p-0 font-roman">Included hours with the amount</div>
+              <div class="input-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <input matInput type="number" [min]="0" formControlName="included_hours"
+                    (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+                </mat-form-field>
+                <div class="input-group-append">
+                  <span (click)="decrIncludedHours()" class="input-group-text bg-white sharp-corners big-box"
+                    id="basic-addon1">
+                    -
+                  </span>
+                </div>
+                <div class="input-group-append">
+                  <span (click)="incrIncludedHours()" class="input-group-text bg-white sharp-corners big-box"
+                    id="basic-addon1">
+                    +
+                  </span>
+                </div>
+              </div>
+              <div id="inclHours" *ngIf="!spaceForm.value.included_hours" class="red-text small-text d-none">
+                <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter included hours
+              </div>
+              <div class="small-text orange-text"
+                *ngIf="spaceForm.value.catering_mandatory && spaceForm.value.min_catering_amount && spaceForm.value.included_hours">
+                We estimated that minimum hourly price for your space is
+                {{ (spaceForm.value.min_catering_amount/spaceForm.value.included_hours) | number: '1.0-2' | currencyFilter }}.
+                This amount might go up based on guest’s selection of food and/or drinks.
+              </div>
+            </div>
+            <div class="input-field-section mt-4 row no-gutters">
+              <div class="label p-0 font-roman">Discount (%)</div>
+              <div class="input-group">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <input matInput type="number" [min]="0" formControlName="discount"
+                    (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="input-field-section mt-4 row no-gutters">
+              <div class="label p-0 font-roman">Additional rates, special discounts, or extra fees that are not included
+                in your base rate. (optional)</div>
+              <mat-form-field class="col-12" appearance="outline">
+                <textarea matInput rows="5" formControlName="price_info"></textarea>
+              </mat-form-field>
+              <div class="small-text grey-text p-0 font-roman">e.g. Extra hours, weekend price, cleaning, security, etc…
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h6 class="font-heavy text-default mb-0">Amenities</h6>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="input-field-section row no-gutters">
+              <div class="col-12 mt-2" *ngFor="let amenity of space_info.amenities">
+                <mat-checkbox [checked]="checkAmenities(amenity)" color="warn"
+                  (change)="handleAmenities($event, amenity)">
+                  {{ amenity }}
+                </mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h6 class="font-heavy text-default mb-0">Accessibility</h6>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="input-field-section row no-gutters">
+              <div class="col-12 mt-2" *ngFor="let access of space_info.accessibility">
+                <mat-checkbox [checked]="checkAccessibility(access)" color="warn"
+                  (change)="handleAccessibility($event, access)">{{ access }}</mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h6 class="font-heavy text-default mb-0">Activities</h6>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="input-field-section row no-gutters">
+              <div class="col-12 mt-2" *ngFor="let type of event_types">
+                <mat-checkbox [checked]="checkTypes(type.occasion_id)" color="warn"
+                  (change)="handleTypes($event, type.occasion_id)">{{ type.occasion_name }}</mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h6 class="font-heavy text-default mb-0">Space Rules</h6>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="input-field-section row no-gutters">
+              <div class="col-12 mt-2" *ngFor="let rule of space_info.space_rules">
+                <mat-checkbox [checked]="checkRules(rule)" color="warn" (change)="handleRules($event, rule)">{{ rule }}
+                </mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h6 class="font-heavy text-default mb-0">Cancellation Policy</h6>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="input-field-section">
+              <div class="mt-1">
+                <div *ngFor="let policy of space_info.cancellation_policy; let i=index"
+                  [class]="policy?.selected ? 'option col-12 selected' : 'option col-12'" (click)="selectPolicy(i)">
+                  <h6 class="text-default font-heavy">{{ policy.title }}</h6>
+                  <span class="font-roman">{{ policy.desc }}</span>
+                  <span [class]="policy?.selected ? 'check-icon' : 'check-icon d-none'"><i
+                      class="fas fa-check"></i></span>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-primary blue-button br-10 font-heavy px-3" (click)="submitForm()">
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

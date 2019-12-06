@@ -1,0 +1,46 @@
+<div class="container">
+  <mat-toolbar class="bg-transparent px-0 mx-0">Review House Rules</mat-toolbar>
+  <div class="row">
+    <div class="col-sm-12 col-md-7 col-lg-7">
+      <!-- <h6 class="my-4">1 night in Mountain View</h6> -->
+      <div class="d-flex justify-content-between custm-height">
+        <div *ngIf="this.bookingService.currentBookingInfo" class="dateList mr-4 d-flex align-items-center">
+          <div class="timeBox d-flex align-items-center justify-content-center text-white font-roman">
+            {{this.bookingService.currentBookingInfo.event_start_date | date:'MMM d'}}
+          </div>
+          <p class="ml-3">
+            {{this.bookingService.currentBookingInfo.event_start_date | date:'MMM d, y, h:mm a'}}
+          </p>
+        </div>
+        <div *ngIf="this.bookingService.currentBookingInfo" class="dateList mr-3 d-flex align-items-center">
+          <div class="timeBox d-flex align-items-center justify-content-center text-white font-roman">
+            {{this.bookingService.currentBookingInfo.event_end_date | date:'MMM d'}}
+          </div>
+          <p class="ml-3">
+            {{this.bookingService.currentBookingInfo.event_end_date | date:'MMM d, y, h:mm a'}}
+          </p>
+        </div>
+      </div>
+
+      <div *ngIf="bookingService.spaceBookingDetails.space_rules.length" class="card mt-4">
+        <div class="card-header bg-transparent">Things to keep in Mind</div>
+        <div class="card-body">
+          <mat-list role="list">
+            <mat-list-item *ngFor="let rule of bookingService.spaceBookingDetails.space_rules" role="listitem">
+              {{rule}}
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+
+      <!-- <button class="my-4" [routerLink]="['/acknowledge-guest']" routerLinkActive="router-link-active" mat-flat-button
+        color="warn">Agree and Continue</button> -->
+      <ng-container *ngIf="!(bookingService.spaceBookingDetails.catering_mandatory && !bookingService.spaceBookingDetails.has_menu)">
+        <make-razorpay-payment></make-razorpay-payment>
+      </ng-container>
+    </div>
+    <div class="col-sm-12 col-md-5 col-lg-5">
+      <app-preview-card></app-preview-card>
+    </div>
+  </div>
+</div>

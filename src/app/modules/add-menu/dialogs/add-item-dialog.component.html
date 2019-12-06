@@ -1,0 +1,36 @@
+<div class="mb-3">
+  <mat-icon (click)="close()" class="mat-elevation-z2 rounded-circle grey-text cursor-pointer">clear</mat-icon>
+</div>
+<h4 *ngIf="!item" class="font-heavy text-default">Add Item</h4>
+<h4 *ngIf="item" class="font-heavy text-default">Edit Item</h4>
+<mat-dialog-content>
+  <div class="row">
+    <div class="col-12 mt-3">
+      <p class="text-default font-heavy mb-0">Name of the Item</p>
+      <input type="text" class="form-control br-10" [(ngModel)]="name">
+    </div>
+    <div class="col-12 mt-3">
+      <p class="text-default font-heavy mb-0">Describe the Item</p>
+      <textarea class="form-control br-10" [(ngModel)]="description" rows="5"></textarea>
+    </div>
+    <div class="col-12 mt-3">
+      <p class="text-default font-heavy mb-0">Price of the item per head</p>
+      <div class="inner-addon-group d-flex align-items-center">
+        <span class="inner-addon grey-text"><i class="fas fa-rupee-sign"></i></span>
+        <input type="number" class="form-control br-10" [(ngModel)]="price">
+      </div>
+    </div>
+    <div class="col-12 my-3">
+      <p class="text-default font-heavy mb-0">Min order quantity (assuming 1 unit quantity serves 1 person)</p>
+      <input type="text" class="form-control br-10" [(ngModel)]="min_quantity">
+    </div>
+  </div>
+</mat-dialog-content>
+<button *ngIf="!item" type="button" class="btn btn-primary col-12 blue-button br-10 font-heavy w-100"
+  (click)="addItem()">
+  Save
+</button>
+<button *ngIf="item" type="button" class="btn btn-primary col-12 blue-button br-10 font-heavy w-100"
+  (click)="editItem()">
+  Save
+</button>

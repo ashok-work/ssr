@@ -1,0 +1,36 @@
+<form class="row mt-4 smaller-gutters" [formGroup]="searchForm">
+  <div class="form-group col-12 mb-0">
+    <input type="text" class="form-control br-10" placeholder="What's the occasion?*" formControlName="selectedEvent"
+      [matAutocomplete]="auto1" (keyup)="applyEventsFilter($event.target.value)">
+    <mat-autocomplete #auto1="matAutocomplete" [displayWith]="getOccasionName">
+      <mat-option *ngFor="let event of filteredEvents" [value]="event" (click)="stopPropagation($event)">
+        {{event.occasion_name}}
+      </mat-option>
+      <mat-option (click)="viewAllEvents()" disabled="true">
+        <span class="blue-text cursor-pointer">View all occasions</span>
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+  <div class="errorText col-12 text-danger" *ngIf="showError">Please enter occasion.</div>
+  <div class="mb-3 col-12"></div>
+  <div class="form-group col-12 col-sm-6">
+    <input type="text" class="form-control br-10" placeholder="Where?"
+      (addressChange)="handleAddressChange($event)" placesAutoComplete>
+    <!-- <input type="text" class="form-control br-10" placeholder="Where?" [matAutocomplete]="auto2"
+      formControlName="selectedLocation" (keyup)="applyCityFilter($event.target.value)">
+    <mat-autocomplete #auto2="matAutocomplete">
+      <mat-option *ngFor="let location of filteredCities" [value]="location.city" (click)="stopPropagation($event)">
+        {{location.city}}</mat-option>
+    </mat-autocomplete> -->
+  </div>
+  <div class="form-group col-12 col-sm-6">
+    <input type="text" class="form-control br-10" placeholder="When?" formControlName="selectedDate"
+      [matDatepicker]="myDatepicker" (click)="myDatepicker.open()" [min]="minDate">
+    <mat-datepicker #myDatepicker (opened)="attachListener()"></mat-datepicker>
+  </div>
+  <div class="col-12 text-center mt-3">
+    <button type="button" class="btn btn-primary blue-button br-10 font-heavy" (click)="submitSearch()">
+      Search
+    </button>
+  </div>
+</form>

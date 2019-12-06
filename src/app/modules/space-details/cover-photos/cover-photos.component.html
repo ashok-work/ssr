@@ -1,0 +1,79 @@
+<div class="cover-container container-fluid photos">
+  <div class="btn-group photo-btn share br-6" dropdown placement="bottom right" [insideClick]=true>
+    <button mat-button dropdownToggle class="dropdownToggle share" aria-controls="dropdown-basic">
+      <span class="text-default fs-16 font-roman">
+        <i class="blue-text fas fa-share-alt blue-text"></i> Share
+      </span>
+    </button>
+    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-share py-2" role="menu"
+      aria-labelledby="button-basic">
+      <span (click)="setAnalytic('Facebook')">
+        <share-button button="facebook" theme="circles-light" [showCount]="true"></share-button>
+      </span>
+      <span (click)="setAnalytic('Twitter')">
+        <share-button button="twitter" theme="circles-light" [showCount]="true"></share-button>
+      </span>
+      <span (click)="setAnalytic('Email')">
+        <share-button button="email" theme="circles-light" [showCount]="true"></share-button>
+      </span>
+      <span (click)="setAnalytic('Messenger')">
+        <share-button button="messenger" theme="circles-light" [showCount]="true"></share-button>
+      </span>
+      <span (click)="setAnalytic('CopyLink')">
+        <share-button button="copy" theme="circles-light" [showCount]="true"></share-button>
+      </span>
+    </ul>
+  </div>
+  <button mat-button *ngIf="!space_data.is_fav" class="photo-btn save br-6" (click)="openFavoritesDialog()">
+    <span class="text-default fs-16 font-roman">
+      <i class="blue-text far fa-heart"></i> Save
+    </span>
+  </button>
+  <button mat-button *ngIf="space_data.is_fav" class="photo-btn save br-6" (click)="openFavoritesDialog()">
+    <span class="text-default fs-16 font-roman">
+      <i class="blue-text fas fa-heart"></i> Saved
+    </span>
+  </button>
+  <!-- <div class="btn-group photo-btn save" dropdown #savedropdown="bs-dropdown" placement="bottom right"
+    [insideClick]=true>
+    <button mat-button dropdownToggle class="dropdownToggle save" aria-controls="dropdown-basic"><i
+        class="far fa-heart"></i> Save</button>
+    <div id="dropdown-basic" *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-save px-4 pt-3" role="menu"
+      aria-labelledby="button-basic">
+      <app-favorites [space_id]="space_id"></app-favorites>
+    </div>
+  </div> -->
+  <!-- <button mat-button class="photo-btn save no-border-radius"><i class="far fa-heart"></i> Save</button> -->
+  <button mat-button class="photo-btn view br-6" (click)="openDialog()">
+    <span class="text-default fs-16 font-roman">
+      <i class="blue-text far fa-images"></i> View Photos
+    </span>
+  </button>
+  <div class="row" (click)="openDialog()">
+    <div class="col-lg-12 embed-responsive embed-responsive-25by9 br-6 d-none d-sm-block">
+      <img class="centered-image" [src]="photos | imagesPipe" alt="Photo of a Shiba Inu">
+    </div>
+    <div class="col-lg-12 embed-responsive embed-responsive-16by9 br-6 d-sm-none">
+      <img class="centered-image" [src]="photos | imagesPipe" alt="Photo of a Shiba Inu">
+    </div>
+    <!-- <div class="col-lg-12 embed-responsive embed-responsive-21by9">
+      <img class="embed-responsive-item" [src]="photos[0]['Location']" alt="Photo of a Shiba Inu">
+    </div> -->
+    <!-- <div class="col-lg-6 d-none d-lg-block">
+      <div class="row">
+        <div class="col-md-6 embed-responsive embed-responsive-21by9">
+          <img class="embed-responsive-item" [src]="photos[1]['Location']" alt="Photo of a Shiba Inu">
+        </div>
+        <div class="col-md-6 embed-responsive embed-responsive-21by9">
+          <img class="embed-responsive-item" [src]="photos[2]['Location']" alt="Photo of a Shiba Inu">
+        </div>
+        <div class="col-md-6 embed-responsive embed-responsive-21by9">
+          <img class="embed-responsive-item" [src]="photos[3]['Location']" alt="Photo of a Shiba Inu">
+        </div>
+        <div class="col-md-6 embed-responsive embed-responsive-21by9">
+          <img class="embed-responsive-item" [src]="photos[4]['Location']" alt="Photo of a Shiba Inu">
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

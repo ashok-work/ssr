@@ -1,0 +1,14 @@
+<div class="row no-gutters">
+  <div class="col-12 d-flex justify-content-center align-items-center mb-2">
+    <div class="box">
+      <div [style]="backgroundImageStyle" class="avatar"></div>
+      <!-- <div class="edit">
+      <i class="fas fa-pencil-alt"></i>
+    </div> -->
+    </div>
+  </div>
+  <div class="col-12 d-flex justify-content-center align-items-center">
+    <p (click)="openImageFile()" class="blue-text cursor-pointer font-roman">Change profile picture</p>
+    <input #input_photo type="file" (change)="fileChange($event)" id="photoFile" accept="image/*" />
+  </div>
+</div>

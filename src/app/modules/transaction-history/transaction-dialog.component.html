@@ -1,0 +1,55 @@
+<ng-container *ngIf="details">
+  <h3 mat-dialog-title>Details</h3>
+  <mat-dialog-content>
+    <div class="tile row no-gutters">
+      <div class="col">
+        <span class="h6">{{ date | date:'MMM d, y' }}</span>
+        <span class="p label d-block">{{details['total_count']}} transactions</span>
+      </div>
+      <div class="col d-flex justify-content-end align-items-center text-right">
+        <span class="h6 amount">{{ details['total_settlement_amount'] | currencyFilter }}</span>
+      </div>
+    </div>
+    <mat-divider class="my-4"></mat-divider>
+    <h6 class="info">SUMMARY</h6>
+    <div *ngFor="let transaction of details['items']">
+      <div class="tile row no-gutters mb-3">
+        <div class="col">
+          <span class="h6">{{ transaction['name'] }}</span>
+          <span class="p label d-block">
+            {{transaction['customer']}}, {{transaction['event_start_date'] | date:'MMM d, y'}} -
+            {{transaction['event_end_date'] | date:'MMM d, y'}}
+          </span>
+          <span class="p label d-block">Account ********8901</span>
+          <span class="p label action-label d-block" (click)="navigate(transaction['booking_id'])">
+            View Booking Details
+          </span>
+        </div>
+        <div class="col d-flex justify-content-end align-items-center text-right">
+          <span class="h6 amount">{{ transaction['settlement_amount'] | currencyFilter }}</span>
+        </div>
+      </div>
+    </div>
+    <mat-divider class="my-4"></mat-divider>
+    <h6 class="info">DETAILS</h6>
+    <div class="tile row no-gutters mb-3">
+      <div class="col">
+        <span class="h6">Initiated On</span>
+      </div>
+      <div class="col d-flex justify-content-end align-items-center text-right">
+        <span class="label">{{ date | date:'MMM d, y' }}</span>
+      </div>
+    </div>
+    <div class="tile row no-gutters mb-3">
+      <div class="col">
+        <span class="h6">Estimated Deposit date</span>
+      </div>
+      <div class="col d-flex justify-content-end align-items-center text-right">
+        <span class="label">{{ date | date:'MMM d, y' }}</span>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-button (click)="close()">Close</button>
+  </mat-dialog-actions>
+</ng-container>

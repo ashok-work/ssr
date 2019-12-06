@@ -1,0 +1,54 @@
+<div class="toolbar" (click)="dialogRef.close(wishlist)">
+  <mat-icon>close</mat-icon>
+</div>
+
+<div *ngIf="!loading" class="container-fluid">
+  <div class="row justify-content-center" *ngIf="spaces.length>0">
+    <div class="col-xl-4 col-lg-5 col-md-7 col-sm-9 col-12 my-3" *ngFor="let space of spaces; let i=index">
+      <mat-card class="list-card">
+        <div (click)="navigate(space.space_id)">
+          <h4 class="text-truncate font-heavy">{{ space.name }}</h4>
+          <!-- <mat-card-title *ngIf="space.name.length>21" class="font-heavy">{{ space.name | slice:0:21 }}... -->
+          <!-- </mat-card-title> -->
+        </div>
+        <div mat-card-image (click)="navigate(space.space_id)">
+          <div class="embed-responsive embed-responsive-16by9">
+            <img class="embed-responsive-item" *ngIf="space.images!=null && space.images.length>0"
+              [src]="space.images[0]['Location']" alt="Photo of a Shiba Inu">
+            <img class="embed-responsive-item" *ngIf="space.images==null || space.images.length<=0"
+              src="assets/images/default_space.jpg" alt="Photo of a Shiba Inu">
+          </div>
+        </div>
+        <mat-card-content (click)="navigate(space.space_id)">
+          <h6 *ngIf="space.address && space.address.city">{{ space.address.city }}</h6>
+          <p class="info">
+            <span class="nowrap">${{ space.price }} per hour</span>
+            <span class="px-2"></span>
+            <span class="nowrap"><i class="fa fa-users" aria-hidden="true"></i>{{ space.capacity }}</span>
+          </p>
+          <p>
+            <app-start-rating [rating]="space.rating"></app-start-rating>
+            <span class="d-block">{{ space.reviews }} reviews</span>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="row no-gutters">
+            <div class="col-12 text-center">
+              <button mat-icon-button (click)="deleteSpaceFromList(space.space_id, i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="row h-100 align-items-center" *ngIf="!loading && (!wishlist?.spaces || wishlist?.spaces?.length==0)">
+  <div class="col-12 text-center no-spaces">
+    <span class="h4">No spaces added yet!</span>
+  </div>
+</div>
+<!-- <div *ngIf="loading" class="d-flex justify-content-center h-100 align-items-center">
+  <mat-spinner class="m-0"></mat-spinner>
+</div> -->

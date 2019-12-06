@@ -1,0 +1,22 @@
+<h3 mat-dialog-title>Number of guests</h3>
+<mat-dialog-content>
+    <div class="input-group mb-3 col-lg-8">
+        <input type="number" (keyup)="checkGuestCount()" [(ngModel)]="guestCount" class="form-control sharp-corners big-box" placeholder="45" aria-label="guests" aria-describedby="basic-addon1">
+        <div class="input-group-append">
+            <span (click)="decreaseGuests()" class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                    <mat-icon>remove</mat-icon>
+            </span>
+        </div>
+        <div class="input-group-append">
+            <span (click)="increaseGuests()" class="input-group-text bg-white sharp-corners big-box" id="basic-addon2">
+                <mat-icon>add</mat-icon>
+            </span>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="clearfix w-100">
+        <button mat-button (click)="clear()" class="float-left">Clear</button>
+        <button class="mr-1 btn btn-warning cstm-btn sharp-corners float-right"(click)="save()">Apply</button>
+    </div>
+</mat-dialog-actions>

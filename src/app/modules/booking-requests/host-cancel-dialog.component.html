@@ -1,0 +1,23 @@
+<h3 mat-dialog-title align="center">Are you sure?</h3>
+<mat-dialog-content align="center">
+  <h5>Cancellation policy for hosts</h5>
+  <p class="info">This policy is administered by SurpriseGift. Please read this before you continue.</p>
+  <p class="label">The following fee will be deducted from host’s first payout after a cancellation. The amount deducted
+    will depend on when host accepted the reservation and how soon before check-in host canceled it:</p>
+  <ul>
+    <li class="label">More than 7 days before check-in, we’ll deduct $50 from host next payout</li>
+    <li class="label">Less than 7 days before check-in, we’ll deduct $100 from host next payout</li>
+  </ul>
+  <h6>Account Suspension</h6>
+  <p class="label">If host cancel 3 or more reservations within a year, we may deactivate their listing.
+  </p>
+  <p class="label">Unless there are extenuating circumstances, there will be no exceptions to our updated
+    cancellation policy.</p>
+  <p class="label">In the event of an emergency in your space the day of a booking that would impact the
+    guest's ability to use your space and require rescheduling (such as complications with plumbing or power, unexpected
+    construction, or other extenuating circumstances), please let us know right away.</p>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button (click)="close()">No, go back</button>
+  <button mat-raised-button class="mr-1 bg-default text-white" (click)="save()">Yes, I'm sure</button>
+</mat-dialog-actions>

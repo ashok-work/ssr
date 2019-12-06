@@ -1,0 +1,10 @@
+<div class="embed-responsive embed-responsive-15by10" *ngIf="images && images.length <= 1">
+  <img class="centered-image" [src]="images | imagesPipe" alt="Photo of a Shiba Inu" (click)="showDetails()">
+</div>
+<carousel *ngIf="images && images.length > 1">
+  <slide *ngFor="let image of images">
+    <div class="embed-responsive embed-responsive-15by10">
+      <img class="centered-image" src="{{image.Location}}" alt="Photo of a Shiba Inu" (click)="showDetails()">
+    </div>
+  </slide>
+</carousel>

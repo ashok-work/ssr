@@ -1,0 +1,320 @@
+<div id="phantom"></div>
+<!-- A grey horizontal navbar that becomes vertical on small screens -->
+<nav id="navbar" class="navbar bg-white flex justify-content-between align-items-center border-bottom grey-border-imp px-0 py-0"
+  (scroll)="onWindowScroll($event)">
+  <!-- Brand/logo -->
+  <div *ngIf="promoCodeDesc" id="promo" class="row no-gutters bg-black align-items-center w-100 px-1">
+    <div class="col text-center text-white font-roman py-1" [innerHTML]="promoCodeDesc">
+      <!-- Use code <span class="orange-text">{{promoCode}}</span> to avail zero service fees. Do your bookings now! -->
+    </div>
+    <mat-icon (click)="hidePromo()" class="text-white cursor-pointer op-8">clear</mat-icon>
+  </div>
+  <div class="row no-gutters justify-content-between w-100 px-3 py-2">
+    <div class="col-6 d-flex align-items-center">
+      <button mat-flat-button class="text-default p-0 d-none d-lg-inline" (click)="navigate('Spaces', '/')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="150" viewBox="0 0 322.32 59.04">
+          <defs>
+            <style>
+              .a {
+                fill: #0185de;
+                fill-rule: evenodd;
+              }
+
+              .b {
+                fill: #f36f38;
+              }
+
+            </style>
+          </defs>
+          <title>EL-lowercase-color</title>
+          <path class="a"
+            d="M7.2,33.48a7.3134,7.3134,0,0,0,2.52,5.04,7.8863,7.8863,0,0,0,5.22,1.8,8.5922,8.5922,0,0,0,4.53-1.11,12.558,12.558,0,0,0,3.21-2.79l5.16,3.9a14.6237,14.6237,0,0,1-5.64,4.44,16.616,16.616,0,0,1-6.54,1.32A17.2853,17.2853,0,0,1,9.54,45a14.6789,14.6789,0,0,1-4.98-3.06,14.52,14.52,0,0,1-3.33-4.77A15.2312,15.2312,0,0,1,0,30.96a15.2312,15.2312,0,0,1,1.23-6.21,14.52,14.52,0,0,1,3.33-4.77,14.6789,14.6789,0,0,1,4.98-3.06,17.2853,17.2853,0,0,1,6.12-1.08,13.99,13.99,0,0,1,5.49,1.05,11.7741,11.7741,0,0,1,4.26,3.03,13.9951,13.9951,0,0,1,2.76,4.89,20.7447,20.7447,0,0,1,.99,6.69v1.98Zm14.76-5.4a6.78,6.78,0,0,0-1.98-5.01,7.4266,7.4266,0,0,0-5.34-1.83A6.9956,6.9956,0,0,0,9.51,23.1,8.3006,8.3006,0,0,0,7.2,28.08ZM33.98,16.56h7.86l7.68,20.16h.12l7.74-20.16h7.38L53.42,45.36H45.74Zm42.8,16.92a7.3134,7.3134,0,0,0,2.52,5.04,7.8863,7.8863,0,0,0,5.22,1.8,8.5922,8.5922,0,0,0,4.53-1.11,12.558,12.558,0,0,0,3.21-2.79l5.16,3.9a14.6237,14.6237,0,0,1-5.64,4.44,16.616,16.616,0,0,1-6.54,1.32A17.2853,17.2853,0,0,1,79.12,45a14.6789,14.6789,0,0,1-4.98-3.06,14.52,14.52,0,0,1-3.33-4.77,15.2312,15.2312,0,0,1-1.23-6.21,15.2312,15.2312,0,0,1,1.23-6.21,14.52,14.52,0,0,1,3.33-4.77,14.6789,14.6789,0,0,1,4.98-3.06,17.2853,17.2853,0,0,1,6.12-1.08,13.99,13.99,0,0,1,5.49,1.05,11.7741,11.7741,0,0,1,4.26,3.03,13.9951,13.9951,0,0,1,2.76,4.89,20.7447,20.7447,0,0,1,.99,6.69v1.98Zm14.76-5.4a6.78,6.78,0,0,0-1.98-5.01,7.4266,7.4266,0,0,0-5.34-1.83,6.9956,6.9956,0,0,0-5.13,1.86,8.3006,8.3006,0,0,0-2.31,4.98Zm15.92-11.52h6.84v4.62h.12a10.1015,10.1015,0,0,1,3.12-3.75,9.2291,9.2291,0,0,1,5.7-1.59,11.28,11.28,0,0,1,4.89.96,9.2429,9.2429,0,0,1,3.27,2.52,9.5391,9.5391,0,0,1,1.8,3.6,16.5793,16.5793,0,0,1,.54,4.26V45.36h-7.2V30.78q0-1.2-.12-2.67a9.585,9.585,0,0,0-.63-2.76,5.1686,5.1686,0,0,0-1.59-2.16,4.5567,4.5567,0,0,0-2.94-.87,6.8751,6.8751,0,0,0-3.03.6,5.8227,5.8227,0,0,0-2.04,1.62,6.443,6.443,0,0,0-1.17,2.34,10.4438,10.4438,0,0,0-.36,2.76V45.36h-7.2Zm33.08,6.12V16.56h5.94V8.22h7.2v8.34h7.92v6.12h-7.92v12.6a6.2707,6.2707,0,0,0,.81,3.42q.81,1.26,3.21,1.26a11.6549,11.6549,0,0,0,2.1-.21,4.4,4.4,0,0,0,1.8-.69v6.06a9.2628,9.2628,0,0,1-2.79.75,23.3749,23.3749,0,0,1-2.91.21,14.7324,14.7324,0,0,1-4.71-.63,6.2143,6.2143,0,0,1-2.88-1.92,7.29,7.29,0,0,1-1.44-3.21,22.4888,22.4888,0,0,1-.39-4.44V22.68Zm27.26,8.28a15.2312,15.2312,0,0,1,1.23-6.21,14.52,14.52,0,0,1,3.33-4.77,14.6789,14.6789,0,0,1,4.98-3.06,17.88,17.88,0,0,1,12.24,0,14.6789,14.6789,0,0,1,4.98,3.06,14.52,14.52,0,0,1,3.33,4.77,15.2312,15.2312,0,0,1,1.23,6.21,15.2312,15.2312,0,0,1-1.23,6.21,14.52,14.52,0,0,1-3.33,4.77A14.6789,14.6789,0,0,1,189.58,45a17.88,17.88,0,0,1-12.24,0,14.6789,14.6789,0,0,1-4.98-3.06,14.52,14.52,0,0,1-3.33-4.77A15.2312,15.2312,0,0,1,167.8,30.96Zm7.2,0a9.3676,9.3676,0,0,0,.57,3.24,8.1309,8.1309,0,0,0,1.68,2.76,8.51,8.51,0,0,0,12.42,0,8.1309,8.1309,0,0,0,1.68-2.76,9.4934,9.4934,0,0,0,0-6.48,8.1309,8.1309,0,0,0-1.68-2.76,8.51,8.51,0,0,0-12.42,0,8.1309,8.1309,0,0,0-1.68,2.76A9.3676,9.3676,0,0,0,175,30.96ZM208.46,0h7.2V45.36h-7.2Zm82.78,16.56h6.84v4.32h.12a9.2605,9.2605,0,0,1,4.2-3.84,13.6109,13.6109,0,0,1,5.7-1.2,14.51,14.51,0,0,1,5.94,1.17,13.2993,13.2993,0,0,1,4.5,3.21,13.7244,13.7244,0,0,1,2.82,4.8,17.9587,17.9587,0,0,1,.96,5.94,17.0013,17.0013,0,0,1-1.02,5.94,14.7712,14.7712,0,0,1-2.85,4.8,13.137,13.137,0,0,1-4.41,3.21,13.4951,13.4951,0,0,1-5.64,1.17,13.9034,13.9034,0,0,1-3.6-.42,12.4058,12.4058,0,0,1-2.76-1.08A11.04,11.04,0,0,1,300,43.17a10.2485,10.2485,0,0,1-1.38-1.47h-.18V59.04h-7.2Zm23.88,14.4a9.3676,9.3676,0,0,0-.57-3.24,8.1309,8.1309,0,0,0-1.68-2.76,8.51,8.51,0,0,0-12.42,0,8.1309,8.1309,0,0,0-1.68,2.76,9.4934,9.4934,0,0,0,0,6.48,8.1309,8.1309,0,0,0,1.68,2.76,8.51,8.51,0,0,0,12.42,0,8.1309,8.1309,0,0,0,1.68-2.76A9.3676,9.3676,0,0,0,315.12,30.96Z" />
+          <path class="b"
+            d="M268.28,16.0685A15.3666,15.3666,0,0,0,256.3287,21.71h0l-.4652.5647,4.9061,5.9545,1.413-1.7149.009-.0115h0a7.8221,7.8221,0,0,1,6.088-2.8615,7.5755,7.5755,0,1,1,0,15.1458,7.7811,7.7811,0,0,1-6.2647-3.086l-.0006,0c-.0313-.0413-.0628-.0825-.096-.1228l-3.6021-4.3719,0,0-4.9061-5.9546,0,0-2.9278-3.5534-.0081-.0094a15.3917,15.3917,0,0,0-27.2824,9.5248A15.2655,15.2655,0,0,0,238.5406,46.36,15.3942,15.3942,0,0,0,250.77,40.3661l.1867-.2266L246.05,34.1849l-1.1484,1.3937c-.0332.04-.0648.0816-.0961.1229l-.0006,0a7.7809,7.7809,0,0,1-6.2646,3.086,7.5755,7.5755,0,1,1,0-15.1458,7.8223,7.8223,0,0,1,6.0881,2.8617l0,0,.0089.0114,3.8662,4.6925-.0007.0009,4.9061,5.9546.0008-.0009,2.6393,3.2034.0374.0471.5576.6769A15.3906,15.3906,0,0,0,268.28,46.36a15.1471,15.1471,0,1,0,0-30.2915Z" />
+        </svg>
+      </button>
+      <button mat-flat-button class="text-default p-0 d-lg-none" (click)="navigate('Spaces', '/')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" style="background: transparent;"
+          viewBox="0 0 60.4364 30.2915">
+          <defs>
+            <style>
+              .b {
+                fill: #f36f38;
+              }
+
+            </style>
+          </defs>
+          <title>EL-mark</title>
+          <path class="b"
+            d="M45.0877,0a15.3665,15.3665,0,0,0-11.951,5.6414h0l-.4652.5647,4.9061,5.9546,1.413-1.715L39,10.4343h0a7.822,7.822,0,0,1,6.0879-2.8615,7.685,7.685,0,0,1,7.7758,7.5729,7.6851,7.6851,0,0,1-7.7758,7.5729,7.7812,7.7812,0,0,1-6.2646-3.0861l-.0006,0c-.0313-.0413-.0628-.0825-.0961-.1229l-3.602-4.3719,0,0L30.2185,9.1835l0,0L27.2905,5.63l-.0082-.0094A15.3916,15.3916,0,0,0,0,15.1458,15.2654,15.2654,0,0,0,15.3486,30.2915a15.57,15.57,0,0,0,6.9841-1.6559,15.4279,15.4279,0,0,0,5.2449-4.3379l.1868-.2267-4.9061-5.9546L21.71,19.51c-.0332.04-.0648.0815-.0961.1229l-.0006,0a7.7807,7.7807,0,0,1-6.2646,3.0861,7.685,7.685,0,0,1-7.7757-7.5729,7.685,7.685,0,0,1,7.7757-7.5729,7.8224,7.8224,0,0,1,6.0881,2.8616l0,0,.009.0115,3.8662,4.6924-.0007.001,4.9061,5.9545.0007-.0009,2.6394,3.2034.0374.0472.5576.6768a15.3892,15.3892,0,0,0,11.6351,5.2713A15.2655,15.2655,0,0,0,60.4364,15.1458,15.2655,15.2655,0,0,0,45.0877,0Z" />
+        </svg>
+      </button>
+      <!-- <app-search-bar class="search-bar--width"></app-search-bar> -->
+      <div class="ml-5 d-none d-lg-inline"></div>
+      <div class="ml-3 d-lg-none"></div>
+      <div class="d-inline dropdown">
+        <div class="d-inline" dropdown #dropdown="bs-dropdown" [insideClick]="true">
+          <div id="button-basic" dropdownToggle class="dropdown-toggle" aria-controls="dropdown-basic"
+            class="d-inline-flex align-items-center pl-3 br-10 fs-14 cursor-pointer search-bar">
+            <span class="d-flex align-items-center font-roman">
+              <i class="fas fa-search fa-lg"></i>&nbsp;&nbsp;
+              <b class="d-none d-sm-inline">Search Venues</b>
+              <b class="d-sm-none">Search</b>
+            </span>
+          </div>
+          <div id="dropdown-basic" *dropdownMenu class="dropdown-menu pb-4 px-4" role="menu"
+            aria-labelledby="button-basic">
+            <app-new-search [dropdown]="dropdown"></app-new-search>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 d-flex justify-content-end align-items-center">
+      <div class="pr-3 mr-3 border-right grey-border-dark d-none d-xl-inline">
+        <button mat-button class="blue-text fs-16" *ngIf="utils.user" (click)="navigateToInvites('create-invitation')">
+          <span class="d-flex align-items-center font-heavy">+ Create an Event</span>
+        </button>
+        <button mat-button class="blue-text fs-16" *ngIf="utils.user"
+          (click)="navigate('Add Space', 'create-space-step1')">
+          <span class="d-flex align-items-center font-heavy">+ List a Space</span>
+        </button>
+      </div>
+      <!-- <button mat-button class="dark-grey-text fs-16" *ngIf="utils.user">
+      <span class="d-flex align-items-center font-roman"><b>Inbox</b></span>
+    </button> -->
+      <button mat-button class="dark-grey-text fs-16 d-none d-md-inline"
+        *ngIf="utils.user && !services.info['production']" (click)="navigate('Chat', 'chat')">
+        <span class="font-roman"><b>Inbox</b></span>
+      </button>
+      <button mat-button class="dark-grey-text fs-16 d-none d-md-inline" *ngIf="utils.user" [matMenuTriggerFor]="menu2"
+        (menuOpened)="animate('dropdown1')" (menuClosed)="animate('dropdown1')">
+        <span class="d-flex align-items-center font-roman">
+          <b>Manage</b>&nbsp;&nbsp;
+          <i class="fas fa-angle-down" id="dropdown1"></i>
+        </span>
+      </button>
+      <mat-menu class="menu--200" #menu2="matMenu">
+        <button mat-menu-item class="text-default fs-16 d-xl-none" *ngIf="utils.user"
+          (click)="navigateToInvites('create-invitation')">
+          <span class="font-roman">Create an Event</span>
+        </button>
+        <button mat-menu-item class="text-default fs-16 d-xl-none" *ngIf="utils.user"
+          (click)="navigate('Add Space', 'create-space-step1')">
+          <span class="font-roman">List a Space</span>
+        </button>
+        <mat-divider class="d-xl-none"></mat-divider>
+        <button mat-menu-item class="text-default fs-16" *ngIf="utils.user" (click)="navigateToInvites('events')">
+          <span class="font-roman">Your Events</span>
+        </button>
+        <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+          (click)="navigate('My Bookings', 'my-bookings')">
+          <span class="font-roman">Your Bookings</span>
+        </button>
+        <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+          (click)="navigate('My Listings', 'my-spaces')">
+          <span class="font-roman">Your Listings</span>
+        </button>
+        <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+          (click)="navigate('Booking Requests', 'booking-requests')">
+          <span class="font-roman">Booking Requests</span>
+        </button>
+        <button mat-menu-item class="text-default fs-16" *ngIf="utils.user" (click)="navigate('Saved', 'saved')">
+          <span class="font-roman">Favorites</span>
+        </button>
+      </mat-menu>
+
+      <button mat-button class="dark-grey-text fs-16" *ngIf="utils.user" [matMenuTriggerFor]="menu"
+        (menuOpened)="animate('dropdown2')" (menuClosed)="animate('dropdown2')">
+        <span class="d-flex align-items-center font-roman">
+          <app-user-avatar></app-user-avatar>&nbsp;&nbsp;
+          <i class="fas fa-angle-down" id="dropdown2"></i>
+        </span>
+      </button>
+      <mat-menu class="menu--200" #menu="matMenu">
+        <div class="d-md-none">
+          <button mat-menu-item class="text-default fs-16 d-xl-none" *ngIf="utils.user"
+            (click)="navigateToInvites('create-invitation')">
+            <span class="font-roman">Create an Event</span>
+          </button>
+          <button mat-menu-item class="text-default fs-16 d-xl-none" *ngIf="utils.user"
+            (click)="navigate('Add Space', 'create-space-step1')">
+            <span class="font-roman">List a Space</span>
+          </button>
+          <mat-divider class="d-xl-none"></mat-divider>
+          <button mat-menu-item class="text-default fs-16" *ngIf="utils.user" (click)="navigateToInvites('events')">
+            <span class="font-roman">Your Events</span>
+          </button>
+          <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+            (click)="navigate('My Bookings', 'my-bookings')">
+            <span class="font-roman">Your Bookings</span>
+          </button>
+          <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+            (click)="navigate('My Listings', 'my-spaces')">
+            <span class="font-roman">Your Listings</span>
+          </button>
+          <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+            (click)="navigate('Booking Requests', 'booking-requests')">
+            <span class="font-roman">Booking Requests</span>
+          </button>
+          <button mat-menu-item class="text-default fs-16" *ngIf="utils.user" (click)="navigate('Saved', 'saved')">
+            <span class="font-roman">Favorites</span>
+          </button>
+        </div>
+        <mat-divider class="d-md-none"></mat-divider>
+        <!-- <button mat-menu-item class="text-default fs-16" *ngIf="utils.user">
+          <span class="font-roman">Reviews</span>
+        </button> -->
+        <button mat-menu-item class="text-default fs-16 d-md-none" *ngIf="utils.user && !services.info['production']"
+          (click)="navigate('Chat', 'chat')">
+          <span class="font-roman">Inbox</span>
+        </button>
+        <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+          (click)="navigate('Account', 'account', '1')">
+          <span class="font-roman">Account</span>
+        </button>
+        <!-- <button mat-menu-item *ngIf="!utils.user" (click)="navigate('SignIn', 'login')">Login</button>
+      <button mat-menu-item *ngIf="!utils.user" (click)="navigate('SignUP', 'welcome')">Register</button> -->
+        <button mat-menu-item class="text-default fs-16" *ngIf="utils.user" (click)="utils.logout()">
+          <span class="font-roman">Logout</span>
+        </button>
+      </mat-menu>
+      <!-- <div class="d-inline-block" [matMenuTriggerFor]="menu" *ngIf="utils.user"> -->
+      <!-- <span class="font-weight-light">Hi,&nbsp;</span>
+      <span class="text-uppercase font-weight-light">{{utils.user?.user_json?.fullName}}</span>
+      <mat-icon>arrow_drop_down</mat-icon> -->
+      <!-- <app-user-avatar></app-user-avatar>
+    </div> -->
+      <div class="d-inline-block" *ngIf="!utils.user">
+        <button mat-button color="warn" *ngIf="!utils.user" (click)="navigate('SignIn', 'login')">Log In</button>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="d-inline-flex">
+    <button mat-flat-button class="text-default p-0 d-none d-lg-block" (click)="navigate('Spaces', '/')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 322.32 59.04">
+        <defs>
+          <style>
+            .a {
+              fill: #0185de;
+              fill-rule: evenodd;
+            }
+
+            .b {
+              fill: #f36f38;
+            }
+          </style>
+        </defs>
+        <title>EL-lowercase-color</title>
+        <path class="a"
+          d="M7.2,33.48a7.3134,7.3134,0,0,0,2.52,5.04,7.8863,7.8863,0,0,0,5.22,1.8,8.5922,8.5922,0,0,0,4.53-1.11,12.558,12.558,0,0,0,3.21-2.79l5.16,3.9a14.6237,14.6237,0,0,1-5.64,4.44,16.616,16.616,0,0,1-6.54,1.32A17.2853,17.2853,0,0,1,9.54,45a14.6789,14.6789,0,0,1-4.98-3.06,14.52,14.52,0,0,1-3.33-4.77A15.2312,15.2312,0,0,1,0,30.96a15.2312,15.2312,0,0,1,1.23-6.21,14.52,14.52,0,0,1,3.33-4.77,14.6789,14.6789,0,0,1,4.98-3.06,17.2853,17.2853,0,0,1,6.12-1.08,13.99,13.99,0,0,1,5.49,1.05,11.7741,11.7741,0,0,1,4.26,3.03,13.9951,13.9951,0,0,1,2.76,4.89,20.7447,20.7447,0,0,1,.99,6.69v1.98Zm14.76-5.4a6.78,6.78,0,0,0-1.98-5.01,7.4266,7.4266,0,0,0-5.34-1.83A6.9956,6.9956,0,0,0,9.51,23.1,8.3006,8.3006,0,0,0,7.2,28.08ZM33.98,16.56h7.86l7.68,20.16h.12l7.74-20.16h7.38L53.42,45.36H45.74Zm42.8,16.92a7.3134,7.3134,0,0,0,2.52,5.04,7.8863,7.8863,0,0,0,5.22,1.8,8.5922,8.5922,0,0,0,4.53-1.11,12.558,12.558,0,0,0,3.21-2.79l5.16,3.9a14.6237,14.6237,0,0,1-5.64,4.44,16.616,16.616,0,0,1-6.54,1.32A17.2853,17.2853,0,0,1,79.12,45a14.6789,14.6789,0,0,1-4.98-3.06,14.52,14.52,0,0,1-3.33-4.77,15.2312,15.2312,0,0,1-1.23-6.21,15.2312,15.2312,0,0,1,1.23-6.21,14.52,14.52,0,0,1,3.33-4.77,14.6789,14.6789,0,0,1,4.98-3.06,17.2853,17.2853,0,0,1,6.12-1.08,13.99,13.99,0,0,1,5.49,1.05,11.7741,11.7741,0,0,1,4.26,3.03,13.9951,13.9951,0,0,1,2.76,4.89,20.7447,20.7447,0,0,1,.99,6.69v1.98Zm14.76-5.4a6.78,6.78,0,0,0-1.98-5.01,7.4266,7.4266,0,0,0-5.34-1.83,6.9956,6.9956,0,0,0-5.13,1.86,8.3006,8.3006,0,0,0-2.31,4.98Zm15.92-11.52h6.84v4.62h.12a10.1015,10.1015,0,0,1,3.12-3.75,9.2291,9.2291,0,0,1,5.7-1.59,11.28,11.28,0,0,1,4.89.96,9.2429,9.2429,0,0,1,3.27,2.52,9.5391,9.5391,0,0,1,1.8,3.6,16.5793,16.5793,0,0,1,.54,4.26V45.36h-7.2V30.78q0-1.2-.12-2.67a9.585,9.585,0,0,0-.63-2.76,5.1686,5.1686,0,0,0-1.59-2.16,4.5567,4.5567,0,0,0-2.94-.87,6.8751,6.8751,0,0,0-3.03.6,5.8227,5.8227,0,0,0-2.04,1.62,6.443,6.443,0,0,0-1.17,2.34,10.4438,10.4438,0,0,0-.36,2.76V45.36h-7.2Zm33.08,6.12V16.56h5.94V8.22h7.2v8.34h7.92v6.12h-7.92v12.6a6.2707,6.2707,0,0,0,.81,3.42q.81,1.26,3.21,1.26a11.6549,11.6549,0,0,0,2.1-.21,4.4,4.4,0,0,0,1.8-.69v6.06a9.2628,9.2628,0,0,1-2.79.75,23.3749,23.3749,0,0,1-2.91.21,14.7324,14.7324,0,0,1-4.71-.63,6.2143,6.2143,0,0,1-2.88-1.92,7.29,7.29,0,0,1-1.44-3.21,22.4888,22.4888,0,0,1-.39-4.44V22.68Zm27.26,8.28a15.2312,15.2312,0,0,1,1.23-6.21,14.52,14.52,0,0,1,3.33-4.77,14.6789,14.6789,0,0,1,4.98-3.06,17.88,17.88,0,0,1,12.24,0,14.6789,14.6789,0,0,1,4.98,3.06,14.52,14.52,0,0,1,3.33,4.77,15.2312,15.2312,0,0,1,1.23,6.21,15.2312,15.2312,0,0,1-1.23,6.21,14.52,14.52,0,0,1-3.33,4.77A14.6789,14.6789,0,0,1,189.58,45a17.88,17.88,0,0,1-12.24,0,14.6789,14.6789,0,0,1-4.98-3.06,14.52,14.52,0,0,1-3.33-4.77A15.2312,15.2312,0,0,1,167.8,30.96Zm7.2,0a9.3676,9.3676,0,0,0,.57,3.24,8.1309,8.1309,0,0,0,1.68,2.76,8.51,8.51,0,0,0,12.42,0,8.1309,8.1309,0,0,0,1.68-2.76,9.4934,9.4934,0,0,0,0-6.48,8.1309,8.1309,0,0,0-1.68-2.76,8.51,8.51,0,0,0-12.42,0,8.1309,8.1309,0,0,0-1.68,2.76A9.3676,9.3676,0,0,0,175,30.96ZM208.46,0h7.2V45.36h-7.2Zm82.78,16.56h6.84v4.32h.12a9.2605,9.2605,0,0,1,4.2-3.84,13.6109,13.6109,0,0,1,5.7-1.2,14.51,14.51,0,0,1,5.94,1.17,13.2993,13.2993,0,0,1,4.5,3.21,13.7244,13.7244,0,0,1,2.82,4.8,17.9587,17.9587,0,0,1,.96,5.94,17.0013,17.0013,0,0,1-1.02,5.94,14.7712,14.7712,0,0,1-2.85,4.8,13.137,13.137,0,0,1-4.41,3.21,13.4951,13.4951,0,0,1-5.64,1.17,13.9034,13.9034,0,0,1-3.6-.42,12.4058,12.4058,0,0,1-2.76-1.08A11.04,11.04,0,0,1,300,43.17a10.2485,10.2485,0,0,1-1.38-1.47h-.18V59.04h-7.2Zm23.88,14.4a9.3676,9.3676,0,0,0-.57-3.24,8.1309,8.1309,0,0,0-1.68-2.76,8.51,8.51,0,0,0-12.42,0,8.1309,8.1309,0,0,0-1.68,2.76,9.4934,9.4934,0,0,0,0,6.48,8.1309,8.1309,0,0,0,1.68,2.76,8.51,8.51,0,0,0,12.42,0,8.1309,8.1309,0,0,0,1.68-2.76A9.3676,9.3676,0,0,0,315.12,30.96Z" />
+        <path class="b"
+          d="M268.28,16.0685A15.3666,15.3666,0,0,0,256.3287,21.71h0l-.4652.5647,4.9061,5.9545,1.413-1.7149.009-.0115h0a7.8221,7.8221,0,0,1,6.088-2.8615,7.5755,7.5755,0,1,1,0,15.1458,7.7811,7.7811,0,0,1-6.2647-3.086l-.0006,0c-.0313-.0413-.0628-.0825-.096-.1228l-3.6021-4.3719,0,0-4.9061-5.9546,0,0-2.9278-3.5534-.0081-.0094a15.3917,15.3917,0,0,0-27.2824,9.5248A15.2655,15.2655,0,0,0,238.5406,46.36,15.3942,15.3942,0,0,0,250.77,40.3661l.1867-.2266L246.05,34.1849l-1.1484,1.3937c-.0332.04-.0648.0816-.0961.1229l-.0006,0a7.7809,7.7809,0,0,1-6.2646,3.086,7.5755,7.5755,0,1,1,0-15.1458,7.8223,7.8223,0,0,1,6.0881,2.8617l0,0,.0089.0114,3.8662,4.6925-.0007.0009,4.9061,5.9546.0008-.0009,2.6393,3.2034.0374.0471.5576.6769A15.3906,15.3906,0,0,0,268.28,46.36a15.1471,15.1471,0,1,0,0-30.2915Z" />
+      </svg>
+    </button>
+    <button mat-flat-button class="text-default p-0 d-lg-none" (click)="navigate('Spaces', '/')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="60" style="background: transparent;" viewBox="0 0 60.4364 30.2915">
+        <defs>
+          <style>
+            .b {
+              fill: #f36f38;
+            }
+          </style>
+        </defs>
+        <title>EL-mark</title>
+        <path class="b"
+          d="M45.0877,0a15.3665,15.3665,0,0,0-11.951,5.6414h0l-.4652.5647,4.9061,5.9546,1.413-1.715L39,10.4343h0a7.822,7.822,0,0,1,6.0879-2.8615,7.685,7.685,0,0,1,7.7758,7.5729,7.6851,7.6851,0,0,1-7.7758,7.5729,7.7812,7.7812,0,0,1-6.2646-3.0861l-.0006,0c-.0313-.0413-.0628-.0825-.0961-.1229l-3.602-4.3719,0,0L30.2185,9.1835l0,0L27.2905,5.63l-.0082-.0094A15.3916,15.3916,0,0,0,0,15.1458,15.2654,15.2654,0,0,0,15.3486,30.2915a15.57,15.57,0,0,0,6.9841-1.6559,15.4279,15.4279,0,0,0,5.2449-4.3379l.1868-.2267-4.9061-5.9546L21.71,19.51c-.0332.04-.0648.0815-.0961.1229l-.0006,0a7.7807,7.7807,0,0,1-6.2646,3.0861,7.685,7.685,0,0,1-7.7757-7.5729,7.685,7.685,0,0,1,7.7757-7.5729,7.8224,7.8224,0,0,1,6.0881,2.8616l0,0,.009.0115,3.8662,4.6924-.0007.001,4.9061,5.9545.0007-.0009,2.6394,3.2034.0374.0472.5576.6768a15.3892,15.3892,0,0,0,11.6351,5.2713A15.2655,15.2655,0,0,0,60.4364,15.1458,15.2655,15.2655,0,0,0,45.0877,0Z" />
+      </svg>
+    </button>
+    <div class="ml-5 d-none d-lg-inline"></div>
+    <div class="d-inline dropdown">
+      <div dropdown #dropdown="bs-dropdown" [insideClick]="true">
+        <div id="button-basic" dropdownToggle class="dropdown-toggle" aria-controls="dropdown-basic"
+          class="d-inline-flex align-items-center pl-3 br-10 fs-14 cursor-pointer search-bar">
+          <span class="d-flex align-items-center font-roman">
+            <i class="fas fa-search fa-lg"></i>&nbsp;&nbsp;
+            <b>Search Venues</b>
+          </span>
+        </div>
+        <div id="dropdown-basic" *dropdownMenu class="dropdown-menu pb-4 px-4" role="menu"
+          aria-labelledby="button-basic">
+          <app-new-search [dropdown]="dropdown"></app-new-search>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- <div class="d-inline">
+    <div class="p-2 pr-3 mr-3 border-right grey-border-dark d-inline">
+      <button mat-button class="blue-text fs-16" *ngIf="utils.user" (click)="navigateToInvites('create-invitation')">
+        <span class="d-flex align-items-center font-heavy">+ Create an Event</span>
+      </button>
+      <button mat-button class="blue-text fs-16" *ngIf="utils.user"
+        (click)="navigate('Add Space', 'create-space-step1')">
+        <span class="d-flex align-items-center font-heavy">+ List a Space</span>
+      </button>
+    </div>
+    <button mat-button class="dark-grey-text fs-16" *ngIf="utils.user">
+      <span class="d-flex align-items-center font-roman"><b>Inbox</b></span>
+    </button>
+    <button mat-button class="dark-grey-text fs-16" *ngIf="utils.user" [matMenuTriggerFor]="menu2"
+      (menuOpened)="animate('dropdown1')" (menuClosed)="animate('dropdown1')">
+      <span class="d-flex align-items-center font-roman">
+        <b>Manage</b>&nbsp;&nbsp;
+        <i class="fas fa-angle-down" id="dropdown1"></i>
+      </span>
+    </button>
+    <mat-menu class="menu--200" #menu2="matMenu">
+      <button mat-menu-item class="text-default fs-16" *ngIf="utils.user" (click)="navigateToInvites('events')">
+        <span class="font-roman">Your Events</span>
+      </button>
+      <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+        (click)="navigate('My Bookings', 'my-bookings')">
+        <span class="font-roman">Your Bookings</span>
+      </button>
+      <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+        (click)="navigate('My Listings', 'my-spaces')">
+        <span class="font-roman">Your Listings</span>
+      </button>
+      <button mat-menu-item class="text-default fs-16" *ngIf="utils.user"
+        (click)="navigate('Booking Requests', 'booking-requests')">
+        <span class="font-roman">Booking Requests</span>
+      </button>
+      <button mat-menu-item class="text-default fs-16" *ngIf="utils.user" (click)="navigate('Saved', 'saved')">
+        <span class="font-roman">Favorites</span>
+      </button>
+    </mat-menu>
+
+    <button mat-button class="dark-grey-text fs-16" *ngIf="utils.user" [matMenuTriggerFor]="menu"
+      (menuOpened)="animate('dropdown2')" (menuClosed)="animate('dropdown2')">
+      <span class="d-flex align-items-center font-roman">
+        <app-user-avatar></app-user-avatar>&nbsp;&nbsp;
+        <i class="fas fa-angle-down" id="dropdown2"></i>
+      </span>
+    </button>
+    <div class="d-inline-block" *ngIf="!utils.user">
+      <button mat-button color="warn" *ngIf="!utils.user" (click)="navigate('SignIn', 'login')">Login</button>
+    </div>
+    <mat-menu class="menu--200" #menu="matMenu">
+      <button mat-menu-item class="text-default fs-16" *ngIf="utils.user">
+        <span class="font-roman">Reviews</span>
+      </button>
+      <button mat-menu-item class="text-default fs-16" *ngIf="utils.user" (click)="navigate('Account', 'account', '1')">
+        <span class="font-roman">Account</span>
+      </button>
+      <button mat-menu-item class="text-default fs-16" *ngIf="utils.user" (click)="utils.logout()">
+        <span class="font-roman">Logout</span>
+      </button>
+    </mat-menu>
+  </div> -->
+</nav>
+
+<!-- 
+      <span class="text-capitalize">{{toolbar_title}}</span>
+
+ -->
+<router-outlet></router-outlet>
+<loader class="loader" *ngIf="services.showLoader"></loader>
+<app-footer *ngIf="!router.url.startsWith('/create-space-step1') && !router.url.startsWith('/saved/') &&
+  !router.url.startsWith('/spaces') && !router.url.startsWith('/add-menu/') && !router.url.startsWith('/chat') &&
+  !router.url.startsWith('/operating-hours/')">
+</app-footer>

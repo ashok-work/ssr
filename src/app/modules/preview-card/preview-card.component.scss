@@ -1,0 +1,42 @@
+
+.dateList {
+    background: white;
+    text-align: center;
+    font-size: .8rem;
+    max-width: 300px;
+    width: 100%;
+    border-radius: 4px;
+  
+    p {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  
+    .timeBox {
+      background: rgb(235, 235, 32);
+      display: inline-block;
+      border-radius: 4px 0px 0px 4px;
+      max-width: 50px;
+      height: 100%;
+      max-height: 75px;
+      text-align: center;
+      padding: 0px 5px;
+    }
+  }
+  
+  
+  img{
+      height: 50px;
+      width: 80px;
+      background-size: cover;
+  }
+  
+  
+  .space-card {
+      max-width: 400px;
+    }
+    
+    .space-header-image {
+      background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+      background-size: cover;
+    }

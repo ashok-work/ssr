@@ -1,0 +1,102 @@
+<h3 mat-dialog-title align="center">Share your experience!</h3>
+<mat-dialog-content>
+    <div class="row no-gutters ratings">
+        <div class="col-12 row no-gutters d-flex">
+            <!-- <mat-slider
+                class="mt-3 col-lg-8 col-md-6"
+                [max]="5"
+                [min]="1"
+                [step]="1"
+                color="warn"
+                [thumbLabel]="true"
+                [(ngModel)]="rating">
+            </mat-slider> -->
+            <div class="col-12 d-flex justify-content-center">
+                <span class="info">Overall</span>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <bar-rating [(rate)]="rating" [max]="5" [theme]="'default'"></bar-rating>
+            </div>
+        </div>
+        <div class="col-6 row no-gutters d-flex">
+            <!-- <mat-slider
+                class="mt-3 col-lg-8 col-md-6"
+                [max]="5"
+                [min]="1"
+                [step]="1"
+                color="warn"
+                [thumbLabel]="true"
+                [(ngModel)]="value">
+            </mat-slider> -->
+            <div class="col-12 d-flex justify-content-center">
+                <span class="info">Value for money</span>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <bar-rating [(rate)]="value" [max]="5" [theme]="'default'"></bar-rating>
+            </div>
+        </div>
+        <div class="col-6 row no-gutters d-flex">
+            <!-- <mat-slider
+                class="mt-3 col-lg-8 col-md-6"
+                [max]="5"
+                [min]="1"
+                [step]="1"
+                color="warn"
+                [thumbLabel]="true"
+                [(ngModel)]="cleanliness">
+            </mat-slider> -->
+            <div class="col-12 d-flex justify-content-center">
+                <span class="info">Cleanliness</span>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <bar-rating [(rate)]="cleanliness" [max]="5" [theme]="'default'"></bar-rating>
+            </div>
+        </div>
+        <div class="col-6 row no-gutters d-flex">
+            <!-- <mat-slider
+                class="mt-3 col-lg-8 col-md-6"
+                [max]="5"
+                [min]="1"
+                [step]="1"
+                color="warn"
+                [thumbLabel]="true"
+                [(ngModel)]="location">
+            </mat-slider> -->
+            <div class="col-12 d-flex justify-content-center">
+                <span class="info">Location</span>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <bar-rating [(rate)]="location" [max]="5" [theme]="'default'"></bar-rating>
+            </div>
+        </div>
+        <div class="col-6 row no-gutters d-flex">
+            <!-- <mat-slider
+                class="mt-3 col-lg-8 col-md-6"
+                [max]="5"
+                [min]="1"
+                [step]="1"
+                color="warn"
+                [thumbLabel]="true"
+                [(ngModel)]="accuracy">
+            </mat-slider> -->
+            <div class="col-12 d-flex justify-content-center">
+                <span class="info">Accuracy</span>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <bar-rating [(rate)]="accuracy" [max]="5" [theme]="'default'"></bar-rating>
+            </div>
+        </div>
+        <div class="col-12 row no-gutters d-flex">
+            <mat-form-field class="col-12" appearance="outline">
+                <input matInput placeholder="Give a heading for your comment" [(ngModel)]="heading">
+            </mat-form-field>
+            <mat-form-field class="col-12" appearance="outline">
+                <textarea matInput placeholder="Leave a comment" rows="5" [(ngModel)]="review"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center" class="mb-2">
+    <button mat-raised-button color="primary" (click)="addReview()">Submit</button>
+    <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+</mat-dialog-actions>

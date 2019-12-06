@@ -1,0 +1,18 @@
+<div class="mb-3">
+  <mat-icon (click)="close()" class="mat-elevation-z2 rounded-circle grey-text cursor-pointer">clear</mat-icon>
+</div>
+<h4 *ngIf="!this.selected_category" class="font-heavy text-default">Add Category</h4>
+<h4 *ngIf="this.selected_category" class="font-heavy text-default">Edit Category</h4>
+<mat-dialog-content>
+  <input type="text" class="form-control br-10 my-3" [(ngModel)]="category_name" placeholder="Enter Category name">
+  <textarea class="form-control br-10 my-3" [(ngModel)]="description" rows="5"
+    placeholder="Describe the category"></textarea>
+</mat-dialog-content>
+<button *ngIf="!this.selected_category" type="button" class="btn btn-primary col-12 blue-button br-10 font-heavy w-100"
+  (click)="addCategory()">
+  Save
+</button>
+<button *ngIf="this.selected_category" type="button" class="btn btn-primary col-12 blue-button br-10 font-heavy w-100"
+  (click)="editCategory()">
+  Save
+</button>

@@ -1,0 +1,183 @@
+<div class="container-fluid app-container homepage">
+  <div class="above-the-fold mx-sm-5 pt-4 row no-gutters align-items-center">
+    <div class="col-custom-left col-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+      <div class="search-box">
+        <h1 class="text-default bigger-h1 w-600 line-height-custom font-heavy">Bring your next event to life.</h1>
+        <p class="mt-3 mb-4">Find the perfect space that you and your guests will remember forever.</p>
+        <app-new-search></app-new-search>
+      </div>
+    </div>
+    <div class="col-custom-right d-none d-lg-block col-lg-6 col-xl-8">
+      <img defaultImage="assets/images/default_space.jpg" lazyLoad="https://invites-us-staging.s3-us-west-2.amazonaws.com/dining-tiny.jpg">
+    </div>
+  </div>
+  <div class="below-the-fold">
+    <div class="occasions mt-5">
+      <div class="row no-gutters">
+        <div class="col-2 col-sm-3 col-md-4"></div>
+        <div class="col-9 col-sm-6 col-md-4">
+          <h2 class="secondary-heading font-heavy">Popular</h2>
+          <h1 class="text-default w-600 font-heavy">Occasions</h1>
+        </div>
+        <div class="col-1 col-sm-3 col-md-4"></div>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-2 col-sm-3 col-md-4"></div>
+        <div class="col-9 col-sm-6 col-md-4">
+          <hr class="mb-2 mt-1 border-gradient" />
+        </div>
+        <div class="col-1 col-sm-3 col-md-4"></div>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-2 col-sm-3 col-md-4"></div>
+        <div class="col-9 col-sm-6 col-md-4">
+          <h5 class="text-right blue-text w-600 cursor-pointer" (click)="viewAllEvents()">
+            Browse all occasions&nbsp;
+            <span style="vertical-align: middle"><i class="fas fa-long-arrow-alt-right"></i></span>
+          </h5>
+        </div>
+        <div class="col-1 col-sm-3 col-md-4"></div>
+      </div>
+      <div class="occasions-container row no-gutters">
+        <div class="col-1 d-none d-xl-block"></div>
+        <div class="col-12 col-xl-10 d-flex flex-wrap justify-content-center">
+          <mat-card class="custom-box-shadow" *ngFor="let event of homepageEvents" (click)="selectOccasion(event)">
+            <div class="embed-responsive embed-responsive-15by10">
+              <img class="centered-image" [src]="event.image" [alt]="event.occasion_name">
+            </div>
+            <mat-card-content>
+              <h4 class="mt-3 font-heavy text-default text-truncate"> {{ event.occasion_name }} </h4>
+              <!-- <p class="mt-2 font-roman">A short description about this category. It takes up two lines.</p> -->
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-1 d-none d-xl-block"></div>
+      </div>
+    </div>
+    <div class="events mt-5" *ngIf="upcomingEvents.length > 0">
+      <div class="row no-gutters">
+        <div class="col-2 col-sm-3 col-md-4"></div>
+        <div class="col-9 col-sm-6 col-md-4">
+          <h2 class="secondary-heading font-heavy">Your upcoming</h2>
+          <h1 class="text-default w-600 font-heavy">Events</h1>
+        </div>
+        <div class="col-1 col-sm-3 col-md-4"></div>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-2 col-sm-3 col-md-4"></div>
+        <div class="col-9 col-sm-6 col-md-4">
+          <hr class="mb-2 mt-1 border-gradient" />
+        </div>
+        <div class="col-1 col-sm-3 col-md-4"></div>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-2 col-sm-3 col-md-4"></div>
+        <div class="col-9 col-sm-6 col-md-4">
+          <h5 class="text-right blue-text w-600 cursor-pointer" (click)="navigateToInvites('events')">
+            Track all your events&nbsp;
+            <span style="vertical-align: middle"><i class="fas fa-long-arrow-alt-right"></i></span>
+          </h5>
+        </div>
+        <div class="col-1 col-sm-3 col-md-4"></div>
+      </div>
+      <div class="occasions-container row no-gutters">
+        <div class="col-1 d-none d-xl-block"></div>
+        <div class="col-12 col-xl-10 d-flex flex-wrap justify-content-center">
+          <!-- [ngClass]="[upcomingEvents.length == 3 ? 'justify-content-between' : 'justify-content-center']"> -->
+          <mat-card class="custom-box-shadow" *ngFor="let item of upcomingEvents"
+            (click)="navigateToInvites('event', item['event_id'])">
+            <div class="embed-responsive embed-responsive-15by10">
+              <img class="centered-image" [src]="item | eventImage" [alt]="item['event_title']">
+            </div>
+            <mat-card-content>
+              <!-- <p class="small-text grey-text m-0 mt-3">Wednesday, June 12</p>
+              <h4 class="mt-2"> {{ event.occasion_name }} </h4>
+              <p class="mt-2">Host: Brian Jones & Morgan Black</p> -->
+              <p class="event-date small-text grey-text m-0 mt-3 font-roman">
+                {{ item?.event_start_time | date: 'EEEE, MMMM d' }}
+              </p>
+              <h5 class="card-title event-title text-truncate text-capitalize mt-2 font-heavy">
+                {{ item['event_title'] }}
+              </h5>
+              <p *ngIf="selection !== 'draft'"
+                class="card-text text-truncate text-capitalize event-host mt-2 font-roman">
+                {{ item | eventHost }}
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-1 d-none d-xl-block"></div>
+      </div>
+    </div>
+    <div class="become-host row no-gutters mt-5 justify-content-center" *ngIf="upcomingEvents.length == 0">
+      <h1 class="font-heavy col-12 text-center">Create Your Next Event</h1>
+      <div class="col-12 col-lg-6">
+        <p class="font-roman big-p text-center mb-0">Create free, online invitations. Invite your friends
+          using their email or mobile number.</p>
+        <p class="font-roman big-p text-center">Track your guest RSVP list.</p>
+      </div>
+      <div class="col-12 text-center mt-3">
+        <button type="button" class="btn btn-primary blue-button br-10 font-heavy"
+          (click)="navigateToInvites('create-invitation')">
+          Create Event
+        </button>
+      </div>
+    </div>
+    <div class="become-host row no-gutters mt-5 py-5 justify-content-center">
+      <h1 class="font-heavy col-12 text-center">Become an EventoLoop Host</h1>
+      <div class="col-12 col-lg-6">
+        <p class="font-roman big-p text-center mb-0">Earn extra money by renting your space. 24/7 customer
+          service. Safe Payment Method.</p>
+        <p class="font-roman big-p text-center">Free Registration. List it for free.</p>
+      </div>
+      <div class="col-12 text-center mt-3">
+        <button type="button" class="btn btn-primary blue-button br-10 font-heavy" (click)="router.navigate(['/host'])">
+          Get Started
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="main-content">
+  <img src="assets/images/autumn.jpg" alt="background-img">
+  <div class="cover">
+    <h1 class="text-center text-white">
+      Find Your Space
+    </h1>
+
+    <h5 class="text-center text-white my-4 mx-2 font-weight-500">
+      Discover & Book Unique Spaces for Your Upcoming Events
+    </h5>
+    <app-multisearch-bar></app-multisearch-bar>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="py-4">
+    <h2 class="heading text-center">
+      Book a space that suits you
+    </h2>
+
+    <h5 class="subhead text-center">
+      Be inspired to meet, create, and innovate.
+    </h5>
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-between">
+    <mat-card *ngFor="let event of events.slice(0,9)" (click)="submitSearch(event)">
+      <div mat-card-image class="embed-responsive embed-responsive-16by9">
+        <img class="centered-image" [src]="event.image" [alt]="event.occasion_name">
+      </div>
+      <mat-card-content>
+        <h5 class="text-center"> {{ event.occasion_name }} </h5>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="events.length > 9" class="alert">
+    <div class="d-flex justify-content-center align-items-center">
+      <button mat-flat-button (click)="viewAllEvents()" color="warn"><span class="">Show All</span></button>
+    </div>
+  </div>
+</div> -->

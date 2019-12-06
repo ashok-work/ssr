@@ -1,0 +1,12 @@
+.avatar {
+  height: 32px;
+  width: 32px;
+  background-size: cover;
+  cursor: pointer;
+
+  img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
+}

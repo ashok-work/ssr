@@ -1,0 +1,39 @@
+<div class="card mb-4 br-6 grey-border">
+  <div class="card-body p-4">
+    <h4 class="text-default mb-4 text-center font-heavy">Request Quote</h4>
+    <form [formGroup]="contactForm" class="row">
+      <div class="form-group col-12 col-sm-6">
+        <input type="text" class="form-control br-10" placeholder="First Name" formControlName="first_name">
+      </div>
+      <div class="form-group col-12 col-sm-6">
+        <input type="text" class="form-control br-10" placeholder="Last Name" formControlName="last_name">
+      </div>
+      <div class="form-group col-12">
+        <input type="email" class="form-control br-10" placeholder="Email" formControlName="email">
+      </div>
+      <div class="form-group col-12">
+        <input type="text" class="form-control br-10" placeholder="Phone" formControlName="phone">
+      </div>
+      <div class="form-group col-12">
+        <input type="text" class="form-control br-10" placeholder="What's the occasion?" formControlName="occasion"
+          [matAutocomplete]="auto" (keyup)="applyEventsFilter($event.target.value)">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let event of filteredEvents" [value]="event.occasion_name">{{event.occasion_name}}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <div class="form-group col-12">
+        <input type="number" class="form-control br-10" placeholder="Guest count" formControlName="guest_count">
+      </div>
+      <div class="form-group col-12">
+        <textarea class="form-control br-10" rows="5" placeholder="Additional details about your event"
+          formControlName="description"></textarea>
+      </div>
+      <div class="col-12 text-center pt-3">
+        <button type="button" class="btn btn-primary blue-button br-10 col-12" (click)="submitSearch()">
+          Request Quote
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

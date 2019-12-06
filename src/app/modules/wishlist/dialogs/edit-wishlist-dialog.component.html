@@ -1,0 +1,10 @@
+<div class="mb-3">
+    <mat-icon (click)="close()" class="mat-elevation-z2 rounded-circle grey-text cursor-pointer">clear</mat-icon>
+</div>
+<h4 class="font-heavy text-default">Rename list</h4>
+<input type="text" class="form-control br-10 my-3" [(ngModel)]="wishlist.listing_name"
+    placeholder="Rename this list">
+<button type="button" class="btn btn-primary col-12 blue-button br-10 font-heavy w-100"
+    (click)="renameList()">
+    Save
+</button>

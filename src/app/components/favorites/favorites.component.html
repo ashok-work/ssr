@@ -1,0 +1,39 @@
+<div class="px-4">
+  <div class="d-flex">
+    <input type="text" class="form-control br-10" [(ngModel)]="listName" placeholder="Create new list">
+    <button mat-mini-fab color="primary" class="ml-2" (click)="addList()">
+      <mat-icon>check</mat-icon>
+    </button>
+  </div>
+  <mat-divider class="my-3"></mat-divider>
+  <div *ngFor="let list of lists; let i=index">
+    <div class="row no-gutters align-items-center">
+      <div class="col">
+        <span class="font-roman fs-16">{{ list.listing_name }}</span>
+      </div>
+      <div class="col text-right">
+        <ng-container *ngIf="list.spaces!=null && list.spaces.includes(space_id)">
+          <span class="h4 blue-text cursor-pointer" (click)="removeFromList(list.listing_id, i)">
+            <i class="fas fa-heart"></i>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="list.spaces==null || !list.spaces.includes(space_id)">
+          <span class="h4 blue-text cursor-pointer" (click)="saveToList(list.listing_id, i)">
+            <i class="far fa-heart"></i>
+          </span>
+        </ng-container>
+      </div>
+    </div>
+    <!-- <ng-container *ngIf="list.spaces!=null && list.spaces.includes(space_id)">
+      <span class="text-danger" (click)="removeFromList(list.listing_id, i)">
+        <mat-checkbox checked="true" color="warn" onclick="return false;">{{ list.listing_name }}</mat-checkbox>
+      </span>
+    </ng-container>
+    <ng-container *ngIf="list.spaces==null || !list.spaces.includes(space_id)">
+      <span class="" (click)="saveToList(list.listing_id, i)">
+        <mat-checkbox onclick="return false;" color="warn">{{ list.listing_name }}</mat-checkbox>
+      </span>
+    </ng-container> -->
+    <mat-divider class="my-3" *ngIf="i < lists.length - 1"></mat-divider>
+  </div>
+</div>

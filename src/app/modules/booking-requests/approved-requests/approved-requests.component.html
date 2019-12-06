@@ -1,0 +1,108 @@
+<div class="card br-6 mb-3 grey-border-imp">
+  <div class="card-body d-none d-md-block">
+    <div
+      *ngFor="let request of requests | paginate: { itemsPerPage: 10, currentPage: page + 1, totalItems: totalRequests}; let i=index">
+      <div class="row no-gutters">
+        <div class="col-12 d-flex justify-content-between">
+          <h5 class="blue-text font-heavy">{{ request.name }}</h5>
+          <!-- <p class="blue-text font-roman cursor-pointer">Send a message</p> -->
+        </div>
+        <div class="col-12 mt-2 row no-gutters">
+          <div class="col">
+            <p class="fs-14 text-default font-heavy mb-1">Renter</p>
+            <p class="font-heavy blue-text fs-14">{{ request.user_name }}</p>
+          </div>
+          <div class="col">
+            <p class="fs-14 text-default font-heavy text-center mb-1">Start Date & Time</p>
+            <p class="text-center fs-14 text-default font-roman">{{ request.event_start_date | date:'MMM d' }} at
+              {{ request.event_start_date | date: 'h:mm a' }}</p>
+          </div>
+          <div class="col">
+            <p class="fs-14 text-default font-heavy text-center mb-1">End Date & Time</p>
+            <p class="text-center fs-14 text-default font-roman">{{ request.event_end_date | date:'MMM d' }} at
+              {{ request.event_end_date | date: 'h:mm a' }}</p>
+          </div>
+          <div class="col">
+            <p class="fs-14 text-default font-heavy text-center mb-1">Guest Count</p>
+            <p class="text-center fs-14 text-default font-roman">{{ request.guests }}</p>
+          </div>
+          <div class="col">
+            <p class="fs-14 text-default font-heavy text-center mb-1">Rental Price</p>
+            <p class="text-center fs-14 text-default font-roman">{{ request.outstanding_amount | currencyFilter }}</p>
+          </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center mt-2">
+          <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 mr-3 fs-16"
+            (click)="showBookingDetails(request.booking_id)">
+            View Transaction
+          </button>
+          <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 fs-16"
+            (click)="cancelBooking(request.booking_id, i)">Cancel Request</button>
+        </div>
+      </div>
+      <mat-divider *ngIf="i<requests.length-1" class="my-4 grey-border"></mat-divider>
+    </div>
+    <p *ngIf="requests.length <= 0" class="text-center font-roman mb-0">
+      You have no approved requests
+    </p>
+  </div>
+  <div class="card-body d-md-none">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let request of requests | paginate: { itemsPerPage: 10, currentPage: page + 1, totalItems:
+      totalRequests}; let i=index">
+        <mat-expansion-panel-header>
+          <div class="row no-gutters w-100">
+            <div class="col-12 col-sm-6 d-flex justify-content-start">
+              <p class="font-roman text-default text-truncate mb-0">{{ request.name }}</p>
+            </div>
+            <div class="col-6 d-none d-sm-flex justify-content-end pr-3">
+              <p class="font-roman blue-text mb-0">{{ request.outstanding_amount | currencyFilter }}</p>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">Renter: </span>
+            <span class="fs-16 font-roman">{{request.user_name}}</span>
+          </div>
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">Start Date & Time: </span>
+            <span class="fs-16 font-roman">{{ request.event_start_date | date:'MMM d' }} at
+              {{ request.event_start_date | date: 'h:mm a' }}</span>
+          </div>
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">End Date & Time: </span>
+            <span class="fs-16 font-roman">{{ request.event_end_date | date:'MMM d' }} at
+              {{ request.event_end_date | date: 'h:mm a' }}</span>
+          </div>
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">Guest Count: </span>
+            <span class="fs-16 font-roman">{{request.guests}}</span>
+          </div>
+          <div class="col-12 mb-1">
+            <span class="fs-16 font-heavy">Rental Price: </span>
+            <span class="fs-16 font-roman">{{ request.outstanding_amount | currencyFilter }}</span>
+          </div>
+          <div class="col-12 text-center mt-2">
+            <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 mr-sm-3 fs-16"
+              (click)="showBookingDetails(request.booking_id)">
+              View Transaction
+            </button>
+            <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 fs-16"
+              (click)="cancelBooking(request.booking_id, i)">Cancel Request</button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <p *ngIf="requests.length <= 0" class="text-center font-roman mb-0">
+      You have no approved requests
+    </p>
+  </div>
+</div>
+<!-- <pagination [boundaryLinks]="true" *ngIf="totalRequests > 10" [totalItems]="totalRequests"
+  previousText="<i class='fas fa-angle-left'></i>" nextText="<i class='fas fa-angle-right'></i>"
+  firstText="<i class='fas fa-angle-double-left'></i>" lastText="<i class='fas fa-angle-double-right'></i>"
+  pageBtnClass="spaces-pagination" [maxSize]="5" (pageChanged)="getApprovedRequests($event.page-1)">
+</pagination> -->
+<pagination-controls (pageChange)="getApprovedRequests($event-1)" autoHide="true" [responsive]="true">
+</pagination-controls>

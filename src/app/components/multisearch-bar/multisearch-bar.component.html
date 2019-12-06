@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <form class="d-flex p-0 disp-resp justify-content-center">
+    <div class="fill-width mx-2 cstm-border">
+      <mat-select placeholder="Select Location" [formControl]="this.selectedLocation">
+        <mat-select-trigger>
+          {{this.selectedLocation?.value ? this.selectedLocation?.value?.city : ''}}
+        </mat-select-trigger>
+        <mat-option *ngFor="let location of this.dataService.locations" [value]="location">{{location.city}}</mat-option>
+      </mat-select>
+    </div>
+    <div class="fill-width mx-2 cstm-border">
+      <mat-select placeholder="Select Events" [formControl]="this.SelectedEvents" multiple>
+        <mat-select-trigger>
+          {{this.SelectedEvents?.value ? this.SelectedEvents?.value[0]?.occasion_name : ''}}
+          <span *ngIf="this.SelectedEvents.value?.length > 1">
+            (+{{this.SelectedEvents?.value.length - 1}} {{this.Selectedevents?.value?.length === 2 ?
+            'other' : 'others'}})
+          </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let state of this.dataService.events" [value]="state">{{state.occasion_name}}</mat-option>
+      </mat-select>
+    </div>
+    <div (click)="submitSearch()" class="btn btn-warning cstm-btn">
+      <span> SEARCH</span>
+    </div>
+  </form>
+</div>

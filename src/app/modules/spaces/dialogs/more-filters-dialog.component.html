@@ -1,0 +1,96 @@
+<mat-dialog-content>
+  <h4 class="font-heavy mb-3">Filters</h4>
+  <div class="row mb-4">
+    <mat-divider class="col-12"></mat-divider>
+  </div>
+
+  <div class="amenities">
+    <h6 class="font-heavy my-3">Amenities</h6>
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-12"
+        *ngFor="let i of (((misc_data['amenities'].length/5.0) | ceil) | arrayBuilder);">
+        <div *ngFor="let amenity of misc_data['amenities'].slice(5*i, 5*i+5)">
+          <mat-checkbox class="my-2 small-ripple" disableRipple="true" color="warn" [checked]="checkAmenity(amenity)"
+            (change)="handleAmenities($event, amenity)">
+            <span>{{ amenity }}</span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accessibility">
+    <h6 class="font-heavy my-3">Accessibility</h6>
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-12"
+        *ngFor="let i of (((misc_data['accessibility'].length/5.0) | ceil) | arrayBuilder);">
+        <div *ngFor="let amenity of misc_data['accessibility'].slice(5*i, 5*i+5)">
+          <mat-checkbox class="my-2 small-ripple" disableRipple="true" color="warn"
+            [checked]="checkAccessibility(amenity)" (change)="handleAccessibilities($event, amenity)">
+            <span>{{ amenity }}</span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="space-rules">
+    <h6 class="font-heavy my-3">Space Rules</h6>
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 col-md-6 col-12"
+        *ngFor="let i of (((misc_data['space_rules'].length/5.0) | ceil) | arrayBuilder);">
+        <div *ngFor="let amenity of misc_data['space_rules'].slice(5*i, 5*i+5)">
+          <mat-checkbox class="my-2 small-ripple" disableRipple="true" color="warn" [checked]="checkSpaceRule(amenity)"
+            (change)="handleSpaceRules($event, amenity)">
+            <span>{{ amenity }}</span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row">
+    <div class="col-4">
+      <h5 class="col-12">Amenities</h5>
+      <div class="col-12">
+        <div *ngFor="let amenity of misc_data['amenities']">
+          <mat-checkbox class="my-2 small-ripple" disableRipple="true" color="warn" [checked]="checkAmenity(amenity)"
+            (change)="handleAmenities($event, amenity)">
+            <span class="small-text">{{ amenity }}</span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <h5 class="col-12">Accessibility</h5>
+      <div class="col-12">
+        <div *ngFor="let accessibility of misc_data['accessibility']">
+          <mat-checkbox class="my-2 small-ripple" disableRipple="true" color="warn"
+            [checked]="checkAccessibility(accessibility)" (change)="handleAccessibilities($event, accessibility)">
+            <span class="small-text">{{ accessibility }}</span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <h5 class="col-12">Space Rules</h5>
+      <div class="col-12">
+        <div *ngFor="let rule of misc_data['space_rules']">
+          <mat-checkbox class="my-2 small-ripple" disableRipple="true" color="warn" [checked]="checkSpaceRule(rule)"
+            (change)="handleSpaceRules($event, rule)">
+            <span class="small-text">{{ rule }}</span>
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</mat-dialog-content>
+<mat-dialog-actions class="py-4 border-top neg-margin-left">
+  <div class="clearfix w-100" align="center">
+    <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 px-4 mr-sm-4 mb-2 mb-sm-0 fs-16"
+      (click)="clear()">
+      <span class="px-3 font-heavy">Clear Filters</span>
+    </button>
+    <button mat-flat-button color="primary" class="bg-blue-imp br-10 px-4 fs-16 border blue-border-imp"
+      (click)="save()">
+      <span class="px-3 font-heavy">Apply Filters</span>
+    </button>
+  </div>
+</mat-dialog-actions>

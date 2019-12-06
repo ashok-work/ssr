@@ -1,0 +1,418 @@
+<div class="card mb-4 br-6 px-2 grey-border" id="card">
+  <div class="row pt-4">
+    <div class="col-12 text-center">
+      <span class="h4 font-heavy" *ngIf="!bookingService.spaceBookingDetails.catering_mandatory">
+        {{ (this.bookingService.spaceBookingDetails?.price | currencyFilter) }}
+      </span>
+      <span class="h4 font-heavy" *ngIf="bookingService.spaceBookingDetails.catering_mandatory">
+        <span class="fs-16 font-roman">starts at </span>
+        {{ (this.bookingService.spaceBookingDetails?.estimated_price | currencyFilter) }}
+      </span>
+      <span class="fs-16 font-roman"> / hr</span>
+    </div>
+    <div class="col-12 text-center" *ngIf="!bookingService.spaceBookingDetails.catering_mandatory">
+      <span class="grey-text font-roman fs-14">
+        {{bookingService.spaceBookingDetails.min_hours ? bookingService.spaceBookingDetails.min_hours+' hr' : '1 hr'}}
+        min
+      </span>
+    </div>
+    <div class="col-12 text-center px-3" *ngIf="bookingService.spaceBookingDetails.catering_mandatory">
+      <span class="grey-text font-roman fs-14">
+        A max of {{bookingService.spaceBookingDetails.included_hours}} hrs are included with a minimum purchase of food
+        and/or drinks worth {{bookingService.spaceBookingDetails.min_catering_amount | currencyFilter}}.
+      </span>
+    </div>
+  </div>
+  <!-- <div class="card-header">
+    <div class="clearfix pt-2">
+      <div class="booking-box-header my-2 d-flex justify-content-center align-items-center">
+        <span class="h4 m-0 font-heavy">
+          {{ (this.bookingService.spaceBookingDetails?.price | currencyFilter) }}&nbsp;
+        </span>
+        <span class="small-text font-heavy">
+          per hour (min.
+          {{bookingService.spaceBookingDetails.min_hours ? bookingService.spaceBookingDetails.min_hours+' hrs' : '1 hr'}}
+          )
+        </span>
+      </div>
+      <span class="float-right">
+        <app-start-rating rating=3.5></app-start-rating>
+        <sub class="text-center p d-block">(3.5 Reviews)</sub>
+      </span>
+    </div>
+  </div> -->
+  <div class="card-body px-1 px-sm-3 px-lg-1 px-xl-3">
+    <form [formGroup]="planForm" class="plan-form row smaller-gutters" id="plan-form">
+      <div class="form-group col-12 col-sm-8">
+        <p class="font-heavy fs-16 text-default m-0">What's the occasion?</p>
+        <input type="text" class="form-control br-10 font-roman grey-border-imp" placeholder="Type of Event"
+          formControlName="plan" [matAutocomplete]="auto1" (keyup)="filterEvents($event.target.value)">
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngFor="let event of filteredEvents" [value]="event.occasion_name">
+            {{event.occasion_name}}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <div class="form-group col-12 col-sm-4">
+        <p class="font-heavy fs-16 text-default m-0">Guests*</p>
+        <input type="number" class="form-control br-10 font-roman grey-border-imp needs-validation"
+          [placeholder]="capacity + ' Max'" formControlName="guests">
+        <div class="invalid-guests small-text" *ngIf="!guestsIsValid">Number of guests should be between 1 and
+          {{ capacity }}
+          inclusive.</div>
+      </div>
+
+      <div class="form-group col-12">
+        <ng-container *ngIf="!multiDay">
+          <div class="row justify-content-between mt-1 no-gutters" *ngIf="bookedDatesReceived">
+            <span class="col-12 col-sm-4 fs-16 text-default px-1 font-heavy" triggers="" #pop1="bs-tooltip"
+              tooltip="WARNING! That was an invalid date. We changed it back for you 😁">
+              Date
+            </span>
+            <button type="button" id="tooltipBtn1" class="d-none" (click)="pop1.toggle()"></button>
+            <span class="col-4 fs-16 text-default px-1 font-heavy d-none d-sm-inline">Start</span>
+            <span class="col-4 fs-16 text-default px-1 font-heavy d-none d-sm-inline">End</span>
+            <div class="col-12 col-sm-4">
+              <div class="inner-addon-group-right d-flex align-items-center">
+                <span (click)="picker.open()" id="toggle-icon1" class="inner-addon grey-text"><i
+                    class="far fa-calendar"></i></span>
+                <input type="text" class="form-control br-10 bbr-0 btr-0 br-xs-10-right font-roman grey-border-imp"
+                  placeholder="When?" [value]="startDate" [matDatepicker]="picker"
+                  [matDatepickerFilter]="showAvailableDates" (dateChange)="showAvailableStartTimes($event.target.value)"
+                  [min]="minDate" [max]="maxDate">
+              </div>
+              <mat-datepicker #picker></mat-datepicker>
+            </div>
+            <span class="col-6 fs-16 text-default px-1 font-heavy d-sm-none">Start</span>
+            <span class="col-6 fs-16 text-default px-1 font-heavy d-sm-none">End</span>
+            <div class="col-6 col-sm-4 select-container">
+              <select class="form-control rounded-0 br-xs-10-left grey-border-imp cursor-pointer"
+                [disabled]="!dateSelected" (change)="showAvailableEndTimes($event)" required>
+                <option [value]="null" hidden selected>Start Time</option>
+                <option *ngFor="let time of startTimeArray" [selected]="compareTimes(time, startTime)"
+                  [value]="json.stringify(time)" [disabled]="time.disabled">
+                  <span *ngIf="time.disabled"><del>{{ time.text }}</del></span>
+                  <span *ngIf="!time.disabled">{{ time.text }}</span>
+                </option>
+              </select>
+            </div>
+            <div class="col-6 col-sm-4 select-container">
+              <select class="form-control grey-border-imp br-10 btl-0 bbl-0 cursor-pointer"
+                [disabled]="!startTimeSelected" (change)="calculateHours($event, true)" required>
+                <option [value]="null" hidden selected>End Time</option>
+                <option *ngFor="let time of endTimeArray" [selected]="compareTimes(time, endTime1)"
+                  [value]="json.stringify(time)">
+                  <span>{{ time.text }}</span>
+                </option>
+              </select>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="multiDay">
+          <div class="row justify-content-between mt-1 no-gutters" *ngIf="bookedDatesReceived">
+            <span class="col-12 fs-16 text-default px-1 font-heavy" triggers="" #pop1="bs-tooltip"
+              tooltip="WARNING! That was an invalid date. We changed it back for you 😁">
+              Start
+            </span>
+            <button type="button" id="tooltipBtn1" class="d-none" (click)="pop1.toggle()"></button>
+            <div class="col-6">
+              <div class="inner-addon-group-right d-flex align-items-center">
+                <span (click)="picker.open()" id="toggle-icon1" class="inner-addon grey-text"><i
+                    class="far fa-calendar"></i></span>
+                <input type="text" class="form-control br-10 bbr-0 btr-0 font-roman grey-border-imp"
+                  placeholder="Start Date" [value]="startDate" [matDatepicker]="picker"
+                  [matDatepickerFilter]="showAvailableDates" (dateChange)="showAvailableStartTimes($event.target.value)"
+                  [min]="minDate" [max]="maxDate">
+              </div>
+              <mat-datepicker #picker></mat-datepicker>
+            </div>
+            <div class="col-6 select-container">
+              <select class="form-control grey-border-imp btl-0 bbl-0 cursor-pointer" [disabled]="!dateSelected"
+                (change)="showAvailableEndTimes($event)" required>
+                <option [value]="null" hidden selected>Start Time</option>
+                <option *ngFor="let time of startTimeArray" [selected]="compareTimes(time, startTime)"
+                  [value]="json.stringify(time)" [disabled]="time.disabled">
+                  <span *ngIf="time.disabled"><del>{{ time.text }}</del></span>
+                  <span *ngIf="!time.disabled">{{ time.text }}</span>
+                </option>
+              </select>
+            </div>
+            <span class="col-12 fs-16 text-default px-1 font-heavy" triggers="" #pop2="bs-tooltip"
+              tooltip="WARNING! That was an invalid date. We changed it back for you 😁">
+              End
+            </span>
+            <button type="button" id="tooltipBtn2" class="d-none" (click)="pop2.toggle()"></button>
+            <div class="col-6" *ngIf="startTimeSelected">
+              <div class="inner-addon-group-right d-flex align-items-center">
+                <span (click)="picker2.open()" id="toggle-icon2" class="inner-addon grey-text"><i
+                    class="far fa-calendar"></i></span>
+                <input type="text" class="form-control br-10 bbr-0 btr-0 font-roman grey-border-imp"
+                  placeholder="End Date" [value]="endDate" [matDatepicker]="picker2"
+                  [matDatepickerFilter]="showAvailableEndDates"
+                  (dateChange)="showAvailableEndTimes2($event.target.value)" [min]="minDate" [max]="maxDate">
+              </div>
+              <mat-datepicker #picker2 [panelClass]="defaultEndDateFlag ? 'd-block d-none' : 'd-none'"
+                [startAt]="startDate"></mat-datepicker>
+            </div>
+            <div class="col-6 select-container" *ngIf="startTimeSelected">
+              <select class="form-control grey-border-imp btl-0 bbl-0 cursor-pointer" [disabled]="!endDateSelected"
+                (change)="calculateHours($event)" required>
+                <option [value]="null" hidden selected>End Time</option>
+                <option *ngFor="let time of endTimeArray2" [selected]="compareTimes(time, endTime2)"
+                  [value]="json.stringify(time)">
+                  <span>{{ time.text }}</span>
+                </option>
+              </select>
+            </div>
+          </div>
+        </ng-container>
+        <div class="d-flex justify-content-end pt-1">
+          <span *ngIf="!multiDay" (click)="multiDay=true; defaultDates(); calculateHours();"
+            class="blue-text cursor-pointer">Multi day</span>
+          <span *ngIf="multiDay" (click)="multiDay=false; calculateHours();" class="blue-text cursor-pointer">
+            Single day
+          </span>
+        </div>
+      </div>
+
+      <!-- <ng-container *ngIf="!multiDay">
+        <div class="d-flex row justify-content-between mt-1 no-gutters" *ngIf="bookedDatesReceived">
+          <span class="col-4 info px-1" triggers="" #pop1="bs-tooltip"
+            tooltip="WARNING! That was an invalid date. We changed it back for you 😁">
+            Date
+          </span>
+          <button type="button" id="tooltipBtn1" class="d-none" (click)="pop1.toggle()"></button>
+          <span class="col-4 info px-1">Start</span>
+          <span class="col-4 info px-1">End</span>
+          <mat-form-field class="col-4 date-field" appearance="outline">
+            <input id="startInput" matInput [matDatepicker]="picker" [matDatepickerFilter]="showAvailableDates"
+              (dateChange)="showAvailableStartTimes($event.value)" [value]="startDate" [min]="minDate" [max]="maxDate"
+              placeholder="Date">
+            <span id="toggle-icon1" class="toggle-icon" (click)="picker.open();"><i
+                class="far fa-calendar-alt fa-sm"></i></span>
+            <mat-datepicker #picker [panelClass]="defaultStartDateFlag ? 'd-block d-none' : 'd-none'"></mat-datepicker>
+          </mat-form-field>
+
+          <div class="col-4 time-select">
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Start Time" [(value)]="startTime" [disabled]="!dateSelected"
+                (selectionChange)="showAvailableEndTimes($event.value)" required>
+                <mat-option *ngFor="let time of startTimeArray" [value]="time" [disabled]="time.disabled">
+                  <span *ngIf="time.disabled"><del>{{ time.text }}</del></span>
+                  <span *ngIf="!time.disabled">{{ time.text }}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-4 time-select">
+            <mat-form-field appearance="outline">
+              <mat-select (selectionChange)="calculateHours()" placeholder="End Time" [(value)]="endTime1"
+                [disabled]="!startTimeSelected" required>
+                <mat-option *ngFor="let time of endTimeArray" [value]="time">
+                  {{ time.text }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </ng-container> -->
+      <!-- <ng-container *ngIf="multiDay">
+        <div class="d-flex row justify-content-between mt-1 no-gutters" *ngIf="bookedDatesReceived">
+          <span class="col-6 info px-1" triggers="" #pop1="bs-tooltip"
+            tooltip="WARNING! That was an invalid date. We changed it back for you 😁">
+            Start
+          </span>
+          <span class="col-6"></span>
+          <button type="button" id="tooltipBtn1" class="d-none" (click)="pop1.toggle()"></button>
+          <mat-form-field class="col-6 date-field" appearance="outline">
+            <input matInput [matDatepicker]="picker" [matDatepickerFilter]="showAvailableDates"
+              (dateChange)="showAvailableStartTimes($event.value)" [value]="startDate" [min]="minDate" [max]="maxDate"
+              placeholder="Start Date">
+            <span id="toggle-icon1" class="toggle-icon" (click)="picker.open();"><i
+                class="far fa-calendar-alt fa-sm"></i></span>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <div class="col-6 time-select">
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Start Time" [(value)]="startTime" [disabled]="!dateSelected"
+                (selectionChange)="showAvailableEndTimes($event.value)" required>
+                <mat-option *ngFor="let time of startTimeArray" [value]="time" [disabled]="time.disabled">
+                  <span *ngIf="time.disabled"><del>{{ time.text }}</del></span>
+                  <span *ngIf="!time.disabled">{{ time.text }}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <span class="col-6 info px-1" triggers="" #pop2="bs-tooltip"
+            tooltip="WARNING! That was an invalid date. We changed it back for you 😁">
+            End
+          </span>
+          <span class="col-6"></span>
+          <button type="button" id="tooltipBtn2" class="d-none" (click)="pop2.toggle()"></button>
+          <ng-container *ngIf="startTimeSelected">
+            <mat-form-field class="col-6 date-field" appearance="outline">
+              <input id="endInput" matInput [matDatepicker]="picker2" [matDatepickerFilter]="showAvailableEndDates"
+                (dateChange)="showAvailableEndTimes2($event.value)" [value]="endDate" [min]="minDate" [max]="maxDate"
+                placeholder="End Date">
+              <span id="toggle-icon2" class="toggle-icon" (click)="picker2.open();"><i
+                  class="far fa-calendar-alt fa-sm"></i></span>
+              <mat-datepicker #picker2 [panelClass]="defaultEndDateFlag ? 'd-block d-none' : 'd-none'"
+                [startAt]="startDate"></mat-datepicker>
+            </mat-form-field>
+
+            <div class="col-6 time-select">
+              <mat-form-field appearance="outline">
+                <mat-select (selectionChange)="calculateHours()" placeholder="End Time" [(value)]="endTime2"
+                  [disabled]="!endDateSelected" required>
+                  <mat-option *ngFor="let time of endTimeArray2" [value]="time">
+                    {{ time.text }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="!startTimeSelected">
+            <mat-form-field class="col-6 date-field" appearance="outline">
+              <input matInput placeholder="End Date" disabled>
+            </mat-form-field>
+            <div class="col-6 time-select">
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="End Time" disabled>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container> -->
+      <!-- <div class="d-flex justify-content-end">
+        <span *ngIf="!multiDay" (click)="multiDay=true; calculateHours();" class="sub text-danger add-day">Multi day</span>
+        <span *ngIf="multiDay" (click)="multiDay=false; calculateHours();" class="sub text-danger add-day">Single day</span>
+      </div> -->
+      <!-- <div class="d-flex justify-content-between mt-2">
+        <mat-form-field class="fit-box">
+          <input matInput [matDatepicker]="picker2" formControlName="endDate" placeholder="Choose End date">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error class="text-center" *ngIf="this.planForm.controls.endDate.hasError('booked')">
+            This Time Slot is Already Booked
+          </mat-error>
+
+          <mat-error *ngIf="!this.planForm.value.endDate && this.planForm.controls.endDate.invalid">
+            this field is required
+          </mat-error>
+        </mat-form-field>
+
+        <div class="fit-box">
+          <input id="no-border" formControlName="endTime" placeholder="Pick End Time" aria-label="12hr format"
+            [ngxTimepicker]="endDate" readonly>
+          <ngx-material-timepicker (closed)="onSelectEndTime()" #endDate></ngx-material-timepicker>
+          <mat-error class="text-center" *ngIf="this.planForm.controls.endTime.invalid && this.planForm.controls.endTime.touched">
+            this field is required
+          </mat-error>
+        </div>
+      </div> -->
+
+      <!-- <div class="row mt-1 no-gutters">
+        <span class="col-6 info px-1">Guests</span>
+        <div class="col-6 d-flex justify-content-end">
+          <span *ngIf="!multiDay" (click)="multiDay=true; defaultDates(); calculateHours();"
+            class="sub text-danger add-day">Multi day</span>
+          <span *ngIf="multiDay" (click)="multiDay=false; calculateHours();" class="sub text-danger add-day">Single
+            day</span>
+        </div>
+        <div class="col-4 guests-field">
+          <mat-form-field appearance="outline">
+            <input matInput type="number" min="1" [max]="capacity" [placeholder]="'Max ' + capacity"
+              formControlName="guests">
+            <mat-hint><strong>Max Allowed 50</strong> </mat-hint>
+          </mat-form-field>
+        </div>
+      </div> -->
+
+      <div class="row fs-14 px-2" *ngIf="showQuote && !bookingService.spaceBookingDetails.catering_mandatory">
+        <div class="col-12">
+          <p class="fs-16 font-heavy text-default m-0">Price</p>
+        </div>
+        <div class="col-lg-12">
+          <span class="float-left font-roman">
+            {{(this.bookingService.spaceBookingDetails?.price | currencyFilter)}} X {{duration}} hr </span>
+          <span class="float-right font-roman">{{(this.subTotal | number: '1.0-2' | currencyFilter)}}</span>
+        </div>
+        <div class="col-lg-12" *ngIf="this.discount > 0">
+          <span class="float-left font-roman">
+            Discount ({{this.bookingService.spaceBookingDetails?.discount}}%) </span>
+          <span class="float-right font-roman">-{{(this.discount | number: '1.0-2' | currencyFilter)}}</span>
+        </div>
+        <div class="col-lg-12">
+          <span class="float-left font-roman">Service Fee</span>
+          <span class="float-right font-roman">{{(this.serviceFee | number: '1.0-2' | currencyFilter)}}</span>
+        </div>
+        <div class="col-lg-12">
+          <span class="float-left font-roman">GST ({{tax}}%)</span>
+          <span class="float-right font-roman">{{(this.gst | number: '1.0-2' | currencyFilter)}}</span>
+        </div>
+        <div class="col-12">
+          <mat-divider class="my-2"></mat-divider>
+        </div>
+        <div class="col-lg-12">
+          <span class="float-left fs-16 font-heavy">Total</span>
+          <span class="float-right fs-16 font-heavy">{{(this.grandTotal | number: '1.0-2' | currencyFilter)}}</span>
+        </div>
+      </div>
+
+      <div class="min-hours-notice row px-2"
+        *ngIf="!bookingService.spaceBookingDetails.catering_mandatory && showNotice">
+        <div class="col-12">
+          <mat-divider class="my-2"></mat-divider>
+        </div>
+        <div class="col-1"><span class="blue-text"><i class="fas fa-exclamation-circle"></i></span></div>
+        <div class="col-11">
+          <h6 class="m-0 mb-1 font-heavy">
+            {{bookingService.spaceBookingDetails.min_hours ? bookingService.spaceBookingDetails.min_hours+' hour minimum' : '1 hour minimum'}}
+          </h6>
+          <p class="small-text m-0">Price will be calculated according to space minimum no. of hours</p>
+        </div>
+      </div>
+
+      <div class="min-hours-notice row px-2"
+        *ngIf="bookingService.spaceBookingDetails.catering_mandatory && showNotice2">
+        <div class="col-12">
+          <mat-divider class="my-2"></mat-divider>
+        </div>
+        <div class="col-1"><span class="blue-text"><i class="fas fa-exclamation-circle"></i></span></div>
+        <div class="col-11">
+          <h6 class="m-0 mb-1 font-heavy">
+            {{bookingService.spaceBookingDetails.included_hours +' hour maximum'}}
+          </h6>
+          <p class="small-text m-0">A maximum of only {{bookingService.spaceBookingDetails.included_hours +' hours'}} is
+            allowed per booking.</p>
+        </div>
+      </div>
+
+      <div class="mt-4 row d-flex align-items-center justify-content-center" *ngIf="!(isAuthor || showNotice || showNotice2 ||
+        (commonServices.info['production'] && bookingService.spaceBookingDetails.status != 'live'))">
+        <div class="col-12 px-4">
+          <button mat-flat-button color="primary" class="bg-blue-imp br-10 mr-3 fs-16 w-100 py-1"
+            (click)="submitForm()">
+            Request to Book
+          </button>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center mt-2 text-center">
+          <span class="fs-14 grey-text" *ngIf="bookingService.spaceBookingDetails.avg_response_time <= 0">
+            {{ bookingService.spaceBookingDetails.host_name }} typically responds very soon.
+          </span>
+          <span class="fs-14 grey-text" *ngIf="bookingService.spaceBookingDetails.avg_response_time > 0">
+            {{ bookingService.spaceBookingDetails.host_name }} typically responds within
+            <span class="text-default font-heavy">{{ (bookingService.spaceBookingDetails.avg_response_time < 48) 
+                ? (bookingService.spaceBookingDetails.avg_response_time | ceil) : 48 }}
+              hrs</span>
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

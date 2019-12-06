@@ -1,0 +1,69 @@
+<div class="container-fluid bg-grey px-0" id="custom-container">
+  <div id="custom-row" class="row no-gutters bg-white">
+    <div id="left-box"
+      class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4">
+      <h4 class="text-default font-heavy">{{space_name | titlecase}}</h4>
+      <h6 class="grey-text font-heavy">Update Operating hours</h6>
+      <div class="input-field-section mt-4 row no-gutters" *ngIf="this.operating_hours.length">
+        <ng-container *ngFor="let operating_hour of operating_hours; let i = index">
+          <div class="col-12 py-3 dayOfWeek row no-gutters">
+            <span class="col-6">{{ days[i] }}</span>
+            <mat-slide-toggle color="warn" [checked]="operating_hour['isOpen']" (change)="toggleAvailability($event, i)"
+              class="custom-toggle col">
+              {{ operating_hour['isOpen'] ? 'Open' : 'Closed' }}
+            </mat-slide-toggle>
+          </div>
+          <div class="col-12 mt-3 day-details row no-gutters" *ngIf="operating_hour['isOpen']">
+            <mat-radio-group class="col-12 row no-gutters" (change)="toggleTimes($event, i)"
+              aria-label="Select an option">
+              <mat-radio-button class="col-6" [checked]="operating_hour['allDay']" color="warn" value="1">All day (24
+                hrs)</mat-radio-button>
+              <mat-radio-button class="col-6" [checked]="!operating_hour['allDay']" color="warn" value="2">Set hours
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="mb-4 mt-2 row no-gutters" *ngIf="!operating_hour['allDay']">
+              <div class="col-12 row no-gutters" *ngFor="let hour of operating_hour['hours']; let j=index">
+                <div class="col-12 row no-gutters">
+                  <div class="col-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-select [compareWith]="compareTimeObj" [(ngModel)]="hour['start_time']"
+                        placeholder="Start Time">
+                        <ng-container *ngFor="let timing of timings">
+                          <mat-option *ngIf="timing.text != '11:59 PM'" [value]="timing">
+                            {{timing.text}}
+                          </mat-option>
+                        </ng-container>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-select [compareWith]="compareTimeObj" [(ngModel)]="hour['end_time']" placeholder="End Time">
+                        <mat-option *ngFor="let timing of timings" [value]="timing">
+                          {{timing.text}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 orange-text small-text cursor-pointer" (click)="addOperatingHours(i)">Add</div>
+              <div class="col-6 text-right orange-text small-text cursor-pointer" (click)="removeOperatingHours(i)">
+                Remove
+              </div>
+            </div>
+          </div>
+          <mat-divider class="col-12"></mat-divider>
+        </ng-container>
+      </div>
+    </div>
+    <div class="bg-grey col-lg-4 col-md-3 col-sm-2 d-none d-sm-block" id="right-box"></div>
+    <div class="offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 px-4 nav-buttons">
+      <div class="clearfix mt-2 text-center">
+        <button mat-flat-button class="bg-blue-imp br-10 mr-3 fs-16 text-white" (click)="submitForm()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

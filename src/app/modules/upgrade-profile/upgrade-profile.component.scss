@@ -1,0 +1,230 @@
+$input-width: 300px;
+$max-wide:350px;
+
+.main-section {
+  padding-top: 1rem;
+  min-height: 100vh;
+  padding-bottom: 3rem;
+  background: #e9e9ee;
+  box-shadow: none;
+}
+
+
+// .card {
+//   min-width: $input-width;
+//   width: 620px;
+//   margin: 0px 5px;
+//   margin-top: calc(2rem + 5vh);
+//   padding: 0px 3rem;
+//   font-size: 0.8rem;
+// }
+
+
+// select {
+//   height: 36px;
+// }
+
+
+.flat-button {
+  border-radius: 4px !important;
+  max-width: 150px;
+  width: 100px;
+}
+
+.btn-container {
+  height: 54px;
+}
+
+.mobile-btn-container {
+  max-width: 350px;
+}
+
+#editBtn {
+  height: 34px;
+  min-width: 180px;
+  margin-left: 10px;
+  color: #262629;
+  font-weight: 500;
+}
+
+
+$edit-theme-color: #ef7225;
+
+
+.cancelbtn {
+  color: $edit-theme-color;
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration-line: underline;
+  }
+}
+
+
+.form-group-wrapper {
+  border: 1.2px solid lightslategray;
+  padding: 5px 8px;
+  margin-bottom: 1rem;
+
+  p.float-left {
+    color: lightslategray;
+    margin-bottom: 0px;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+}
+
+
+.sm-container {
+  padding-bottom: 10px;
+  // border-bottom: 1.2px solid lightgrey;
+}
+
+
+.btn-white {
+  background-color: white;
+  color: slategray;
+  padding: .25rem;
+
+  &:last-child:hover {
+    text-decoration-line: underline;
+  }
+
+  &:last-child {
+    color: #4a90e2;
+  }
+}
+
+
+button#v-divider::after {
+  content: "";
+  background-color: slategray;
+  padding: 1px;
+  margin-left: 10px;
+}
+
+
+
+.clear-box {
+  padding-bottom: 0.40rem;
+}
+
+
+.country-code {
+  padding: 10px 2px;
+  border: none;
+  outline: none;
+  border: 1px solid rgba(150, 152, 153, 0.589);
+  width: 78px;
+  border-radius: 4px 0px 0px 4px;
+
+  option {
+    background-image: url("../../../assets/images/india.png");
+    background-size: 20px 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+
+@mixin gridbox {
+  display: grid;
+  display: -moz-grid;
+  display: -ms-grid;
+}
+
+@media only screen and (max-width: 600px) {
+  // .card {
+  //   padding: 0px !important;
+  // }
+}
+
+
+@media only screen and (max-width: 850px) {
+  .grid-container {
+    @include gridbox();
+    grid-template-columns: 1fr;
+    -ms-grid-column: 1fr;
+    align-items: center;
+  }
+
+  // .card {
+  //   padding: 0px 1rem;
+  // }
+
+}
+
+
+@media only screen and (min-width: 850px) {
+  .grid-container {
+    @include gridbox();
+    grid-template-columns: 150px 1fr;
+    -ms-grid-column: 150px 1fr;
+    align-items: center;
+  }
+}
+
+
+.err-txt {
+  color: #6d6e71;
+  font-size: 14px;
+  font-weight: 500 !important;
+
+  strong {
+    font-weight: 500 !important;
+  }
+}
+
+.btn {
+  min-width: unset !important;
+}
+
+/deep/ .mobile-form .mat-flat-button.mat-primary[disabled] {
+  background-color: rgba(0, 0, 0, 0.26) !important;
+  color: white;
+}
+
+@media only screen and (max-width: 1199px) {
+  .px-25 {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .px-25 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('../../../assets/images/icons8-chevron-down.svg') no-repeat right 6px;
+  background-size: 12px;
+  background-origin: content-box;
+  padding-right: 0.5rem;
+}
+
+// .select-container {
+//   position: relative;
+
+//   &:after {
+//     content: "\f078";
+//     font-family: "FontAwesome";
+//     font-size: 11px;
+//     color: #646464;
+//     right: 10px;
+//     top: 28%;
+//     padding: 0 0 2px;
+//     position: absolute;
+//     pointer-events: none;
+//   }
+// }

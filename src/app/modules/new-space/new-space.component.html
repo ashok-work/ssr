@@ -1,0 +1,929 @@
+<form [formGroup]="spaceForm" class="space-form">
+  <div id="custom-row" class="row no-gutters">
+    <ng-container *ngIf="renderUI">
+      <mat-progress-bar *ngIf="section !== 4 && section !== 11 && section !== 17" class="example-margin"
+        mode="determinate" [value]="progress">
+      </mat-progress-bar>
+
+      <!------------------------------ Section 1 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 1">
+        <h5 class="text-default font-heavy">Hi, {{ utils.user?.user_json?.fullName }}</h5>
+        <h6 class="text-default font-heavy">Let's get started!</h6>
+        <p class="info font-roman">Step 1: The basics</p>
+
+        <div class="input-field-section mt-4">
+          <div class="label p-0 font-roman">What kind of space do you have?</div>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Select From List" formControlName="space_kind">
+              <mat-option *ngFor="let kind of space_data.space_kind" [value]="kind">
+                {{kind}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="hint label p-0 font-roman">
+            If your space can host multiple events simultaneously, create a separate listing for each of them.
+          </div>
+          <!-- For example, if you have a rooftop, a meeting room as well as a studio, create 3 listings instead of including them together. -->
+        </div>
+
+        <!-- <div class="input-field-section mt-4">
+                <div class="label p-0">What type of space is it?</div>
+                <div class="mt-1">
+                    <div class="option" (click)="selectType($event)">
+                        Commercial
+                        <span class="check-icon d-none"><i class="fas fa-check"></i></span>
+                    </div>
+                    <div class="option" (click)="selectType($event)">
+                        Private
+                        <span class="check-icon d-none"><i class="fas fa-check"></i></span>
+                    </div>
+                    <div class="option" (click)="selectType($event)">
+                        Live / Work
+                        <span class="check-icon d-none"><i class="fas fa-check"></i></span>
+                    </div>
+                    <div class="option" (click)="selectType($event)">
+                        Non-profit organization
+                        <span class="check-icon d-none"><i class="fas fa-check"></i></span>
+                    </div>
+                </div>
+            </div> -->
+        <div class="input-field-section mt-4">
+          <div class="label p-0 font-roman">How many guests can your space accomodate?*</div>
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" [min]="0" formControlName="capacity" (keydown)="handleInvalidData($event)"
+                (paste)="handlePaste($event)">
+            </mat-form-field>
+            <div class="input-group-append">
+              <span (click)="decrGuestCounter()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon1">
+                -
+              </span>
+            </div>
+            <div class="input-group-append">
+              <span (click)="incrGuestCounter()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon2">
+                +
+              </span>
+            </div>
+          </div>
+          <div id="capacity" *ngIf="!spaceForm.value.capacity" class="label error-label d-none">
+            <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter the capacity of your space
+          </div>
+          <div class="hint label p-0 font-roman">
+            Give an estimation of the maximum number of guests that can be accommodated. Be as accurate as possible.
+            Underestimation could reduce the chances of being booked while overestimation would lead to customer
+            dissatisfaction and poor ratings.
+          </div>
+        </div>
+
+        <div class="input-field-section mt-4">
+          <div class="row no-gutters align-items-center mb-2">
+            <label class="switch">
+              <input type="checkbox" [checked]="spaceForm.value.is_allow_full_space_for_rent"
+                (change)="toggleFullSpace($event)">
+              <span class="slider round"></span>
+            </label>
+            <span class="col ml-2 mb-2 label p-0 font-roman">Do you rent the full space?</span>
+            <div class="hint label p-0 font-roman">
+              Uncheck this, if you can host multiple events at once i.e. if you rent your space partially to multiple
+              guests at once.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------ Section 2 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 2">
+        <h5 class="text-default font-heavy">Space details</h5>
+        <div class="input-field-section mt-4">
+          <div class="label p-0 font-roman">Number of rooms</div>
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" [min]="0" formControlName="rooms" (keydown)="handleInvalidData($event)"
+                (paste)="handlePaste($event)">
+            </mat-form-field>
+            <div class="input-group-append">
+              <span (click)="decrRoomsCounter()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon1">
+                -
+              </span>
+            </div>
+            <div class="input-group-append">
+              <span (click)="incrRoomsCounter()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon2">
+                +
+              </span>
+            </div>
+          </div>
+          <div class="hint label p-0 font-roman">Count only spaces that guest can use</div>
+        </div>
+        <div class="input-field-section mt-4">
+          <div class="label p-0 font-roman">Number of Restrooms</div>
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" [min]="0" formControlName="rest_rooms" (keydown)="handleInvalidData($event)"
+                (paste)="handlePaste($event)">
+            </mat-form-field>
+            <div class="input-group-append">
+              <span (click)="decrRestRoomsCounter()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon1">
+                -
+              </span>
+            </div>
+            <div class="input-group-append">
+              <span (click)="incrRestRoomsCounter()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon2">
+                +
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="input-field-section mt-4">
+          <div class="label p-0 font-roman">Floor Number (if applicable)</div>
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" [min]="0" formControlName="floor_no" (keydown)="handleInvalidData($event)"
+                (paste)="handlePaste($event)">
+            </mat-form-field>
+            <div class="input-group-append">
+              <span (click)="decrFloorCounter()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon1">
+                -
+              </span>
+            </div>
+            <div class="input-group-append">
+              <span (click)="incrFloorCounter()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon2">
+                +
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="input-field-section mt-4">
+          <div class="label p-0 font-roman">What is the estimated square footage of the available space for an event?*
+          </div>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput type="number" [min]="0" formControlName="area" (keydown)="handleInvalidData($event)"
+              (paste)="handlePaste($event)">
+          </mat-form-field>
+          <div id="area" *ngIf="!spaceForm.value.area" class="label error-label d-none">
+            <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter the size of your space
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------ Section 3 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 3">
+        <h5 class="text-default font-heavy">What is the full address of your space?</h5>
+        <div class="input-field-section mt-4">
+          <div class="label p-0 font-roman">Address*</div>
+          <div class="input-group row no-gutters">
+            <mat-form-field class="example-full-width col-11" appearance="outline">
+              <ng-container *ngIf="isBrowser">
+                <input #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)" matInput
+                  formControlName="formatted_address" placeholder="Street, City, State, Country"
+                  ngx-google-places-autocomplete [options]='options'>
+              </ng-container>
+            </mat-form-field>
+            <div class="input-group-append col-1">
+              <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="useCurrentLocation()">
+                <mat-icon>gps_fixed</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div id="formatted_address" *ngIf="!spaceForm.value.formatted_address" class="label error-label d-none">
+            <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter the address
+          </div>
+        </div>
+        <div class="input-field-section mt-4 row no-gutters">
+          <div class="label p-0 font-roman">Address 2 (Optional)</div>
+          <mat-form-field class="example-full-width col-12" appearance="outline">
+            <input matInput formControlName="address2" placeholder="Apt #, Floor #, Space access information etc.">
+          </mat-form-field>
+        </div>
+        <div class="map-box mt-4">
+          <app-map [lat]="lat" [lng]="lng"></app-map>
+        </div>
+      </div>
+
+      <!------------------------------ Section 4 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 4">
+        <h3 class="text-default font-heavy">You're on your way to becoming a Space Owner</h3>
+        <mat-progress-bar class="example-margin" mode="determinate" [value]="progress">
+        </mat-progress-bar>
+        <p class="info progress-number font-roman">Your listing is {{ progress | number: '1.0-0' }}% done</p>
+        <div class="steps mt-5">
+          <h5 class="text-default font-heavy">
+            1. The Basics<span class="check-icon"><i class="fas fa-check-circle"></i></span>
+          </h5>
+          <p class="info font-roman">Space details, guests<span
+              class="label ml-2 p-0 blue-text cursor-pointer font-roman" (click)="editSection(1)">Change</span></p>
+        </div>
+        <mat-divider class="my-4"></mat-divider>
+        <div class="steps">
+          <h5 class="text-default font-heavy">2. Set the Scene</h5>
+          <p class="info font-roman">Photos, space description</p>
+          <button *ngIf="secondSectionTouched" mat-flat-button color="primary" class="bg-blue-imp br-10 mr-3 fs-16"
+            (click)="incrCounter()">Continue</button>
+          <button *ngIf="!secondSectionTouched" mat-flat-button color="primary" class="bg-blue-imp br-10 mr-3 fs-16"
+            (click)="incrCounter()">Add</button>
+          <!-- <button *ngIf="secondSectionTouched" class="step-button" mat-flat-button color="warn"
+            (click)="incrCounter()">Continue</button>
+          <button *ngIf="!secondSectionTouched" class="step-button" mat-flat-button color="warn"
+            (click)="incrCounter()">Add</button> -->
+        </div>
+        <mat-divider class="my-4"></mat-divider>
+        <div class="steps">
+          <h5 class="text-default font-heavy">3. Get ready to host</h5>
+          <p class="info font-roman">Pricing, availability, booking settings</p>
+        </div>
+      </div>
+
+      <!------------------------------ Section 5 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 5">
+        <h5 class="text-default font-heavy">Add photos to your listing</h5>
+        <div class="input-field-section mt-4 row no-gutters">
+          <div class="label p-0 font-roman">Photos help guests imagine staying in your place. You can start with one and
+            add more
+            after you publish.</div>
+          <div class="input-field-section mt-4 col-12 justify-content-center row no-gutters">
+            <div (click)="fileInput.click()" (drop)="getImages($event)" (dragover)="handleDrag($event)"
+              (dragenter)="handleDrag($event)" (dragleave)="handleDrag($event)"
+              class="photos-input col-12 d-flex justify-content-center align-items-center">
+              <input #fileInput id="fileInput" type="file" multiple="multiple" accept="image/*"
+                (change)="showImage($event.target.files)" class="d-none">
+              <button mat-flat-button color="primary" class="bg-blue-imp br-10 mr-3 fs-16">
+                <mat-icon>cloud_upload</mat-icon> Upload Photos
+              </button>
+              <p class="hint label text-center m-0 font-roman">or drag them in</p>
+            </div>
+            <!-- <aws-upload-img></aws-upload-img> -->
+          </div>
+        </div>
+        <div class="row">
+          <ng-container *ngIf="space_id">
+            <div class="col-lg-6 mt-2" *ngFor="let image of spaceForm.value.images; let i = index;">
+              <div class="embed-responsive embed-responsive-16by9 photos-container">
+                <span class="delete-icon" (click)="deleteImageFromAws(image, i)"><i class="fas fa-trash-alt"></i></span>
+                <img class="embed-responsive-item w-100 photos"
+                  [src]="_DomSanitizationService.bypassSecurityTrustUrl(image['Location'])">
+              </div>
+            </div>
+          </ng-container>
+          <div class="col-lg-6 mt-2" *ngFor="let image of images; let i = index;">
+            <div class="embed-responsive embed-responsive-16by9 photos-container">
+              <span class="delete-icon" (click)="deleteImage(i)"><i class="fas fa-trash-alt"></i></span>
+              <img class="embed-responsive-item w-100 photos"
+                [src]="_DomSanitizationService.bypassSecurityTrustUrl(image)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------ Section 6 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 6">
+        <h6 class="text-default font-heavy">Your Listing Title*</h6>
+        <div class="input-field-section row no-gutters">
+          <mat-form-field class="col-12" appearance="outline">
+            <input matInput placeholder="e.g. Sunny, spacious Soho gallery with kitchen" formControlName="name">
+          </mat-form-field>
+          <div id="name" *ngIf="!spaceForm.value.name" class="label error-label d-none">
+            <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter a title
+          </div>
+          <div class="hint label p-0 font-roman">Please do not use the business name of your company as your space name
+          </div>
+        </div>
+        <h6 class="mt-4 text-default font-heavy">Tell event organizers about your space*</h6>
+        <div class="input-field-section row no-gutters">
+          <div class="label p-0 font-roman">Your description will appear in your space listing and will be the first
+            introduction
+            viewers have to your space.</div>
+          <mat-form-field class="col-12" appearance="outline">
+            <textarea matInput rows="5" formControlName="description"
+              placeholder="My space has…  You’ll love my space because…"></textarea>
+          </mat-form-field>
+          <div id="description" *ngIf="!spaceForm.value.description" class="label error-label d-none">
+            <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter a description
+          </div>
+          <div class="hint label p-0 font-roman">Please do not include the address of your space in this section or your
+            business name/email address.</div>
+        </div>
+        <h6 class="mt-4 text-default font-heavy">Who’s allowed in the space?</h6>
+        <div class="input-field-section row no-gutters">
+          <mat-radio-group class="column-radio-group" aria-label="Select an option" formControlName="restrictions">
+            <mat-radio-button color="warn" value="All ages">All ages</mat-radio-button>
+            <mat-radio-button color="warn" value="21+">21+</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <!------------------------------ Section 7 ---------------------------------->
+      <!-- <div class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4" *ngIf="section == 7">
+            
+        </div> -->
+
+      <!------------------------------ Section 8 ---------------------------------->
+      <!-- <div class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4" *ngIf="section == 8">
+            
+        </div> -->
+
+      <!------------------------------ Section 7 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 7">
+        <h5 class="text-default font-heavy">Which activities are welcome in your space?</h5>
+        <div class="col-12 mt-2" *ngFor="let type of event_types">
+          <mat-checkbox [checked]="checkTypes(type.occasion_id)" color="warn"
+            (change)="handleTypes($event, type.occasion_id)">{{ type.occasion_name }}</mat-checkbox>
+        </div>
+      </div>
+
+      <!------------------------------ Section 8 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 8">
+        <h5 class="text-default font-heavy">What amenities do you offer?</h5>
+        <div class="input-field-section mt-4 row no-gutters">
+          <div class="label p-0 font-roman">These are just the amenities guests usually expect, but you can add even
+            more after you
+            publish.</div>
+          <div class="col-12 mt-2" *ngFor="let amenity of space_data.amenities">
+            <mat-checkbox [checked]="checkAmenities(amenity)" color="warn" (change)="handleAmenities($event, amenity)">
+              {{ amenity }}</mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------ Section 9 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 9">
+        <h5 class="text-default font-heavy">Accessibility</h5>
+        <div class="input-field-section mt-4 row no-gutters">
+          <div class="label p-0 font-roman">How can guests access your space?</div>
+          <div class="col-12 mt-2" *ngFor="let access of space_data.accessibility">
+            <mat-checkbox [checked]="checkAccessibility(access)" color="warn"
+              (change)="handleAccessibility($event, access)">{{ access }}</mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------ Section 8 ---------------------------------->
+      <!-- <div class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4" *ngIf="section == 8">
+            <h5>The style of your space can be described as</h5>
+            <div class="input-field-section mt-4 row no-gutters">
+                <div class="col-12 mt-2" *ngFor="let style of spaceStyles">
+                    <mat-checkbox color="warn">{{ style }}</mat-checkbox>
+                </div>
+            </div>
+        </div> -->
+
+      <!------------------------------ Section 9 ---------------------------------->
+      <!-- <div class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4" *ngIf="section == 9">
+            <h5>What services and extras do you offer?</h5>
+            <div class="input-field-section mt-4 row no-gutters">
+                <div class="col-12 mt-2" *ngFor="let service of space_data.services">
+                    <mat-checkbox color="warn" (change)="handleServices($event, service)">{{ service }}</mat-checkbox>
+                </div>
+            </div>
+            <div class="input-field-section mt-4 row no-gutters">
+                <div class="label p-0">Additional information about services, packages and rates</div>
+                <mat-form-field class="col-12" appearance="outline">
+                    <textarea matInput rows="5"></textarea>
+                </mat-form-field>
+            </div>
+        </div> -->
+
+      <!------------------------------ Section 10 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 10">
+        <h5 class="text-default font-heavy">Set your Space Rules</h5>
+        <div class="input-field-section mt-4 row no-gutters">
+          <div class="col-12 mt-2" *ngFor="let rule of space_data.space_rules">
+            <mat-checkbox [checked]="checkRules(rule)" color="warn" (change)="handleRules($event, rule)">{{ rule }}
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------ Section 11 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 11">
+        <h3 class="text-default font-heavy">You're doing great, just a few more steps</h3>
+        <mat-progress-bar class="example-margin" mode="determinate" [value]="progress">
+        </mat-progress-bar>
+        <p class="info progress-number font-roman">Your listing is {{ progress | number: '1.0-0' }}% done</p>
+        <div class="steps mt-5">
+          <h5 class="text-default font-heavy">
+            1. The Basics<span class="check-icon"><i class="fas fa-check-circle"></i></span>
+          </h5>
+          <p class="info font-roman">Space details, guests<span
+              class="label ml-2 p-0 blue-text cursor-pointer font-roman" (click)="editSection(1)">Change</span></p>
+        </div>
+        <mat-divider class="my-4"></mat-divider>
+        <div class="steps">
+          <h5 class="text-default font-heavy">
+            2. Set the Scene<span class="check-icon"><i class="fas fa-check-circle"></i></span>
+          </h5>
+          <p class="info font-roman">Photos, space description<span
+              class="label ml-2 p-0 blue-text cursor-pointer font-roman" (click)="editSection(5)">Change</span></p>
+        </div>
+        <mat-divider class="my-4"></mat-divider>
+        <div class="steps">
+          <h5 class="text-default font-heavy">3. Get ready to host</h5>
+          <p class="info font-roman">Pricing, availability, booking settings</p>
+          <button *ngIf="thirdSectionTouched" mat-flat-button color="primary" class="bg-blue-imp br-10 mr-3 fs-16"
+            (click)="incrCounter()">Continue</button>
+          <button *ngIf="!thirdSectionTouched" mat-flat-button color="primary" class="bg-blue-imp br-10 mr-3 fs-16"
+            (click)="incrCounter()">Add</button>
+          <!-- <button *ngIf="thirdSectionTouched" class="step-button" mat-flat-button color="warn"
+            (click)="incrCounter()">Continue</button>
+          <button *ngIf="!thirdSectionTouched" class="step-button" mat-flat-button color="warn"
+            (click)="incrCounter()">Add</button> -->
+        </div>
+      </div>
+
+      <!------------------------------ Section 12 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 12">
+        <h5 class="text-default font-heavy">How much notice do you need before a guest arrives?*</h5>
+        <div class="input-field-section mt-4">
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" [min]="1" formControlName="notice_period"
+                (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+            </mat-form-field>
+            <div class="input-group-append">
+              <span (click)="decrNoticePeriod()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon1">
+                -
+              </span>
+            </div>
+            <div class="input-group-append">
+              <span (click)="incrNoticePeriod()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon1">
+                +
+              </span>
+            </div>
+          </div>
+        </div>
+        <div id="notice_period" *ngIf="!spaceForm.value.notice_period" class="label error-label d-none">
+          <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter the notice period
+        </div>
+        <div class="hint label p-0 font-roman">At least 1 day's notice can help you plan for a guest's arrival, but you
+          might miss
+          out on last-minute trips.</div>
+      </div>
+
+      <!------------------------------ Section 13 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 13">
+        <span class="h5 text-default font-heavy">What are your operating hours?*</span>
+        <div id="operating_hours" *ngIf="!operatingHoursFlag" class="label error-label">
+          <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter Operating hours
+        </div>
+        <!-- <mat-form-field appearance="outline">
+                <mat-select value="Monday">
+                    <mat-option *ngFor="let day of days" [value]="day">
+                        {{day}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+        <div class="input-field-section mt-4 row no-gutters">
+          <ng-container *ngFor="let operating_hour of operating_hours; let i = index">
+            <div class="col-12 py-3 dayOfWeek row no-gutters">
+              <span class="col-6">{{ days[i] }}</span>
+              <mat-slide-toggle color="warn" [checked]="operating_hour['isOpen']"
+                (change)="toggleAvailability($event, i)" class="custom-toggle col">
+                {{ operating_hour['isOpen'] ? 'Open' : 'Closed' }}</mat-slide-toggle>
+            </div>
+            <div class="col-12 mt-3 day-details row no-gutters" *ngIf="operating_hour['isOpen']">
+              <mat-radio-group class="col-12 row no-gutters" (change)="toggleTimes($event, i)"
+                aria-label="Select an option">
+                <mat-radio-button class="col-6" [checked]="operating_hour['allDay']" color="warn" value="1">All day (24
+                  hrs)</mat-radio-button>
+                <mat-radio-button class="col-6" [checked]="!operating_hour['allDay']" color="warn" value="2">Set hours
+                </mat-radio-button>
+              </mat-radio-group>
+              <div class="mb-4 mt-2 row no-gutters" *ngIf="!operating_hour['allDay']">
+                <div class="col-12 row no-gutters"
+                  *ngFor="let hour of operating_hour['hours']; let j=index">
+                  <div class="col-12 row no-gutters">
+                    <div class="col-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-select [compareWith]="compareTimeObj" [(ngModel)]="hour['start_time']"
+                          placeholder="Start Time" [ngModelOptions]="{standalone: true}">
+                          <ng-container *ngFor="let timing of timings">
+                            <mat-option *ngIf="timing.text != '11:59 PM'" [value]="timing">
+                              {{timing.text}}
+                            </mat-option>
+                          </ng-container>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-select [compareWith]="compareTimeObj" [(ngModel)]="hour['end_time']" placeholder="End Time" [ngModelOptions]="{standalone: true}">
+                          <mat-option *ngFor="let timing of timings" [value]="timing">
+                            {{timing.text}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 label action-label" (click)="addOperatingHoursForm(i)">Add</div>
+                <div class="col-6 text-right label action-label" (click)="removeOperatingHoursForm(i)">Remove</div>
+              </div>
+            </div>
+            <mat-divider class="col-12"></mat-divider>
+          </ng-container>
+        </div>
+        <div class="input-field-section mt-4 row no-gutters">
+          <!-- <yoshimi-calendar *ngIf="!showTimings" (onSelectDate)="selectDate($event)"></yoshimi-calendar> -->
+          <ng-container *ngIf="false">
+            <!-- <span class="h6 d-flex" style="cursor: pointer;" (click)="showTimings = false"><mat-icon>arrow_back_ios</mat-icon>{{ selectedDate | date: 'mediumDate' }}</span> -->
+            <div class="col-12">
+              <span class="label p-0 pr-3 action-label" (click)="selectAll()">Select All</span>
+              <span class="label p-0 action-label" (click)="deselectAll()">Clear selection</span>
+            </div>
+            <div class="boxes col-3 text-center" (click)="selectBox($event, time)" *ngFor="let time of timings">
+              {{ time.text }}</div>
+            <!-- <button class="mt-3" mat-flat-button color="warn">Block</button> -->
+          </ng-container>
+        </div>
+      </div>
+
+      <!------------------------------ Section 14 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 14">
+        <h5 class="text-default font-heavy">Set your price</h5>
+        <p class="info font-roman">The space price you set below will be the price per hour that guests will see when
+          inquiring
+          about a specific activity. Keep in mind that SurprizGift charges a {{space_data.host_service_fee.total_fee}}% service fee for hosts ({{space_data.host_service_fee.processing_fee}}% credit
+          card processing fee + {{space_data.host_service_fee.maintaining_fee}}% for maintaining the platform) and additional service fee for guests, on every
+          booking.</p>
+        <!-- <div class="input-field-section mt-4">
+          <div class="label p-0 font-roman">Hourly Rate*</div>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                {{ '' | currencyFilter }}
+              </span>
+            </div>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" [min]="0" formControlName="price" (keydown)="handleInvalidData($event)"
+                (paste)="handlePaste($event)" (change)="calculateTax()">
+            </mat-form-field>
+          </div>
+          <div id="price" *ngIf="!spaceForm.value.price" class="label error-label d-none">
+            <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter the price
+          </div>
+          <div class="label action-label" *ngIf="showTaxMessage">According to your hourly rate, we determined that your
+            GST is {{ spaceForm.value.tax }}%. This tax will be collected from your guests at the time of booking.</div>
+        </div> -->
+        <!-- <div class="input-field-section mt-4">
+                <mat-checkbox formControlName="is_taxable" color="warn">Is your space taxable?</mat-checkbox>
+                <div *ngIf="spaceForm.value.is_taxable">
+                    <mat-form-field appearance="outline">
+                        <mat-select placeholder="Select your Tax category" formControlName="tax">
+                            <mat-option [value]="5">5%</mat-option>
+                            <mat-option [value]="12">12%</mat-option>
+                            <mat-option [value]="18">18%</mat-option>
+                            <mat-option [value]="28">28%</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div> -->
+        <div class="input-field-section mt-4">
+          <!-- <mat-checkbox formControlName="catering_available" color="warn">
+            Do you provide food and/or drinks to your guests?
+          </mat-checkbox> -->
+          <div *ngIf="spaceForm.value.catering_available">
+            <div class="label p-0 font-roman mb-2">
+              Do you require a minimum purchase of food and/or drinks to book the space?
+            </div>
+            <mat-radio-group formControlName="catering_mandatory" color="warn" (change)="checkCatering($event)">
+              <mat-radio-button class="mr-3" [checked]="spaceForm.value.catering_mandatory" value="true">Yes
+              </mat-radio-button>
+              <mat-radio-button [checked]="!spaceForm.value.catering_mandatory" value="false">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div *ngIf="!spaceForm.value.catering_mandatory">
+            <div class="input-field-section mt-4">
+              <div class="label p-0 font-roman">Hourly Rate*</div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                    {{ '' | currencyFilter }}
+                  </span>
+                </div>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <input matInput type="number" [min]="0" formControlName="price" (keydown)="handleInvalidData($event)"
+                    (paste)="handlePaste($event)" (change)="calculateTax()">
+                </mat-form-field>
+              </div>
+              <div id="price" *ngIf="!spaceForm.value.price" class="label error-label d-none">
+                <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter the price
+              </div>
+            </div>
+          </div>
+          <div *ngIf="spaceForm.value.catering_mandatory">
+            <div class="input-field-section mt-4">
+              <div class="label p-0 font-roman">Minimum amount to spend on food and/or drinks per booking*</div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                    {{ '' | currencyFilter }}
+                  </span>
+                </div>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <input matInput type="number" [min]="0" formControlName="min_catering_amount"
+                    (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+                </mat-form-field>
+              </div>
+              <div id="amount" *ngIf="!spaceForm.value.min_catering_amount" class="label error-label d-none">
+                <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter the amount
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-field-section mt-4" *ngIf="!spaceForm.value.catering_mandatory">
+          <div class="label p-0 font-roman">Min. Hours per booking</div>
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" [min]="0" formControlName="min_hours" (keydown)="handleInvalidData($event)"
+                (paste)="handlePaste($event)">
+            </mat-form-field>
+            <div class="input-group-append">
+              <span (click)="decrMinHours()" class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                -
+              </span>
+            </div>
+            <div class="input-group-append">
+              <span (click)="incrMinHours()" class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                +
+              </span>
+            </div>
+          </div>
+          <div class="label action-label"
+            *ngIf="spaceForm.value.catering_mandatory && spaceForm.value.min_catering_amount && spaceForm.value.min_hours">
+            We estimated that minimum hourly price for your space is
+            {{ (spaceForm.value.min_catering_amount/spaceForm.value.min_hours) | number: '1.0-2' | currencyFilter }}.
+            This amount might go up based on guest’s selection of food and/or drinks.
+          </div>
+        </div>
+        <div class="input-field-section mt-4" *ngIf="spaceForm.value.catering_mandatory">
+          <div class="label p-0 font-roman">Included hours with the amount</div>
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" [min]="0" formControlName="included_hours"
+                (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+            </mat-form-field>
+            <div class="input-group-append">
+              <span (click)="decrIncludedHours()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon1">
+                -
+              </span>
+            </div>
+            <div class="input-group-append">
+              <span (click)="incrIncludedHours()" class="input-group-text bg-white sharp-corners big-box"
+                id="basic-addon1">
+                +
+              </span>
+            </div>
+          </div>
+          <div id="inclHours" *ngIf="!spaceForm.value.included_hours" class="label error-label d-none">
+            <i _ngcontent-c9="" class="fas fa-times-circle"></i> Please enter included hours
+          </div>
+          <div class="label action-label"
+            *ngIf="spaceForm.value.catering_mandatory && spaceForm.value.min_catering_amount && spaceForm.value.included_hours">
+            We estimated that minimum hourly price for your space is
+            {{ (spaceForm.value.min_catering_amount/spaceForm.value.included_hours) | currencyFilter }}.
+            This amount might go up based on guest’s selection of food and/or drinks.
+          </div>
+        </div>
+        <div class="input-field-section mt-4 row no-gutters">
+          <div class="label p-0 font-roman">Discount (%)</div>
+          <div class="input-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" [min]="0" formControlName="discount" (keydown)="handleInvalidData($event)"
+                (paste)="handlePaste($event)">
+            </mat-form-field>
+            <!-- <div class="input-group-append">
+              <span (click)="decrMinHours()" class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                -
+              </span>
+            </div>
+            <div class="input-group-append">
+              <span (click)="incrMinHours()" class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                +
+              </span>
+            </div> -->
+          </div>
+        </div>
+        <div class="input-field-section mt-4 row no-gutters">
+          <div class="label p-0 font-roman">Additional rates, special discounts, or extra fees that are not included in
+            your base
+            rate. (optional)</div>
+          <mat-form-field class="col-12" appearance="outline">
+            <textarea matInput rows="5" formControlName="price_info"></textarea>
+          </mat-form-field>
+          <div class="hint label p-0 font-roman">e.g. Extra hours, weekend price, cleaning, security, etc…</div>
+        </div>
+      </div>
+
+      <!------------------------------ Section 15 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 15">
+        <h5 class="text-default font-heavy">Set your cancellation policy for guests</h5>
+        <p class="info font-roman">Choose the policy that best suits your needs. Please note that SurprizGift's
+          service fee is always non-refundable. Read more about SurprizGift's Cancellation Policies.</p>
+        <div class="input-field-section mt-4">
+          <div class="mt-1">
+            <div *ngFor="let policy of space_data.cancellation_policy; let i=index"
+              [class]="policy?.selected ? 'option col-12 selected' : 'option col-12'" (click)="selectPolicy(i)">
+              <h6 class="text-default font-heavy">{{ policy.title }}</h6>
+              <span class="font-roman">{{ policy.desc }}</span>
+              <span [class]="policy?.selected ? 'check-icon' : 'check-icon d-none'"><i class="fas fa-check"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-field-section mt-4">
+          <h5 class="text-default font-heavy">Cancellation policy for hosts</h5>
+          <p class="info font-roman">This policy is administered by SurprizGift. Please read this before you continue.
+          </p>
+          <p class="label font-roman">The following fee will be deducted from host’s first payout after a cancellation.
+            The amount
+            deducted will depend on when host accepted the reservation and how soon before check-in host canceled it:
+          </p>
+          <ul>
+            <li class="label font-roman">More than 7 days before check-in, we’ll deduct &#8377;5000 from host next
+              payout</li>
+            <li class="label font-roman">Less than 7 days before check-in, we’ll deduct &#8377;10000 from host next
+              payout</li>
+          </ul>
+          <h6 class="text-default font-heavy">Account Suspension</h6>
+          <p class="label font-roman">If host cancel 3 or more reservations within a year, we may deactivate their
+            listing.
+          </p>
+          <p class="label font-roman">Unless there are extenuating circumstances, there will be no exceptions to our
+            updated
+            cancellation policy.</p>
+          <p class="label font-roman">In the event of an emergency in your space the day of a booking that would impact
+            the
+            guest's ability to use your space and require rescheduling (such as complications with plumbing or power,
+            unexpected construction, or other extenuating circumstances), please let us know right away.</p>
+        </div>
+        <!-- <div class="input-field-section mt-4">
+                <div class="label p-0">How long will you hold a reservation prior to receiving payment? (At least 1 day)</div>
+                <div class="input-group">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <input matInput formControlName="holding_period" type="number" [min]="1" (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+                    </mat-form-field>
+                    <div class="input-group-append">
+                        <span (click)="decrHoldingPeriod()" class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                            -
+                        </span>
+                    </div>
+                    <div class="input-group-append">
+                        <span (click)="incrHoldingPeriod()" class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                            +
+                        </span>
+                    </div>
+                </div>
+            </div> -->
+      </div>
+
+      <!------------------------------ Section 16 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 16">
+        <h5 class="text-default font-heavy">Security Deposit (optional)</h5>
+        <p class="info font-roman">We highly recommend you collect a security deposit for all events. The amount, terms
+          and
+          collection of security deposits are the sole responsibility of the space owner. SurprizGift does not collect
+          a security deposit on behalf of space owners.</p>
+        <div class="input-field-section mt-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-white sharp-corners big-box" id="basic-addon1">
+                {{ '' | currencyFilter }}
+              </span>
+            </div>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput type="number" formControlName="security_deposit" [min]="0"
+                (keydown)="handleInvalidData($event)" (paste)="handlePaste($event)">
+            </mat-form-field>
+            <div class="hint label p-0 font-roman">This amount will appear on your listing page as a flat rate, separate
+              from your
+              listing fee.</div>
+          </div>
+        </div>
+      </div>
+
+      <!------------------------------ Section 17 ---------------------------------->
+      <div
+        class="sections offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 col-12 px-4 py-4"
+        *ngIf="section == 17">
+        <h3 class="text-default font-heavy">Awesome! Your space is ready for review.</h3>
+        <div class="row no-gutters">
+          <div class="col-12">
+            <mat-checkbox (change)="agreed=!agreed" color="warn">I agree to SurprizGift's Terms of Service & Privacy
+              Policy.</mat-checkbox>
+          </div>
+          <div class="col-12">
+            <mat-checkbox (change)="confirmed=!confirmed" color="warn">I Confirm That I Have The Full Right, Power, And
+              Authority To Offer The Space For Rent On The Site And To Collect Money In Connection With The Rental Of
+              The Space On The Site.</mat-checkbox>
+          </div>
+        </div>
+        <button [disabled]="!agreed || !confirmed" *ngIf="spaceForm.value.status != 'live'" mat-flat-button
+          (click)="setStatus('processing')" color="primary" class="bg-blue-imp br-10 mr-3 fs-16 mt-2">
+          Submit for Approval
+        </button>
+        <button [disabled]="!agreed || !confirmed" *ngIf="spaceForm.value.status == 'live'" mat-flat-button
+          (click)="showAlert('Users cannot find your space till we approve your changes.', 'processing')"
+          color="primary" class="bg-blue-imp br-10 mr-3 fs-16 mt-2">
+          Submit for Approval
+        </button>
+        <p class="info font-roman mt-3 mb-2">Your listing will be live on SurprizGift once our team approves it.</p>
+        <p class="info font-roman mb-2">Typically approval takes 5-7 business days.</p>
+        <mat-progress-bar class="example-margin" mode="determinate" [value]="progress">
+        </mat-progress-bar>
+        <p class="info progress-number font-roman">Your listing is {{ progress | number: '1.0-0' }}% done</p>
+        <div class="steps mt-5">
+          <h5 class="text-default font-heavy">
+            1. The Basics<span class="check-icon"><i class="fas fa-check-circle"></i></span>
+          </h5>
+          <p class="info font-roman">Space details, guests<span
+              class="label ml-2 p-0 blue-text cursor-pointer font-roman" (click)="editSection(1)">Change</span></p>
+        </div>
+        <mat-divider class="my-4"></mat-divider>
+        <div class="steps">
+          <h5 class="text-default font-heavy">
+            2. Set the Scene<span class="check-icon"><i class="fas fa-check-circle"></i></span>
+          </h5>
+          <p class="info font-roman">Photos, space description<span
+              class="label ml-2 p-0 blue-text cursor-pointer font-roman" (click)="editSection(5)">Change</span></p>
+        </div>
+        <mat-divider class="my-4"></mat-divider>
+        <div class="steps">
+          <h5 class="text-default font-heavy">
+            3. Get ready to host<span class="check-icon"><i class="fas fa-check-circle"></i></span>
+          </h5>
+          <p class="info font-roman">Pricing, availability, booking settings<span
+              class="label ml-2 p-0 blue-text cursor-pointer font-roman" (click)="editSection(12)">Change</span></p>
+        </div>
+      </div>
+
+      <div class="grey-space col-lg-4 col-md-3 col-sm-2 d-none d-sm-block"></div>
+      <div class="offset-xl-4 col-xl-4 offset-lg-3 col-lg-5 offset-md-3 col-md-6 offset-sm-2 col-sm-8 px-4 nav-buttons"
+        *ngIf="section !== 4 && section !== 11 && section !== 17">
+        <div class="clearfix mt-2 text-center">
+          <!-- <button class="float-left pl-0" [disabled]="section == 1" (click)="decrCounter()" mat-button color="warn">
+            <mat-icon>arrow_back_ios</mat-icon>Back
+          </button>
+          <button *ngIf="section > 6 && spaceForm.value.status != 'live'" (click)="setStatus('incomplete')" mat-button
+            color="warn">Save & Exit</button>
+          <button *ngIf="section > 6 && spaceForm.value.status == 'live'"
+            (click)="showAlert('Saving your live space now will make it incomplete and the users can\'t see your space till you complete it.', 'incomplete')"
+            mat-button color="warn">Save & Exit</button> -->
+          <!-- <button class="float-right" (click)="incrCounter()" mat-flat-button color="warn">Next</button> -->
+          <button mat-button class="float-left blue-text-imp fs-16" [disabled]="section == 1" (click)="decrCounter()">
+            <mat-icon>arrow_back_ios</mat-icon>Back
+          </button>
+          <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 fs-16"
+            *ngIf="section > 6 && spaceForm.value.status != 'live'" (click)="setStatus('incomplete')">
+            Save & Exit
+          </button>
+          <button mat-stroked-button class="blue-text-imp blue-border-imp bw-2 br-10 fs-16"
+            *ngIf="section > 6 && spaceForm.value.status == 'live'" (click)="showAlert('Saving your live space now will
+            make it incomplete and the users can\'t see your space till you complete it.', 'incomplete')">Save &
+            Exit</button>
+          <button mat-flat-button color="primary" class="bg-blue-imp br-10 mr-3 fs-16 float-right"
+            (click)="incrCounter()">Next</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</form>

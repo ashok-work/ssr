@@ -1,0 +1,17 @@
+.material-icons {
+  font-size: 28px;
+}
+
+.mat-icon {
+  height: 28px;
+  width: 28px;
+}
+
+.space-info {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px -8px 20px -6px !important
+}
+
+/deep/ .favorites-dialog .mat-dialog-container {
+  padding-left: 0;
+  padding-right: 0;
+}

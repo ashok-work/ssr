@@ -1,0 +1,108 @@
+.mat-form-field-underline {
+    display: none !important;
+  }
+  
+  mat-select {
+    margin-top: 15px;
+  }
+  
+  
+  /* Extra small devices (phones, 600px and down) */
+  @media only screen and (max-width: 600px) {
+    form {
+      width: 99vw;
+    }
+  
+    .cstm-border {
+      border: 1px solid rgb(199, 199, 199);
+      background-color: white;
+      height: 53px;
+      padding: .3rem .5rem;
+      margin: 1rem 10px;
+      width: 75%;
+    }
+  
+    input[type="text"] {
+      display: inline-block;
+      box-sizing: border-box;
+      padding: 5px 10px;
+      height: 53px;
+      border: 1px solid rgb(199, 199, 199);
+      width: 75%;
+      // transition: all 0.1s ease-out;
+    }
+  
+    .disp-resp {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .container-fluid {
+      // border: 1px solid rgb(199, 199, 199);
+      // background-color: white;
+      padding: 1rem;
+  
+      .cstm-btn {
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0px;
+        font-weight: 500;
+        font-size: .9rem;
+      }
+  
+    }
+  
+  }
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    .fill-width {
+      width: 40%;
+    }
+  
+    .disp-resp {
+      flex-direction: row;
+    }
+  
+    input[type="text"] {
+      display: inline-block;
+      box-sizing: border-box;
+      outline: none;
+      border: none;
+      padding: 5px 10px;
+      height: 53px;
+      // transition: all 0.1s ease-out;
+    }
+  
+  
+    form {
+      min-width: 590px;
+    }
+  
+    .container-fluid {
+      border: 1px solid rgb(199, 199, 199);
+      background-color: white;
+      padding: 0px;
+      height: 55px !important;
+  
+      .btn {
+        max-width: 115px !important;
+      }
+  
+      .cstm-btn {
+        height: 54px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0px;
+        font-weight: 500;
+        font-size: .9rem;
+      }
+  
+    }
+  
+  }
+  

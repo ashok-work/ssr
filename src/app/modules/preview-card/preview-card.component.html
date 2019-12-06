@@ -1,0 +1,196 @@
+<div class="card mb-4 br-6 grey-border">
+  <div class="card-header">
+    <div class="d-flex justify-content-between">
+      <div>
+        <h6 *ngIf="bookingService.spaceBookingDetails" class="text-default font-heavy">
+          {{bookingService.spaceBookingDetails.name}}
+        </h6>
+      </div>
+      <img class="img-fluid" src="assets/images/birthday.jpg" alt="space-image">
+    </div>
+    <p>{{bookingService.spaceBookingDetails.description}}</p>
+    <p *ngIf="!bookingService.spaceBookingDetails.is_allow_full_space_for_rent">
+      This is a shared space.
+    </p>
+    <div class="clearfix">
+      <!-- <ng-container *ngIf="bookingService.spaceBookingDetails.overall_ratings==null">
+        <app-start-rating rating=0></app-start-rating>
+        <span class="font-roman">&nbsp; based on 0 reviews</span>
+      </ng-container> -->
+      <ng-container *ngIf="bookingService.spaceBookingDetails.overall_ratings!=null">
+        <app-start-rating [rating]="bookingData.overall_ratings.overall_rating"></app-start-rating>
+        <span class="font-roman">&nbsp; based on {{ bookingData.overall_ratings.total_reviews }} reviews</span>
+      </ng-container>
+    </div>
+  </div>
+  <div class="card-body">
+
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <mat-icon>supervisor_account</mat-icon>
+        <span *ngIf="this.bookingService.currentBookingInfo" class="ml-3">
+          {{this.bookingService.currentBookingInfo.guests}}
+        </span>
+      </mat-list-item>
+      <mat-list-item role="listitem" *ngIf="bookingService.currentBookingInfo.booking_id">
+        <div class="text-center">
+          <div class="text-default font-heavy">
+            {{this.bookingService.currentBookingInfo.event_start_date | date:'MMM d, h:mm a'}}
+          </div>
+          <div class="grey-text font-roman small-text">
+            {{this.bookingService.currentBookingInfo.event_start_date | date:'yyyy'}}
+          </div>
+        </div>
+        <span class="text-default px-4"><i class="fa fa-arrow-right"></i></span>
+        <div class="text-center">
+          <div class="text-default font-heavy">
+            {{this.bookingService.currentBookingInfo.event_end_date | date:'MMM d, h:mm a'}}
+          </div>
+          <div class="grey-text font-roman small-text">
+            {{this.bookingService.currentBookingInfo.event_end_date | date:'yyyy'}}
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <mat-divider class="mt-2"> </mat-divider>
+
+
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <div class="clearfix w-100">
+          <span class="float-left">Space Price:</span>
+          <span class="float-right">
+            {{ (this.bookingService.currentBookingInfo.sub_total | number: '1.0-2' | currencyFilter) }}
+          </span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem" *ngFor="let item of this.bookingService.currentBookingInfo.cart">
+        <div class="clearfix w-100">
+          <span class="float-left" *ngIf="item.item.hasOwnProperty('name')">
+            {{item.item.name}} X {{item.quantity}}:
+          </span>
+          <span class="float-left" *ngIf="item.item.hasOwnProperty('category')">
+            {{item.item.category}} X {{item.quantity}}:
+          </span>
+          <span class="float-right">
+            {{item.price | currencyFilter}}
+          </span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem"
+        *ngIf="this.bookingService.currentBookingInfo.discount + this.bookingService.currentBookingInfo.cart_discount>0">
+        <div class="clearfix w-100">
+          <span class="float-left">Discount:</span>
+          <span class="float-right">
+            -{{ (this.bookingService.currentBookingInfo.discount + this.bookingService.currentBookingInfo.cart_discount | number: '1.0-2' | currencyFilter) }}
+          </span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <div class="clearfix w-100">
+          <span class="float-left">Service fee: </span>
+          <span class="float-right">
+            <span *ngIf="isHost">-</span>
+            {{ (this.bookingService.currentBookingInfo.service_fee | number: '1.0-2' | currencyFilter)}}
+          </span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem" *ngIf="!isHost">
+        <div class="clearfix w-100">
+          <span class="float-left">GST: </span>
+          <span class="float-right">
+            {{ (this.bookingService.currentBookingInfo.gst | number: '1.0-2' | currencyFilter)}}
+          </span>
+        </div>
+      </mat-list-item>
+      <mat-list-item role="listitem" *ngIf="(bookingService.currentBookingInfo.booking_id && bookingService.currentBookingInfo.coupon && !isHost) || 
+        (isHost && bookingService.currentBookingInfo.coupon && bookingService.currentBookingInfo.coupon.is_space_coupon)">
+        <div class="clearfix w-100">
+          <div class="d-flex justify-content-between">
+            <span class="text-default font-roman"><i>{{bookingService.currentBookingInfo.coupon?.coupon_code}}</i></span>
+            <span class="text-default font-roman">-{{bookingService.currentBookingInfo.coupon?.discount_amount | currencyFilter}}</span>
+          </div>
+          <span class="small-text grey-text font-roman">Coupon applied successfully.</span> 
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <mat-divider> </mat-divider>
+
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <div class="clearfix w-100">
+          <span class="float-left">Total: </span>
+          <span class="float-right" *ngIf="!bookingService.currentBookingInfo.booking_id">
+            {{ (this.bookingService.currentBookingInfo.grand_total_before_coupon | number: '1.0-2' | currencyFilter) }}
+          </span>
+          <span class="float-right" *ngIf="bookingService.currentBookingInfo.booking_id">
+            {{ (this.bookingService.currentBookingInfo.grand_total | number: '1.0-2' | currencyFilter) }}
+          </span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+    <div class="row no-gutters mb-3" *ngIf="!bookingService.currentBookingInfo.booking_id && !couponApplied">
+      <div class="col">
+        <input type="text" class="form-control br-10" [(ngModel)]="couponCode" placeholder="Enter Coupon Code">
+      </div>
+      <button type="button" class="btn btn-primary blue-button br-10 font-heavy px-2 ml-3" (click)="applyCoupon()">
+        Apply
+      </button>
+      <p id="couponError" class="col-12 text-danger mb-0 d-none">
+        Coupon code is Invalid/Expired.
+      </p>
+    </div>
+
+    <mat-list role="list" *ngIf="!bookingService.currentBookingInfo.booking_id && couponApplied">
+      <mat-list-item role="listitem">
+        <div class="mb-3 w-100">
+          <div class="d-flex justify-content-between">
+            <span class="text-default font-roman"><i>{{couponCode}}</i></span>
+            <span class="text-default font-roman">-{{couponAmount | currencyFilter}}</span>
+          </div>
+          <span class="small-text grey-text font-roman">Coupon applied successfully.</span> 
+          <span class="small-text orange-text font-roman cursor-pointer" (click)="resetCouponData(true)">Use another code?</span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-list role="list" *ngIf="couponApplied">
+      <mat-list-item role="listitem">
+        <div class="mb-3 w-100">
+          <span class="float-left">Grand Total: </span>
+          <span class="float-right">
+            {{ (this.bookingService.currentBookingInfo.grand_total | number: '1.0-2' | currencyFilter) }}
+          </span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-divider> </mat-divider>
+    <div class="py-2" *ngIf="!bookingService.currentBookingInfo.booking_id && couponDesc">
+      <h6 class="text-default font-heavy">Coupon terms & conditions:</h6>
+      <p>{{couponDesc}}</p>
+    </div>
+
+    <mat-divider> </mat-divider>
+    <!-- <div class="d-flex justify-content-between align-items-center mt-4">
+        <div>
+          <h6> Moderate - free cancellation </h6>
+          <p>Cancel within 48 hours of booking to get a full refund
+            <span class="text-secondary">More deta
+          <span class="float-left">Total: </span>
+          <span class="float-right">
+            {{ (this.bookingService.currentBookingInfo.grand_total | number: '1.0-2' | currencyFilter) }}
+          </span>ils</span>
+          </p>
+        </div>
+        <mat-icon>verified_user</mat-icon>
+      </div> -->
+
+    <div class="py-2"
+      *ngIf="bookingService.spaceBookingDetails && bookingService.spaceBookingDetails.cancellation_policy">
+      <h6 class="text-default font-heavy">Cancellation Policy: {{bookingService.spaceBookingDetails.cancellation_policy.title}}</h6>
+      <p>{{bookingService.spaceBookingDetails.cancellation_policy.desc}}</p>
+    </div>
+  </div>
+</div>

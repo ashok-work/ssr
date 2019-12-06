@@ -1,0 +1,41 @@
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('../../../assets/images/icons8-chevron-down.svg') no-repeat right 6px;
+  background-size: 12px;
+  background-origin: content-box;
+  padding-right: 0.5rem;
+}
+
+// .select-container {
+//   position: relative;
+
+//   &:after {
+//     content: "\f078";
+//     font-family: "FontAwesome";
+//     font-size: 11px;
+//     color: #646464;
+//     right: 10px;
+//     top: 28%;
+//     padding: 0 0 2px;
+//     position: absolute;
+//     pointer-events: none;
+//   }
+// }
+
+@media only screen and (min-width: 575px) {
+  select {
+    min-width: 80px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  select {
+    padding: 0;
+    min-width: 60px;
+    text-align-last: center;
+    padding-right: 0.1rem;
+    background-position: right 12px;
+  }
+}

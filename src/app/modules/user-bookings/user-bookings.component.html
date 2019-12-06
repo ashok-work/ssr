@@ -1,0 +1,75 @@
+<div class="container-fluid app-container px-0 pt-5">
+  <div class="mx-2 mx-sm-5">
+    <div class="row">
+      <div class="col d-none d-md-block"></div>
+      <div class="col-12 col-md-11">
+        <div class="row">
+          <div class="col-12 col-xl-9 order-2 order-xl-1">
+            <ng-container *ngIf="activePage == 'pending'">
+              <app-pending-bookings></app-pending-bookings>
+            </ng-container>
+            <ng-container *ngIf="activePage == 'approved'">
+              <app-approved-bookings></app-approved-bookings>
+            </ng-container>
+            <ng-container *ngIf="activePage == 'past'">
+              <app-past-bookings></app-past-bookings>
+            </ng-container>
+            <ng-container *ngIf="activePage == 'cancelled'">
+              <app-cancelled-bookings></app-cancelled-bookings>
+            </ng-container>
+          </div>
+          <div class="col-sm-8 col-md-6 col-lg-4 col-xl-3 order-1 order-xl-2 mb-3 mb-xl-0">
+            <div class="sticky-top sticky-container pb-1">
+              <div class="card br-6 grey-border-imp">
+                <div class="card-body p-0">
+                  <div class="row no-gutters">
+                    <div class="col-12">
+                      <h4 class="text-default font-heavy py-3 px-4 m-0">Your Bookings</h4>
+                    </div>
+                    <div class="col-12">
+                      <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 cursor-pointer" (click)="selectPage('pending')">
+                      <p [ngClass]="{'selected font-heavy': activePage=='pending'}"
+                        class="text-default font-roman py-2 px-4 m-0">
+                        Pending Requests
+                      </p>
+                    </div>
+                    <div class="col-12">
+                      <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 cursor-pointer" (click)="selectPage('approved')">
+                      <p [ngClass]="{'selected font-heavy': activePage=='approved'}"
+                        class="text-default font-roman py-2 px-4 m-0">
+                        Approved Requests
+                      </p>
+                    </div>
+                    <div class="col-12">
+                      <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 cursor-pointer" (click)="selectPage('past')">
+                      <p [ngClass]="{'selected font-heavy': activePage=='past'}"
+                        class="text-default font-roman py-2 px-4 m-0">
+                        Past Requests
+                      </p>
+                    </div>
+                    <div class="col-12">
+                      <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 cursor-pointer" (click)="selectPage('cancelled')">
+                      <p [ngClass]="{'selected font-heavy': activePage=='cancelled'}"
+                        class="text-default font-roman py-2 px-4 m-0">
+                        Cancelled Requests
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col d-none d-md-block"></div>
+    </div>
+  </div>
+</div>

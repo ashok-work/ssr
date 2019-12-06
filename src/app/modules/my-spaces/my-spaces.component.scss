@@ -1,0 +1,46 @@
+.add-space-btn {
+  position: fixed;
+  right: 25px;
+  bottom: 10px;
+}
+
+.status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+/deep/ .spaces-pagination .pagination {
+  font-weight: bold;
+  margin-top: 2rem;
+  justify-content: center;
+
+  .page-item {
+    margin-right: 1%;
+
+    &.disabled .page-link {
+      color: #f4a460 !important
+    }
+
+    .page-link {
+      color: #f7793a !important;
+      border: none;
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      text-align: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .page-item.active .page-link {
+    color: white !important;
+    background-color: #f7793a;
+  }
+}
+
+/deep/ .custom-menu {
+  width: 300px;
+}

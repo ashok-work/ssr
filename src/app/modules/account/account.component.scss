@@ -1,0 +1,20 @@
+// .app-container {
+//   background-color: white;
+// }
+
+.page {
+  cursor: pointer;
+}
+
+.selected-page {
+  color: #0185DE;
+  font-weight: 500;
+}
+
+.selected {
+  border-left: 6px solid #0185DE;
+}
+
+.sticky-container {
+  top: 92px;
+}

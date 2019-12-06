@@ -1,0 +1,66 @@
+// .cover-container {
+//     margin-top: 55px;
+// }
+
+.photos {
+  height: auto;
+  position: relative;
+}
+
+.photo-btn {
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+
+  &.share {
+    top: 20px;
+    right: 120px;
+  }
+
+  &.save {
+    top: 20px;
+    right: 20px;
+  }
+
+  &.view {
+    bottom: 20px;
+    right: 20px;
+    z-index: 800;
+  }
+}
+
+.dropdown-share {
+  min-width: 350px;
+  background: transparent;
+  text-align: right;
+  border: none;
+}
+
+.no-border-radius {
+  border-radius: 0;
+}
+
+img {
+  transition: transform 0.8s;
+  -webkit-backface-visibility: hidden;
+  // -ms-transform: translateZ(0); /* IE 9 */
+  // -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
+  // transform: translateZ(0);
+
+  &:hover {
+    transform: translateY(-50%) translateX(-50%) scale(1.1);
+  }
+}
+
+.dropdown-save {
+  border-radius: 0;
+  min-width: 300px;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.material-icons {
+  font-size: 24px;
+}

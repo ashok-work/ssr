@@ -1,0 +1,71 @@
+<div class="container-fluid app-container px-0 pt-5 account">
+  <div class="mx-2 mx-sm-4 mx-xl-5">
+    <div class="row">
+      <div class="col d-none d-xl-block"></div>
+      <div class="col-12 col-xl-11">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-9 order-2 order-lg-1">
+            <ng-container *ngIf="activePage == 1">
+              <app-upgrade-profile></app-upgrade-profile>
+            </ng-container>
+            <ng-container *ngIf="activePage == 2">
+              <app-payout-preferences></app-payout-preferences>
+            </ng-container>
+            <ng-container *ngIf="activePage == 3">
+              <app-transaction-history></app-transaction-history>
+            </ng-container>
+            <ng-container *ngIf="activePage == 4">
+              <app-kyc></app-kyc>
+            </ng-container>
+          </div>
+          <div class="col-12 col-sm-8 col-md-6 col-lg-3 order-1 order-lg-2">
+            <div class="sticky-top sticky-container pb-1">
+              <div class="card br-6 grey-border-imp">
+                <div class="card-body p-0">
+                  <div class="row no-gutters">
+                    <div class="col-12">
+                      <h4 class="text-default font-heavy py-3 px-4 m-0">Your Account</h4>
+                    </div>
+                    <div class="col-12">
+                      <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 cursor-pointer" (click)="selectPage('1')">
+                      <p [ngClass]="{'selected font-heavy': activePage==1}" class="font-roman py-2 px-4 m-0">
+                        Edit Profile
+                      </p>
+                    </div>
+                    <div class="col-12">
+                      <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 cursor-pointer" (click)="selectPage('2')">
+                      <p [ngClass]="{'selected font-heavy': activePage==2}" class="font-roman py-2 px-4 m-0">
+                        Payout Preferences
+                      </p>
+                    </div>
+                    <div class="col-12">
+                      <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 cursor-pointer" (click)="selectPage('3')">
+                      <p [ngClass]="{'selected font-heavy': activePage==3}" class="font-roman py-2 px-4 m-0">
+                        Transaction History
+                      </p>
+                    </div>
+                    <div class="col-12">
+                      <mat-divider></mat-divider>
+                    </div>
+                    <div class="col-12 cursor-pointer" (click)="selectPage('4')">
+                      <p [ngClass]="{'selected font-heavy': activePage==4}" class="font-roman py-2 px-4 m-0">
+                        Verification
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col d-none d-xl-block"></div>
+    </div>
+  </div>
+</div>

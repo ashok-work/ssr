@@ -1,0 +1,176 @@
+#no-border {
+  border: none;
+  position: static;
+  height: 40px;
+  margin-top: 5px;
+  width: 100%;
+  border-bottom: .5px solid rgb(158, 158, 158);
+}
+
+.fit-box {
+  width: 48% !important;
+}
+
+
+button[mat-raised-button] {
+  width: 150px;
+  color: white;
+}
+
+.sub {
+  font-size: 12px;
+}
+
+.booking-box-header {
+  text-align: center
+}
+
+.add-day,
+.remove-day {
+  margin-top: -5px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.time-select,
+.guests-field {
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field-infix {
+    width: 100%;
+  }
+
+  /deep/ .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    color: rgba(0, 0, 0, .12) !important;
+
+    &.mat-form-field-outline-thick {
+      color: rgba(0, 0, 0, .12) !important;
+    }
+  }
+}
+
+/deep/ .date-field.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+  color: rgba(0, 0, 0, .12) !important;
+}
+
+/deep/ .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: rgba(0, 0, 0, 0.12)
+}
+
+/deep/ .mat-form-field-appearance-outline:not(.mat-form-field-disabled):not(.mat-focused) .mat-form-field-flex:hover .mat-form-field-outline-thick {
+  opacity: 0.12 !important;
+}
+
+/deep/ .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: rgba(0, 0, 0, .54)
+}
+
+/deep/ .plan-form .mat-form-field {
+
+  .mat-form-field-wrapper {
+    padding: 0;
+  }
+
+  .mat-form-field-infix {
+    padding: 0;
+    padding-bottom: 10px;
+  }
+}
+
+.mat-select,
+.mat-input-element {
+  font-size: 13px;
+}
+
+/deep/ .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+  transform: none !important;
+}
+
+.info {
+  font-size: 12px;
+}
+
+/deep/ .mat-form-field-disabled {
+  cursor: not-allowed;
+
+  .mat-form-field-infix {
+
+    .mat-input-element,
+    .mat-select-trigger {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.date-field {
+  position: relative;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.inner-addon-group-right {
+  position: relative;
+
+  .inner-addon {
+    position: absolute;
+    right: 10px;
+  }
+
+  .form-control {
+    padding-right: 2rem;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .br-xs-10-right {
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+  }
+
+  .br-xs-10-left {
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+  }
+}
+
+.form-control.ng-dirty.ng-invalid {
+  border-color: #dc3545 !important;
+}
+
+.invalid-guests {
+  color: #dc3545;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('../../../../assets/images/icons8-chevron-down.svg') no-repeat right 6px;
+  background-size: 12px;
+  background-origin: content-box;
+  padding-right: 0.5rem;
+}
+
+// .select-container {
+//   position: relative;
+
+//   &:after {
+//     content: "\f078";
+//     font-family: "FontAwesome";
+//     font-size: 11px;
+//     color: #646464;
+//     right: 10px;
+//     top: 28%;
+//     padding: 0 0 2px;
+//     position: absolute;
+//     pointer-events: none;
+//   }
+// }

@@ -1,0 +1,89 @@
+<div class="container-fluid app-container">
+  <section class="container pt-3 pb-5">
+    <div class="row landing-container justify-content-center align-self-center">
+      <!-- <div class="col-sm-12 col-md-8 col-lg-6 col-xl-7">
+        <h3 class="ml-4 mt-4 font-heavy">Create free, online invitations</h3>
+        <ul class="list-group list-group-flush">
+          <h6 class="list-group-item border-0 bg-light fs-16 fw-light">
+            <span class="p-1"><i class="fas fa-circle fs-10"></i></span> Invite
+            your friends using their email or mobile number.
+          </h6>
+          <h6 class="list-group-item border-0 bg-light fs-16 fw-light">
+            <span class="p-1"><i class="fas fa-circle fs-10"></i></span> Do RSVP
+            for your invited events easily with the click of a button.
+          </h6>
+          <h6 class="list-group-item border-0 bg-light fs-16 fw-light">
+            <span class="p-1"><i class="fas fa-circle fs-10"></i></span> Manage
+            all your invitations in a single place.
+          </h6>
+          <h6 class="list-group-item border-0 bg-light fs-16 fw-light">
+            <span class="p-1"><i class="fas fa-circle fs-10"></i></span>
+            Completely ad free experience.
+          </h6>
+        </ul>
+      </div> -->
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title font-heavy fs-22">Signup for free account</h5>
+            <form [formGroup]="form" class="mt-3">
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+                <p class="invalid-feedback" *ngIf="form.get('firstName').invalid && form.get('firstName').touched">
+                  First Name is required
+                </p>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+                <p class="invalid-feedback" *ngIf="form.get('lastName').invalid && form.get('lastName').touched">
+                  Last Name is required
+                </p>
+              </div>
+              <div class="row">
+                <div *ngIf="isMobile" class="col-4 col-sm-3 pr-0">
+                  <app-carrier-code (onSelection)="countryChange($event)"></app-carrier-code>
+                </div>
+                <div [ngClass]="{'col-8 col-sm-9 pb-2 pl-0': isMobile, 'col-sm-12': !isMobile}">
+                  <div class="form-group">
+                    <input type="email" class="form-control" [ngClass]="{'br-tl-bl-0 border-left-0': isMobile}"
+                      formControlName="email" (input)="validatePhoneEmail()" placeholder="Email or mobile number">
+                    <p class="invalid-feedback" *ngIf="form.get('email').invalid && form.get('email').touched">
+                      Email/mobile number is required
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                <p class="invalid-feedback" *ngIf="form.get('password').invalid && form.get('password').touched">
+                  Password should be minimum 6 characters
+                </p>
+              </div>
+              <!-- <button type="button" (click)="submitForm(form.value)"
+                class="btn btn-primary btn-block text-capitalize br-2">
+                {{ !isMobile ? "create account & continue" : "Next" }}
+              </button> -->
+              <button mat-flat-button color="primary" class="bg-blue-imp br-10 w-100 blue-border-imp fs-16"
+                (click)="submitForm(form.value)">
+                {{ !isMobile ? "Create account & continue" : "Next" }}
+              </button>
+            </form>
+            <p class="mt-3 fs-14 font-roman">
+              By creating an account, you agree to SurprizGift's
+              <span class="blue-text cursor-pointer" [routerLink]="['/terms']">Conditions of Use</span>
+              and <span class="blue-text cursor-pointer" [routerLink]="['/privacy']">Privacy Notice.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-body text-center">
+            <span class="fs-16 font-roman">Already have an account?</span>&nbsp;&nbsp;
+            <span class="blue-text font-roman cursor-pointer" [routerLink]="['/login']">Log In</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>

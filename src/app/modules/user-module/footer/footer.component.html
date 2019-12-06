@@ -1,0 +1,82 @@
+<!-- <section [class.container--main]="applyMargin" class="mt-0 shadow-lg bg-white"> -->
+<section class="mt-0 shadow-lg bg-white">
+  <footer class="pt-4" id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-12 col-lg-4 hideOnSmall">
+          <ul class="px-0 ml-2">
+            <li class="d-none"><a [routerLink]="['']">Shop</a></li>
+            <li><a [routerLink]="['/about-us']">About Us</a></li>
+            <li><a [routerLink]="['/faqs']">FAQs</a></li>
+            <!-- <li><a [routerLink]="['/help/order-info']">Help Center</a></li> -->
+            <li><a [routerLink]="['']" (click)="router.navigate(['/support'])">Support</a></li>
+            <!--<li><a href="">Email: support@surprisegift.store</a></li>-->
+            <!--
+                                  <li><a [routerLink]="['/privacy']">Privacy Policy</a></li>
+                                  <li><a [routerLink]="['/terms']">Terms &amp; Conditions</a></li>
+                                  <li><a [routerLink]="['/help/order-info']">Help Center</a></li>
+                                  -->
+          </ul>
+          <div class="social d-flex justiy-content-between">
+            <a href="https://www.facebook.com/eventoloop" target="_blank" class="mx-2">
+              <i class="fab fa-facebook-square fa-2x"></i>
+            </a>
+            <a href="http://twitter.com/eventoloop" target="_blank" class="mx-2">
+              <i class="fab fa-twitter-square fa-2x"></i>
+            </a>
+            <a href="https://www.instagram.com/_eventoloop" target="_blank" class="mx-2">
+              <i class="fab fa-instagram fa-2x"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="col-md-5 col-sm-12 col-lg-5 subscribe hideOnSmall">
+          <p>Newsletter</p>
+          <label class="control-label">
+            Get recommendations, tips, updates, promotions and more.
+          </label>
+          <form [formGroup]="emailForm">
+            <div class="d-flex col-md-7 col-sm-12 sub-border">
+              <input type="email" class="form-control bg-transparent form-control-borderless mb-2 px-0"
+                formControlName="email" placeholder="Enter your email">
+              <button type="button" class="plain-btn bg-transparent"
+                (click)="subscribeEmail(emailForm.value)">Submit</button>
+            </div>
+          </form>
+          <p class="text-danger mt-2" *ngIf="emailForm.get('email').invalid && emailForm.controls['email'].touched">
+            Enter Valid Email Address
+          </p>
+        </div>
+
+
+        <div class="col-md-2 col-sm-12 col-lg-2 contact hideOnSmall">
+          <div class="d-block">
+            <p class="ml-2">Downloads</p>
+            <ul class='downloads px-0'>
+              <!-- <li class="mobile">
+                <a href="http://itunes.apple.com/app/id1074562855" target="_blank">
+                  <img src="assets/appstore.svg" class="mt-1" alt="surpeisegift.store" />
+                </a>
+              </li> -->
+              <li class="mobile">
+                <a href="https://play.google.com/store/apps/details?id=invites.surprisegift.us" target="_blank">
+                  <img class="mt-1" src="https://play.google.com/intl/en_us/badges/images/badge_new.png"
+                    alt="surpeisegift.store" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 extra-links clearfix">
+        <div class="d-flex justify-content-end flex-column-sm">
+          <p class="text-center"><a [routerLink]="['']" [innerHTML]="'&#169;'+year+'&nbsp;SURPRIZGIFT'"></a></p>
+          <p class="text-center"><a [routerLink]="['/terms']">Terms &amp; Conditions</a></p>
+          <p class="text-center"><a [routerLink]="['/privacy']">Privacy Policy</a></p>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+</section>
+<div class="fb-customerchat"></div>

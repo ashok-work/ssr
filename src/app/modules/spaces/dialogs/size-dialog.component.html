@@ -1,0 +1,10 @@
+<h3 mat-dialog-title align="center">Size (sqft)</h3>
+<mat-dialog-content align="center">
+    <mat-form-field>
+        <input matInput [(ngModel)]="size" type="number">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button (click)="close()">Close</button>
+    <button mat-raised-button class="mr-1 bg-default text-white"(click)="save()">Apply</button>
+</mat-dialog-actions>

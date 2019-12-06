@@ -1,0 +1,69 @@
+$muted-color: rgb(17, 147, 154);
+
+.main-section {
+  padding-top: 1rem;
+  min-height: 500px;
+}
+
+.card {
+  min-width: 300px;
+  width: 550px;
+  border-radius: 4px;
+}
+
+
+button#verify {
+  border-radius: 0px !important;
+  text-align: left;
+  font-size: .9rem;
+  padding: 8px 16px;
+  //   background-color: rgb(17, 147, 154);
+}
+
+
+button.btn-link {
+  min-width: unset !important;
+
+}
+
+@mixin plceholders($size) {
+  ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-size: $size;
+  }
+
+  ::-moz-placeholder {
+    /* Firefox 19+ */
+    font-size: $size;
+  }
+
+  :-ms-input-placeholder {
+    /* IE 10+ */
+    font-size: $size;
+  }
+
+  :-moz-placeholder {
+    /* Firefox 18- */
+    font-size: $size;
+  }
+}
+
+@include plceholders(.8rem);
+
+input {
+  background: none;
+  color: rgba(0, 0, 0, 0.63);
+  font-size: 18px;
+  padding: 5px .5rem;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  border: 1px solid $muted-color;
+
+  &:focus {
+    outline: none;
+    border: 1.5px solid $muted-color;
+  }
+
+}

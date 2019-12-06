@@ -1,0 +1,51 @@
+<div class="card">
+  <ng-container *ngIf="showData">
+    <div class="card-body">
+      <h5 class="text-center">No Bookings yet</h5>
+    </div>
+  </ng-container>
+
+  <div [ngClass]="{'h-0': !SHOW_DATA.length}" class="card-body">
+    <mat-accordion>
+      <mat-expansion-panel (afterExpand)="setStep(idx)" (closed)="onTabClosed()" class="mat-elevation-z0" [ngClass]="{'mat-elevation-z5': idx == currentTabIndex}"
+        *ngFor="let booking of SHOW_DATA; let idx =index">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{booking.position}} {{booking.user_name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{booking.event_start_date | date: 'MMM d, y, h:mm a'}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="container-fluid py-3">
+          <div class="clearfix">
+            <mat-form-field class="selector-width float-right">
+              <mat-select [(ngModel)]="booking.status">
+                <mat-option *ngFor="let status of bookingStatus" [value]="status">
+                  {{status}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <p class="text-secondary"> <span class="text-default"> From : </span> {{booking.event_end_date | date:'MMM
+            d,
+            y,
+            h:mm a'}}</p>
+          <p class="text-secondary"> <span class="text-default">To : </span> {{booking.event_start_date | date: 'MMM
+            d,
+            y,
+            h:mm a'}}</p>
+          <p class="text-secondary"> <span class="text-default">Contact :</span> {{booking.user_mobile}}</p>
+          <p class="text-secondary"> <span class="text-default">Email :</span> {{booking.user_email}}</p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-divider>
+    </mat-divider>
+    <mat-paginator class="mat-elevation-z0" [length]="totalSizes" [pageSize]="pageSize">
+    </mat-paginator>
+  </div>
+
+
+
+</div>

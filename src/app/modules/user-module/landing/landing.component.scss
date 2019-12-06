@@ -1,0 +1,64 @@
+.padding-cstm {
+  padding-top: 4rem;
+  min-height: 100vh;
+}
+
+
+.ft--8 {
+  font-size: .8rem;
+}
+
+.cstm-logo {
+  max-width: 300px;
+}
+
+h6.list-group-item {
+  font-weight: normal !important;
+}
+
+button.signup {
+  border-radius: 25px;
+}
+
+li {
+  border: none;
+  color: rgb(50, 49, 51);
+  display: inline-block;
+  padding: 0px 1rem;
+  margin: 1rem 0px;
+
+}
+
+.fas {
+  font-size: 9px;
+  text-align: center;
+}
+
+
+.btn-primary {
+  color: #fff;
+  border-color: transparent;
+}
+
+.col-12 {
+  a {
+    color: black !important;
+  }
+}
+
+
+@media only screen and (min-width: 600px) {
+  .res-margin {
+    margin-top: 5rem;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .container--main {
+    margin-left: 10vw;
+    margin-right: 10vw;
+  }
+}
+
+

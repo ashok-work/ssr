@@ -1,0 +1,112 @@
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+
+.custom-container {
+  margin: 10px 8vw;
+  min-height: 80vh;
+}
+
+.fit-box {
+  max-width: 100% !important;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .two-grid {
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: flex-start;
+  }
+
+}
+
+@media only screen and (min-width: 600px) {
+  .two-grid {
+    display: grid;
+    grid-template-columns: minmax(50%, 300px) auto;
+    grid-column-gap: 2rem;
+    justify-content: flex-start;
+  }
+}
+
+@media only screen and (min-width: 772px) {
+  .float-card {
+    position: fixed;
+    top: 10vh;
+    right: 30px;
+  }
+}
+
+.map-box {
+  height: 20vw;
+  min-height: 280px;
+}
+
+.photos {
+  height: auto;
+  position: relative;
+}
+
+.label {
+  color: grey;
+}
+
+.avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.sticky-container {
+  top: 100px;
+  z-index: 999;
+}
+
+.info {
+  font-size: 13px;
+
+  &-heading {
+    font-size: 14px;
+  }
+}
+
+/deep/ .pagination {
+  font-weight: bold;
+  margin-top: 2rem;
+
+  .page-item {
+    margin-right: 1%;
+
+    &.disabled .page-link {
+      color: #f4a460 !important
+    }
+
+    .page-link {
+      color: #f7793a !important;
+      border: none;
+      height: 36px;
+      width: 36px;
+      border-radius: 50%;
+      text-align: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .page-item.active .page-link {
+    color: white !important;
+    background-color: #f7793a;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .sticky-container.sticky-top {
+    position: relative;
+    top: 0;
+  }
+}

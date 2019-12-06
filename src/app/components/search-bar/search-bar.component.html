@@ -1,0 +1,87 @@
+<div class="position-relative w-100 px-2">
+  <div class="d-flex justify-content-center align-items-center row no-gutters">
+    <div class="col-4 border border-top-0 border-right-0 border-bottom-0 activities-list">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-select placeholder="Select Activities" disableOptionCentering panelClass="customPanel"
+          [(ngModel)]="SelectedEvents" [compareWith]="compareEventObj" multiple>
+          <mat-select-trigger>
+            <ng-container *ngIf="SelectedEvents.length == 48">
+              All Activities
+            </ng-container>
+            <ng-container *ngIf="SelectedEvents.length < 48">
+              {{SelectedEvents ? SelectedEvents[0]?.occasion_name : ''}}
+              <span *ngIf="SelectedEvents?.length > 1">
+                (+{{SelectedEvents?.length - 1}} {{Selectedevents?.length === 2 ?
+                'other' : 'others'}})
+              </span>
+            </ng-container>
+          </mat-select-trigger>
+          <mat-checkbox class="mat-option" color="warn" (click)="$event.stopPropagation()"
+            (change)="toggleSelection($event)" [checked]="SelectedEvents.length == 48"
+            [indeterminate]="SelectedEvents.length < 48 && SelectedEvents.length > 0">
+            <span>All Activities</span>
+          </mat-checkbox>
+          <mat-option *ngFor="let state of dataService.events" [value]="state">{{state.occasion_name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <!-- <div class="border-item"></div> -->
+    <div class="col-5 mr-3 shadow--sm location-search">
+      <span class="search-icon"><i class="fas fa-search"></i></span>
+      <mat-form-field appearance="outline" class="location w-100">
+        <input matInput type="text" [matAutocomplete]="auto" (keyup)="applyCityFilter($event.target.value)"
+          [(ngModel)]="selectedLocation" placeholder="Search Location">
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let location of filteredCities" [value]="location.city">{{location.city}}</mat-option>
+      </mat-autocomplete>
+    </div>
+    <button mat-stroked-button class="col-1 shadow--sm btn-txt-color" (click)="submitSearch()">Go</button>
+    <input type="text" (click)="openFilter()" placeholder="Search Spaces" class="d-none w-100"
+      [value]="selectedEventLocation">
+    <!-- (keyup)="applyFilter($event.target.value)" [(ngModel)]="SelectedEvent" -->
+
+    <!-- <button *ngIf="showDropDown" (click)="clearSearches()" mat-icon-button>
+      <mat-icon class="custm-icon-color" aria-label="Close Dialogue">close</mat-icon>
+    </button> -->
+  </div>
+
+  <div *ngIf="showDropDown" class="position-absolute dropdown--alinment bg-white w-100">
+    <div class="card border-0">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start">
+
+          <div class="px-2 shadow--sm mr-3">
+            <input type="text" (keyup)="applyFilter($event.target.value)" [value]="SelectedEvent?.occasion_name"
+              placeholder="What are you planning?" autofocus>
+
+            <mat-list *ngIf="filteredEvents && filteredEvents.length" role="list">
+              <mat-list-item matRipple class="bg-white" *ngFor="let event of filteredEvents"
+                (click)="onSelectEvent(event)" role="listitem">
+                {{event.occasion_name}}
+              </mat-list-item>
+            </mat-list>
+          </div>
+
+
+          <div class="px-2 shadow--sm mr-3">
+            <input type="text" (keyup)="applyCityFilter($event.target.value)" [(ngModel)]="selectedLocation"
+              placeholder="Where?">
+
+            <mat-list *ngIf="filteredCities && filteredCities.length" role="list">
+              <mat-list-item matRipple class="bg-white" *ngFor="let location of filteredCities"
+                (click)="onSelectCity(location)" role="listitem">
+                {{ location.city }}
+              </mat-list-item>
+            </mat-list>
+          </div>
+
+
+          <button mat-stroked-button class="shadow--sm btn-txt-color" (click)="submitSearch()">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

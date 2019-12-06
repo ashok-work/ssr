@@ -1,0 +1,22 @@
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('../../../assets/images/icons8-chevron-down.svg') no-repeat right 6px;
+  background-size: 12px;
+  background-origin: content-box;
+  padding-right: 0.5rem;
+}
+
+.inner-addon-group-right {
+  position: relative;
+
+  .inner-addon {
+    position: absolute;
+    right: 10px;
+  }
+
+  .form-control {
+    padding-right: 2rem;
+  }
+}

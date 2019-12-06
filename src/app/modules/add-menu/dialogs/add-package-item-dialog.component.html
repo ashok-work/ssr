@@ -1,0 +1,41 @@
+<div class="mb-3">
+  <mat-icon (click)="close()" class="mat-elevation-z2 rounded-circle grey-text cursor-pointer">clear</mat-icon>
+</div>
+<h4 *ngIf="!item" class="font-heavy text-default">Add Item</h4>
+<h4 *ngIf="item" class="font-heavy text-default">Edit Item</h4>
+<mat-dialog-content>
+  <div class="row" [formGroup]="item_form">
+    <div class="col-12 mt-3">
+      <p class="text-default font-heavy mb-0">Name of the Item</p>
+      <input type="text" class="form-control br-10" formControlName="name">
+    </div>
+    <div class="col-12 mt-3">
+      <p class="text-default font-heavy mb-0">Describe the Item</p>
+      <textarea class="form-control br-10" formControlName="description" rows="5"></textarea>
+    </div>
+    <div class="col-12 my-3">
+      <p class="text-default font-heavy mb-0">Add choices for this item</p>
+      <div class="row no-gutters align-items-center mb-1" formArrayName="options"
+        *ngFor="let option of item_form.get('options').controls; let i=index">
+        <div class="col">
+          <input type="text" class="form-control br-10" [formControlName]="i" [placeholder]="'Choice ' + (i+1)">
+        </div>
+        <mat-icon (click)="deleteOption(i+1)" class="mat-elevation-z2 rounded-circle grey-text cursor-pointer ml-2">
+          clear
+        </mat-icon>
+      </div>
+      <div class="d-flex justify-content-between">
+        <span class="blue-text cursor-pointer font-roman small-text" (click)="addOption()">Add new</span>
+        <span class="blue-text cursor-pointer font-roman small-text" (click)="deleteOption()">Delete previous</span>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<button *ngIf="!item" type="button" class="btn btn-primary col-12 blue-button br-10 font-heavy w-100"
+  (click)="addItem()">
+  Save
+</button>
+<button *ngIf="item" type="button" class="btn btn-primary col-12 blue-button br-10 font-heavy w-100"
+  (click)="editItem()">
+  Save
+</button>

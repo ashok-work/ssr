@@ -1,0 +1,37 @@
+<div class="container-fluid px-0">
+  <div class="container p-0">
+    <h4 class="text-default font-heavy">Payout Preferences</h4>
+    <div *ngIf="payoutMethods.length > 0" class="card mat-elevation-z2 mt-3">
+      <div class="card-body">
+        <div *ngFor="let method of payoutMethods; let i=index" class="px-4">
+          <div class="tile row no-gutters">
+            <div class="col-12 col-sm-6">
+              <span class="h6 font-heavy">{{ method['account']['title'] }}</span>
+              <span class="p label d-block">{{ method['account']['account_name'] }}</span>
+              <span class="p label d-block">
+                {{ method['account']['account_number'] }}, {{ method['account']['bank_name'] }}
+              </span>
+              <span class="p label action-label mr-3" (click)="updateMethod(i)">Update</span>
+              <span class="p label action-label" *ngIf="!method['is_default']"
+                (click)="deleteMethod(method['preference_id'], i)">Delete</span>
+              <span class="p label action-label" *ngIf="method['is_default']"
+                tooltip="Default payout method cannot be deleted. Please select another default option before deleting this method.">Delete</span>
+            </div>
+            <div class="col-12 col-sm-6 d-flex text-right justify-content-end align-items-center actions">
+              <span *ngIf="method['is_default']" class="label mt-2 mt-sm-0">
+                Default Payout method <span class="check-icon"><i class="fas fa-check-circle"></i></span>
+              </span>
+              <button mat-button class="blue-button px-0 px-sm-3" *ngIf="!method['is_default']"
+                (click)="setDefaultMethod(method['preference_id'], i)">
+                Set as Default
+              </button>
+            </div>
+          </div>
+          <mat-divider class="my-4" *ngIf="i < payoutMethods.length - 1"></mat-divider>
+        </div>
+      </div>
+    </div>
+    <button mat-flat-button color="primary" class="blue-button my-3" (click)="openAddPayoutDialog()">Add payout
+      method</button>
+  </div>
+</div>

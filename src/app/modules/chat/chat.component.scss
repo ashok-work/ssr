@@ -1,0 +1,28 @@
+// #custom-container {
+//     min-height: 100vh;
+// }
+
+#left-box,
+#right-box {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.sticky-footer {
+  position: sticky;
+  bottom: 0;
+}
+
+// #chat-history {
+//   min-height: 90%;
+// }
+
+.status {
+  &.online {
+    color: green;
+  }
+
+  &.offline {
+    color: #d75e5e;
+  }
+}

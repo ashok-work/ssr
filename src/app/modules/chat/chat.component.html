@@ -1,0 +1,79 @@
+<div class="container-fluid bg-grey px-0" id="custom-container">
+  <div class="row no-gutters">
+    <div class="col-sm-6 col-lg-4 col-xl-3 bg-white p-2" id="left-box">
+      <div *ngFor="let conversation of conversations">
+        <div class="px-3 py-3 cursor-pointer" (click)="joinConversation(conversation)">
+          <div class="w-100 d-flex justify-content-between">
+            <h6 class="text-default text-capitalize font-roman mb-0" *ngIf="utils.user?.user_id == conversation?.host">
+              <span class="big-p status"
+                [ngClass]="{'online': conversation.online, 'offline': !conversation.online}">&bull;</span>
+              {{conversation['name']}}
+            </h6>
+            <h6 class="text-default text-capitalize font-roman mb-0"
+              *ngIf="utils.user?.user_id == conversation?.customer">
+              <span class="big-p status"
+                [ngClass]="{'online': conversation.online, 'offline': !conversation.online}">&bull;</span>
+              {{conversation['host_name']}}
+            </h6>
+            <span class="grey-text fs-12">{{conversation['last_msg_at'] | date: 'dd/MM/yyyy'}}</span>
+          </div>
+          <div class="w-100 d-flex justify-content-between mb-1">
+            <span class="grey-text fs-12">{{conversation.last_msg?.msg}}</span>
+            <span class="badge badge-primary" *ngIf="conversation?.total_unread">
+              {{ conversation?.total_unread }}
+            </span>
+          </div>
+        </div>
+        <mat-divider class="grey-border"></mat-divider>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-8 col-xl-9" id="right-box" #rightBox [scrollTop]="rightBox.scrollHeight">
+      <div class="row no-gutters sticky-top sticky-container">
+        <div class="col-12 pt-3 pb-2 px-4 bg-white shadow-sm br-6">
+          <h6 class="text-default text-uppercase font-roman mb-0" *ngIf="utils.user?.user_id == conversation?.host">
+            {{ conversation['name'] }}</h6>
+          <h6 class="text-default text-uppercase font-roman mb-0" *ngIf="utils.user?.user_id == conversation?.customer">
+            {{ conversation['host_name'] }}</h6>
+          <span class="fs-12 font-roman status online" *ngIf="userStatus">Online</span>
+          <span class="fs-12 font-roman status offline" *ngIf="!userStatus">Offline</span>
+        </div>
+      </div>
+      <div class="p-3" id="chat-history">
+        <div class="mb-2" *ngFor="let item of chat">
+          <div *ngIf="utils.user?.user_id === item['sender_id']" class="d-flex justify-content-end">
+            <span class="bg-white br-6 border grey-border px-3 py-2">
+              <span class="text-default d-block font-roman fs-16 mb-0">{{ item['msg'] }}</span>
+              <span *ngIf="item?.created_at" class="grey-text fs-12">
+                {{ item['created_at'] | date: 'shortTime' }}
+              </span>
+            </span>
+          </div>
+          <div *ngIf="utils.user?.user_id !== item['sender_id']" class="d-flex justify-content-start">
+            <span class="bg-white br-6 border grey-border px-3 py-2">
+              <span class="text-default d-block font-roman fs-16 mb-0">{{ item['msg'] }}</span>
+              <span *ngIf="item?.created_at" class="grey-text fs-12">
+                {{ item['created_at'] | date: 'shortTime' }}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="typing_data" class="col-12 mb-2">
+          <div *ngIf="utils.user?.user_id !== typing_data['sender_id']"
+            class="float-right bg-white d-inline br-6 border grey-border px-3 py-2">
+            <p class="grey-text font-roman fs-16 mb-0">{{ typing_data['user_name'] }} is typing...</p>
+          </div>
+        </div>
+      </div>
+      <div class="row no-gutters bg-grey sticky-footer">
+        <div class="col-12 br-6 py-2 px-4 bg-white d-flex">
+          <textarea class="form-control br-10" rows="1" [(ngModel)]="msg" (keyup)="typing()"
+            placeholder="Type a message"></textarea>
+          <span class="blue-text font-roman bigger-p d-flex align-items-center pl-3 cursor-pointer"
+            (click)="onSubmit()">
+            <i class="fas fa-paper-plane"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

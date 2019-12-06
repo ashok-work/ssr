@@ -1,0 +1,39 @@
+.info {
+    font-size: 13px;
+}
+
+/deep/ .br {
+    margin: 0 0 15px !important;
+
+    .br-unit {
+        height: auto;
+    }
+}
+
+/deep/ .ratings .mat-form-field {
+
+    .mat-form-field-wrapper {
+        padding: 0;
+    }
+
+    .mat-form-field-infix {
+        padding: 0;
+        padding-bottom: 10px;
+    }
+}
+
+.mat-input-element {
+    font-size: 13px;
+}
+
+/deep/ .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
+    color: rgba(0,0,0,.12) !important;
+}
+
+/deep/ .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: rgba(0,0,0,0.12)
+}
+
+/deep/ .mat-form-field-appearance-outline:not(.mat-form-field-disabled):not(.mat-focused) .mat-form-field-flex:hover .mat-form-field-outline-thick {
+    opacity: 0.12 !important;
+}
